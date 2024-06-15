@@ -1,3 +1,4 @@
+/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,15 +20,65 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    transparent,
+    rgb(var(--background-end-rgb))
+  ) rgb(var(--background-start-rgb));
+}
+
+body {
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+  padding: 20px 20px 60px;
+  margin: 0 auto;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+.dropzone {
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+  border: 2px dashed var(--nextui-colors-border);
+  border-radius: 10px;
+  background: var(--nextui-colors-background);
+  color: var(--nextui-colors-text);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--nextui-colors-primary);
+}
+
+.dropzone.active {
+  background: var(--nextui-colors-accents1);
+  color: var(--nextui-colors-accents9);
+  border-color: var(--nextui-colors-primary);
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: var(--nextui-fontSizes-md);
+}
+
+.custom-gradient-bg {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3));
+}
+/* Add this to your global CSS file */
+.custom-radio span[aria-hidden="true"] {
+  display: none;
+}
+
+/* Add this to your CSS file */
+
+.custom-radio input[type="radio"] {
+  display: none;
+}
+
+/* Add styles to ensure the border and other styles remain intact */
+.custom-radio .nextui-radio-dot {
+  display: none;
 }

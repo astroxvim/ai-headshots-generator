@@ -1,0 +1,22 @@
+const { nextui } = require('@nextui-org/theme');
+
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/components/(autocomplete|avatar|button|card|checkbox|divider|dropdown|input|kbd|listbox|menu|radio|select|spacer|toggle|ripple|spinner|popover|scroll-shadow).js"
+  ],
+  theme: {
+    extend: {
+      backgroundImage: {
+        'custom-vertical-gradient': 'linear-gradient(180deg, rgba(102, 69, 235, 0.4) 0%, rgba(31, 197, 219, 0.3) 50%, rgba(154, 40, 230, 0.2) 100%)',
+        'custom-horizontal-gradient': 'linear-gradient(90deg, rgba(102, 69, 235, 0.4) 0%, rgba(31, 197, 219, 0.3) 50%, rgba(154, 40, 230, 0.2) 100%)',
+        'custom-blur-bg': 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3))'
+      },
+      colors: {
+        primary: '#6645EB',
+      },
+    },
+  },
+  plugins: [nextui()],
+};

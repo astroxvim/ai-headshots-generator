@@ -1,7 +1,6 @@
 {
   "name": "my-nextui-app",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,18 +8,48 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
+    "@iconify/icons-mdi": "^1.2.48",
+    "@iconify/react": "^4.1.1",
+    "@nextui-org/autocomplete": "^2.1.1",
+    "@nextui-org/avatar": "^2.0.29",
+    "@nextui-org/button": "^2.0.33",
+    "@nextui-org/card": "^2.0.30",
+    "@nextui-org/checkbox": "^2.1.1",
+    "@nextui-org/divider": "^2.0.28",
+    "@nextui-org/dropdown": "^2.1.25",
+    "@nextui-org/input": "^2.2.1",
+    "@nextui-org/kbd": "^2.0.29",
+    "@nextui-org/listbox": "^2.1.21",
+    "@nextui-org/menu": "^2.0.24",
+    "@nextui-org/radio": "^2.1.1",
+    "@nextui-org/react": "^2.4.1",
+    "@nextui-org/select": "^2.2.1",
+    "@nextui-org/spacer": "^2.0.28",
+    "@nextui-org/switch": "^2.0.30",
+    "@nextui-org/system": "^2.2.1",
+    "@nextui-org/theme": "^2.2.5",
+    "@tailwindcss/forms": "^0.5.7",
+    "canvas-confetti": "^1.9.3",
+    "clsx": "^1.2.1",
+    "framer-motion": "^11.2.10",
+    "lodash": "^4.17.21",
+    "next": "^14.2.4",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-dropzone": "^14.2.3",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^3.4.4",
+    "usehooks-ts": "^2.9.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-import": "^14.0.0",
+    "postcss-nested": "^5.0.0",
+    "postcss-preset-env": "^7.0.0",
+    "typescript": "^4.4.4"
   }
 }
