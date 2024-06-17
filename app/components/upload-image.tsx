@@ -43,7 +43,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
           Provide clear face photos for accurate AI generation.
           </h2>
         </div>
-        <Spacer y={4} />
+        <Spacer y={8} />
         <form
           ref={ref}
           {...props}

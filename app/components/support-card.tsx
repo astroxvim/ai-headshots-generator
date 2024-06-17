@@ -1,21 +1,21 @@
 "use client";
 
 import React from "react";
-import {AvatarGroup, Avatar, Button} from "@nextui-org/react";
-import {Icon} from "@iconify/react";
+import { AvatarGroup, Avatar, Button } from "@nextui-org/react";
+import { Icon } from "@iconify/react";
 
-import {cn} from "./cn";
+import { cn } from "./cn";
 
 export type SupportCardProps = React.HTMLAttributes<HTMLDivElement>;
 
 const SupportCard = React.forwardRef<HTMLDivElement, SupportCardProps>(
-  ({className, ...props}, ref) => (
+  ({ className, ...props }, ref) => (
     <div
       {...props}
       ref={ref}
       className={cn(
         "align-center my-2 flex shrink-0 items-center justify-center gap-3 self-stretch rounded-large bg-content1 px-3 py-3 shadow-small",
-        className,
+        className
       )}
     >
       <AvatarGroup isBordered size="sm">
@@ -39,13 +39,15 @@ const SupportCard = React.forwardRef<HTMLDivElement, SupportCardProps>(
         />
       </AvatarGroup>
       <div className="line-clamp-2 text-left text-tiny font-medium text-default-700">
-        We’re here to answer your questions.
+        We're testing new features. Stay tuned!
       </div>
       <Button
-        isIconOnly
+        as="a"
+        href="mailto:support@upic.ai"
         className="align-center flex h-[32px] w-[31px] justify-center rounded-[12px] bg-default-100 dark:bg-[#27272A]/[.4]"
         size="sm"
         variant="flat"
+        isIconOnly
       >
         <Icon
           className="text-default-400 dark:text-foreground [&>g>path:nth-child(1)]:stroke-[3px] [&>g>path:nth-child(2)]:stroke-[2.5px]"
@@ -54,7 +56,7 @@ const SupportCard = React.forwardRef<HTMLDivElement, SupportCardProps>(
         />
       </Button>
     </div>
-  ),
+  )
 );
 
 SupportCard.displayName = "SupportCard";

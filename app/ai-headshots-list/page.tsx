@@ -18,7 +18,7 @@ const AIHeadshotsList = () => {
   useEffect(() => {
     const loadImagesSequentially = async (index = 0) => {
       if (index < headshots.length) {
-        await new Promise((resolve) => setTimeout(resolve, 10000)); // Simulate 30-second loading delay
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate 5-second loading delay
         setLoadedImages((prev) => [...prev, index]);
         loadImagesSequentially(index + 1);
       } else {
