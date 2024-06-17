@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
 import { cn } from "./cn";
@@ -56,8 +56,11 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             Back
           </Button>
           <div>
-            <div className="text-xl font-medium leading-7 text-default-foreground">
+            <div className="text-xl font-medium leading-7 text-default-foreground flex items-center">
               <img src="/upic-logo.svg" alt="Logo" className="w-24 h-24" /> {/* Add your logo here */}
+              <Chip color="warning" variant="flat" className="ml-2">
+                PREVIEW
+              </Chip>
             </div>
             <div className="mt-1 text-base font-medium leading-6 text-default-500">
               Follow the simple steps to create your professional headshots.
