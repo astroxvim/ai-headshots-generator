@@ -1,5 +1,3 @@
-// App.tsx
-
 "use client";
 
 import React, { useState, useCallback, useMemo } from "react";
@@ -35,9 +33,7 @@ export default function Component() {
   const paginate = useCallback((newDirection: number) => {
     setPage((prev) => {
       const nextPage = prev[0] + newDirection;
-
       if (nextPage < 0 || nextPage > 2) return prev;
-
       return [nextPage, newDirection];
     });
   }, []);
@@ -46,7 +42,6 @@ export default function Component() {
     setPage((prev) => {
       if (newPage < 0 || newPage > 2) return prev;
       const currentPage = prev[0];
-
       return [newPage, newPage > currentPage ? 1 : -1];
     });
   }, []);
