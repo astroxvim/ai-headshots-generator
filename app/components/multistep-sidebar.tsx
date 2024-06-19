@@ -41,10 +41,10 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
     return (
       <div
         ref={ref}
-        className={cn("flex h-screen p-[24px] w-full gap-x-2", className)}
+        className={cn("flex min-h-screen p-[24px] w-full gap-x-2", className)}
         {...props}
       >
-        <div className="hidden h-full w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
+        <div className="hidden h-[100vh-48px] w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
           <Button
             className="bg-black text-small font-medium text-neutral-50"
             isDisabled={currentPage === 0}
