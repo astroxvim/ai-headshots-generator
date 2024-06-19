@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
-import { cn } from "./cn";
+import { cn } from "../../utils/cn";
 import { ButtonWithBorderGradient } from "./button-with-border-gradient";
 
 export type MultistepNavigationButtonsProps = React.HTMLAttributes<HTMLDivElement> & {

@@ -2,11 +2,11 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
-import MultistepSidebar from "./multistep-sidebar";
-import SelectPreferences from "./select-preferences";
-import UploadImage from "./upload-image";
-import CodePay from "./code-pay";
-import MultistepNavigationButtons from "./multistep-navigation-buttons";
+import MultistepSidebar from "./components/multistep-sidebar";
+import SelectPreferences from "./components/select-preferences";
+import UploadImage from "./components/upload-image";
+import CodePay from "./components/code-pay";
+import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
 
 const variants = {
   enter: (direction: number) => ({

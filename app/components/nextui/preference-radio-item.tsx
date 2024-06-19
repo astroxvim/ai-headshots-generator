@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Radio } from "@nextui-org/react";
-import { cn } from "./cn";
+import { cn } from "../../utils/cn";
 
 interface PreferenceRadioItemProps {
   title: string;

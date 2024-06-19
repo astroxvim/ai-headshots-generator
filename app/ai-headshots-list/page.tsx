@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import HeadshotListItem from './headshot-list-item';
-import { headshots } from './headshots';
+import { headshots } from '../constants/headshots';
 import { Button, Spacer } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 

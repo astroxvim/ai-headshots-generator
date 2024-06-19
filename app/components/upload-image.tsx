@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 import { Spacer, Badge, Image, Button } from "@nextui-org/react";
 import { useDropzone } from "react-dropzone";
-import { cn } from "./cn";
+import { cn } from "../utils/cn";
 import { Icon } from '@iconify/react';
 import uploadIcon from '@iconify/icons-mdi/folder-user-outline';
 
@@ -47,7 +47,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
         <form
           ref={ref}
           {...props}
-          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-black/90 transition-colors hover:bg-black/70 border-2 border-default-100", className)}
+          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-black/90 transition-colors cursor-pointer hover:bg-black/70 border-2 border-default-100", className)}
         >
           <div {...getRootProps({ className: "group flex w-full flex-col items-center gap-2 p-4" })}>
             <input {...getInputProps()} />

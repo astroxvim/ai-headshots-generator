@@ -7,7 +7,7 @@ import React from "react";
 import {useControlledState} from "@react-stately/utils";
 import {m, LazyMotion, domAnimation} from "framer-motion";
 
-import {cn} from "./cn";
+import {cn} from "../../utils/cn";
 
 export type VerticalStepProps = {
   className?: string;

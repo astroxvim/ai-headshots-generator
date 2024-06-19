@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Tabs, Tab, RadioGroup, Spacer } from "@nextui-org/react";
-import PreferenceRadioItem from "./preference-radio-item";
-import { preferenceOptions, genders } from "./preference-types";
+import PreferenceRadioItem from "./nextui/preference-radio-item";
+import { preferenceOptions, genders } from "../constants/preference-types";
 
 interface SelectPreferencesProps {
   onNext: () => void;
