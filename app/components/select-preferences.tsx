@@ -38,8 +38,8 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   return (
     <div className="flex max-w-4xl flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-primary">Settings</h2>
-        <h1 className="text-4xl font-medium tracking-tight">Select Your Style</h1>
+        <h2 className="font-medium text-upic-primary">Settings</h2>
+        <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
           Choose Your Preferences for your professional headshot.
@@ -49,6 +49,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
       <Tabs
         classNames={{
           tab: "data-[hover-unselected=true]:opacity-90 px-4",
+          tabList: "bg-black/90"
         }}
         radius="full"
         size="lg"
@@ -69,7 +70,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
         value={selectedOption}
         onValueChange={handleOptionChange}
         classNames={{
-          wrapper: "grid grid-cols-1 gap-6 md:gap-4 sm:grid-cols-2 lg:grid-cols-2",
+          wrapper: "w-fit grid grid-cols-1 gap-6 md:gap-4 sm:grid-cols-2 lg:grid-cols-2",
         }}
       >
         {preferenceOptions
@@ -79,11 +80,12 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
               <PreferenceRadioItem
                 value={option.key}
                 title={option.title.replace(' Male', '').replace(' Female', '')}
+                className="flex"
                 description={
                   <img
                     src={option.imageUrl}
                     alt={option.title}
-                    className="w-3/4 max-w-[280px] rounded-lg transform transition-transform duration-300 hover:scale-105"
+                    className="w-[300px] rounded-lg transform transition-transform duration-300 hover:scale-105"
                   />
                 }
               />

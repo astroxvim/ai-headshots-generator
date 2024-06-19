@@ -32,8 +32,8 @@ const AIHeadshotsList = () => {
   return (
     <div className="flex flex-col items-center py-12">
       <div className="max-w-xl text-center">
-        <h2 className="font-medium text-primary">Your AI Headshots</h2>
-        <h1 className="text-4xl font-medium tracking-tight">Here are your generated headshots</h1>
+        <h2 className="font-medium text-upic-primary">Your AI Headshots</h2>
+        <h1 className="text-4xl font-medium tracking-tight text-neutral-300">Here are your generated headshots</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
           Your images are generating and it may take a few minutes. Please do not close or refresh the window.
@@ -62,7 +62,7 @@ const AIHeadshotsList = () => {
         {!loading && (
           <div className="flex justify-center gap-4 mt-8">
             <Button
-              className="relative overflow-hidden rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+              className="relative bg-black/90 overflow-hidden rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
               size="lg"
               onPress={() => alert('Download images functionality')}
             >

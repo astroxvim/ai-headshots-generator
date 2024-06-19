@@ -36,8 +36,8 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
     return (
       <>
         <div className="flex max-w-xl flex-col text-center">
-          <h2 className="font-medium text-primary">References</h2>
-          <h1 className="text-4xl font-medium tracking-tight">Upload Your Images</h1>
+          <h2 className="font-medium text-upic-primary">References</h2>
+          <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Upload Your Images</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
           Provide clear face photos for accurate AI generation.
@@ -47,7 +47,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
         <form
           ref={ref}
           {...props}
-          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-default-100 transition-colors hover:bg-default-200/70 border-small border-2 border-default-200", className)}
+          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-black/90 transition-colors hover:bg-black/70 border-2 border-default-100", className)}
         >
           <div {...getRootProps({ className: "group flex w-full flex-col items-center gap-2 p-4" })}>
             <input {...getInputProps()} />

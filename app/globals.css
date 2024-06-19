@@ -18,19 +18,13 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgb(var(--background-end-rgb))
-  ) rgb(var(--background-start-rgb));
+  /* color: rgb(var(--foreground-rgb)); */
+  background: linear-gradient(80.94deg, #0B0118 2.62%, rgba(22, 4, 38, 0.95) 25%, rgba(39, 8, 80, 0.95) 48.01%, rgba(32, 6, 66, 0.95) 70%, #1C033D 95.31%)
 }
 
 body {
   font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
-  padding: 20px 20px 60px;
-  margin: 0 auto;
 }
 
 @layer utilities {
@@ -65,7 +59,7 @@ body {
 }
 
 .custom-gradient-bg {
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3));
+  /* background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3)); */
 }
 /* Add this to your global CSS file */
 .custom-radio span[aria-hidden="true"] {

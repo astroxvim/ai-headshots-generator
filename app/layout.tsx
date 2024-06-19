@@ -7,7 +7,7 @@ import './globals.css';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className='dark'>
+      <body className='dark min-h-screen'>
         <NextUIProvider>
           {children}
         </NextUIProvider>

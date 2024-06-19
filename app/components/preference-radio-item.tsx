@@ -23,12 +23,13 @@ const PreferenceRadioItem = React.forwardRef<HTMLInputElement, PreferenceRadioIt
         ...classNames,
         label: cn("static", classNames?.label),
         base: cn(
-          "relative w-full inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between",
-          "flex-row-reverse cursor-pointer rounded-lg gap-4 p-4 !border-medium border-default-200",
+          "relative w-full inline-flex m-0 bg-black/90 hover:bg-black/70 items-center justify-between",
+          "flex-row-reverse cursor-pointer rounded-lg gap-4 p-4 !border-medium border-default-100",
           "data-[selected=true]:border-primary",
           classNames?.base,
           className,
         ),
+        wrapper: "flex"
       }}
     >
       <div className="flex items-center">

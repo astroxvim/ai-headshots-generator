@@ -22,18 +22,18 @@ export type MultiStepSidebarProps = React.HTMLAttributes<HTMLDivElement> & {
 
 const stepperClasses = cn(
   // light
-  "[--step-color:hsl(var(--nextui-secondary-400))]",
-  "[--active-color:hsl(var(--nextui-secondary-400))]",
-  "[--inactive-border-color:hsl(var(--nextui-secondary-200))]",
-  "[--inactive-bar-color:hsl(var(--nextui-secondary-200))]",
-  "[--inactive-color:hsl(var(--nextui-secondary-300))]",
+    "[--step-color:#50defb]",
+    "[--active-color:#50defb]",
+    "[--inactive-border-color:#20A6C1]",
+    "[--inactive-bar-color:#20A6C1]",
+    "[--inactive-color:#20A6C1]",
   // dark
-  "dark:[--step-color:rgba(255,255,255,0.1)]",
-  "dark:[--active-color:hsl(var(--nextui-foreground-600))]",
-  "dark:[--active-border-color:rgba(255,255,255,0.5)]",
-  "dark:[--inactive-border-color:rgba(255,255,255,0.1)]",
-  "dark:[--inactive-bar-color:rgba(255,255,255,0.1)]",
-  "dark:[--inactive-color:rgba(255,255,255,0.2)]",
+    // "dark:[--step-color:rgba(255,255,255,0.1)]",
+    // "dark:[--active-color:hsl(var(--nextui-foreground-600))]",
+    // "dark:[--active-border-color:rgba(255,255,255,0.5)]",
+    // "dark:[--inactive-border-color:rgba(255,255,255,0.1)]",
+    // "dark:[--inactive-bar-color:rgba(255,255,255,0.1)]",
+    // "dark:[--inactive-color:rgba(255,255,255,0.2)]",
 );
 
 const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>(
@@ -41,12 +41,12 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
     return (
       <div
         ref={ref}
-        className={cn("flex h-[calc(110vh_-_40px)] w-full gap-x-2", className)}
+        className={cn("flex h-screen p-[24px] w-full gap-x-2", className)}
         {...props}
       >
-        <div className="flex hidden h-full w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
+        <div className="hidden h-full w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
           <Button
-            className="bg-default-50 text-small font-medium text-default-500 shadow-lg"
+            className="bg-black text-small font-medium text-neutral-50"
             isDisabled={currentPage === 0}
             radius="full"
             variant="flat"
@@ -62,13 +62,12 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 PREVIEW
               </Chip>
             </div>
-            <div className="mt-1 text-base font-medium leading-6 text-default-500">
+            <div className="mt-1 text-base font-medium leading-6 text-neutral-400">
               Follow the simple steps to create your professional headshots.
             </div>
           </div>
           <VerticalSteps
             className={stepperClasses}
-            color="secondary"
             currentStep={currentPage}
             steps={[
               {
@@ -83,7 +82,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             ]}
             onStepChange={onChangePage}
           />
-          <SupportCard className="w-full backdrop-blur-lg lg:bg-white/40 lg:shadow-none dark:lg:bg-white/20" />
+          <SupportCard className="w-full backdrop-blur-lg lg:bg-black lg:shadow-none dark:lg:bg-black" />
         </div>
         <div className="flex h-full w-full flex-col items-center gap-4 md:p-4">
           <div className="sticky top-0 z-10 w-full rounded-large bg-custom-horizontal-gradient from-default-100 via-danger-100 to-secondary-100 py-4 shadow-small md:max-w-xl lg:hidden">
@@ -106,7 +105,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
               />
             </div>
           </div>
-          <div className="h-full w-full p-4 sm:max-w-md md:max-w-lg">
+          <div className="h-full w-full p-4">
             {children}
             <MultistepNavigationButtons
               backButtonProps={{ isDisabled: currentPage === 0 }}

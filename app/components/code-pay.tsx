@@ -35,11 +35,11 @@ const CodePay = (props: CardProps & { onNext: () => void }) => {
   return (
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-primary">Payment</h2>
-        <h1 className="text-4xl font-medium tracking-tight">Submit Your Payment</h1>
+        <h2 className="font-medium text-upic-primary">Payment</h2>
+        <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Submit Your Payment</h1>
       </div>
       <Spacer y={8} />
-      <Card className="w-[420px]" {...props}>
+      <Card className="w-[420px] bg-black/90" {...props}>
         <CardBody className="px-3 pb-1">
           <Image
             alt="Card image"
