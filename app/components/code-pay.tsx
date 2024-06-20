@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { upload } from "@vercel/blob/client";
 import code from "@code-wallet/elements";
 import { nanoid } from "nanoid";
+import { useStore } from "../store/context-provider";
 
 type CodePayProps = CardProps & {
   files: string[];
@@ -23,13 +24,13 @@ type CodePayProps = CardProps & {
 
 const CodePay = ({ files, ...props }: CodePayProps)  => {
   const router = useRouter();
+  const store = useStore();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const codePayRef = useRef<HTMLDivElement>(null);
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentID, setCurrentID] = useState<string>();
 
   useEffect(() => {
     const { button } = code.elements.create("button", {
@@ -86,13 +87,14 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
       });
 
       if (response.status == 200) {
-        setCurrentID(payload.id);
+        store.setCurrentID({currentID: payload.id});
         console.log("The Model was queued for training.")
       } else {
         const { message } = await response.json();
         console.log("Something went wrong!", message);
       }
       setIsLoading(false);
+      router.push("/ai-headshots-list");
 
     }  catch (e) {
       console.log('ERROR:', e);
@@ -113,9 +115,6 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
           y: (rect.top + rect.height / 2) / window.innerHeight,
         },
       });
-      // setTimeout(() => {
-      //   router.push("/ai-headshots-list");
-      // }, 1000); // Adjust this timeout to allow for confetti to display
     }
   };
 

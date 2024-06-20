@@ -2,32 +2,50 @@
 
 import React, { useEffect, useState } from 'react';
 import HeadshotListItem from './headshot-list-item';
-import { headshots } from '../constants/headshots';
 import { Button, Spacer } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import { useStore } from '../store/context-provider';
 
 const AIHeadshotsList = () => {
   const [loading, setLoading] = useState(true);
-  const [loadedImages, setLoadedImages] = useState<number[]>([]);
+  const [trainedImages, setTrainedImages] = useState([]);
+  
   const router = useRouter();
+  const store = useStore();
 
   const handleStartNewSession = () => {
     router.push('/');
   };
 
   useEffect(() => {
-    const loadImagesSequentially = async (index = 0) => {
-      if (index < headshots.length) {
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate 5-second loading delay
-        setLoadedImages((prev) => [...prev, index]);
-        loadImagesSequentially(index + 1);
-      } else {
-        setLoading(false);
-      }
-    };
+    let intervalId: any;
 
-    loadImagesSequentially();
-  }, []);
+    if (!store.currentID || store.currentID == "" || store.currentID == "error") {
+      clearInterval(intervalId);
+      return;
+    }
+
+    intervalId = setInterval(async () => {
+
+      const response = await fetch("/db/train-check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(store.currentID),
+      });
+      const { trained_image } = await response.json();
+      if (trained_image.length == process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT) {
+        setLoading(false);
+        clearInterval(intervalId);
+        setTrainedImages(trained_image);
+        console.log(trained_image);
+      }
+    }, 5000); // 1000 milliseconds = 1 second
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [store.currentID]);
 
   return (
     <div className="flex flex-col items-center py-12">
@@ -39,17 +57,17 @@ const AIHeadshotsList = () => {
           Your images are generating and it may take a few minutes. Please do not close or refresh the window.
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-          {loading && loadedImages.length === 0 ? (
-            Array.from({ length: headshots.length }).map((_, index) => (
+          {loading && trainedImages.length === 0 ? (
+            Array(4).fill('_').map((_, index) => (
               <div key={index} className="animate-pulse flex flex-col items-center">
                 <div className="h-64 w-full bg-gray-300 rounded-lg" />
               </div>
             ))
           ) : (
-            headshots.map((headshot, index) => (
-              <React.Fragment key={headshot.id}>
-                {loadedImages.includes(index) ? (
-                  <HeadshotListItem headshot={headshot} />
+            trainedImages.map((trainedImage, index) => (
+              <React.Fragment key={index}>
+                {trainedImages.includes(index) ? (
+                  <HeadshotListItem headshot={{ title: index, src: trainedImage?.blob }} />
                 ) : (
                   <div className="animate-pulse flex flex-col items-center">
                     <div className="h-64 w-full bg-gray-300 rounded-lg" />
