@@ -1,13 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import HeadshotListItem from './headshot-list-item';
 import { Button, Spacer } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store/context-provider';
+import HeadshotListItem from './headshot-list-item';
+
+import JSZip from "jszip";
 
 const AIHeadshotsList = () => {
   const [loading, setLoading] = useState(true);
+  const [isDownloading, setDownloading] = useState(false);
   const [trainedImages, setTrainedImages] = useState([]);
   
   const router = useRouter();
@@ -47,6 +50,47 @@ const AIHeadshotsList = () => {
     return () => clearInterval(intervalId);
   }, [store.currentID]);
 
+  const downloadFile = async (files: any) => {
+    setDownloading(true);
+    try {
+      console.log(files);
+
+      // Create a temporary URL for each file.
+      const fileUrls = files.map((file: any) => file.blob);
+
+      // Create a ZIP archive using the temporary URLs.
+      const zip = new JSZip();
+      fileUrls.forEach((url: RequestInfo | URL, index: string | number) => {
+        zip.file(
+          `${index}.jpg`,
+          fetch("/astria/image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(files[index].blob),
+          }).then((res) => res.blob()),
+          { binary: true }
+        );
+      });
+
+      // Generate the ZIP file content as a blob.
+      const zipContent = await zip.generateAsync({ type: "blob" });
+
+      // Create a download link and trigger the download.
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(zipContent);
+      downloadLink.download = "downloaded_images.zip";
+      downloadLink.click();
+
+      // Clean up temporary URLs.
+      fileUrls.forEach((url: string) => URL.revokeObjectURL(url));
+
+      setDownloading(false);
+    } catch (error) {
+      console.error("Error downloading files:", error);
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center py-12">
       <div className="max-w-xl text-center">
@@ -82,7 +126,8 @@ const AIHeadshotsList = () => {
             <Button
               className="relative bg-black/90 overflow-hidden rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
               size="lg"
-              onPress={() => alert('Download images functionality')}
+              isLoading={isDownloading}
+              onPress={() => downloadFile(trainedImages)}
             >
               Download Images
             </Button>
