@@ -1,4 +1,6 @@
-import { useState, useEffect, createContext, useContext } from "react";
+"use client";
+
+import { useState, createContext, useContext } from "react";
 
 export interface AuthContextProps {
   isPaid: boolean;
@@ -13,6 +15,7 @@ const StoreProvider = ({children}) => {
     const setPaid = ({paid}: {paid: boolean}) => {
         setIsPaid(paid);
     }
+
     return (
         <StoreContext.Provider value={{ isPaid, setPaid}}>
             {children}

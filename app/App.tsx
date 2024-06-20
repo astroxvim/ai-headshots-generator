@@ -25,7 +25,7 @@ const variants = {
   }),
 };
 
-export default function Component() {
+export default function UpicApp() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const [selectedPreference, setSelectedPreference] = useState(false);
@@ -74,7 +74,7 @@ export default function Component() {
         );
         break;
       case 2:
-        component = <CodePay onNext={onNext} />;
+        component = <CodePay files={uploadedFiles} />;
         break;
     }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import type { CardProps } from "@nextui-org/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Card,
   Image,
@@ -13,9 +13,15 @@ import {
 } from "@nextui-org/react";
 import confetti from "canvas-confetti";
 import { useRouter } from "next/navigation";
+import { upload } from "@vercel/blob/client";
 import code from "@code-wallet/elements";
+import { nanoid } from "nanoid";
 
-const CodePay = (props: CardProps & { onNext: () => void }) => {
+type CodePayProps = CardProps & {
+  files: string[];
+};
+
+const CodePay = ({ files, ...props }: CodePayProps)  => {
   const router = useRouter();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -23,6 +29,7 @@ const CodePay = (props: CardProps & { onNext: () => void }) => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentID, setCurrentID] = useState<string>();
 
   useEffect(() => {
     const { button } = code.elements.create("button", {
@@ -48,9 +55,54 @@ const CodePay = (props: CardProps & { onNext: () => void }) => {
     }
   }, []);
 
-  const handleConfetti = () => {
+  const submitModel = useCallback(async () => {
 
     setIsLoading(p => !p);
+    
+    const blobUrls = [];
+
+    if (files) {
+      for (const file of files) {
+        const blob = await upload(file, file, {
+          access: "public",
+          handleUploadUrl: "/astria/train-model/image-upload",
+        });
+        blobUrls.push(blob.url);
+      }
+    };
+
+    const payload = {
+      id: nanoid(),
+      urls: blobUrls,
+    };
+
+    try {
+      const response = await fetch("astria/train-model", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.status == 200) {
+        setCurrentID(payload.id);
+        console.log("The Model was queued for training.")
+      } else {
+        const { message } = await response.json();
+        console.log("Something went wrong!", message);
+      }
+      setIsLoading(false);
+
+    }  catch (e) {
+      console.log('ERROR:', e);
+    }
+
+  }, [files]);
+
+  const handleConfetti = () => {
+
+    submitModel();
 
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
@@ -110,7 +162,7 @@ const CodePay = (props: CardProps & { onNext: () => void }) => {
         <CardFooter className="justify-end gap-2"></CardFooter>
       </Card>
       <Spacer y={12} />
-      {!isPaid ? (
+      {isPaid ? (
         <div>
           <div ref={codePayRef}></div>
         </div>
@@ -127,6 +179,17 @@ const CodePay = (props: CardProps & { onNext: () => void }) => {
           Generate Your Headshot
         </Button>
       )}
+      <Button
+          ref={buttonRef}
+          disableRipple
+          className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+          size="lg"
+          style={buttonStyle}
+          isLoading={isLoading}
+          onPress={handleConfetti}
+        >
+          Generate Your Headshot
+        </Button>
     </div>
   );
 };

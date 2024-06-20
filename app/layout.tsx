@@ -1,14 +1,19 @@
 // app/layout.tsx
-import { NextUIProvider } from '@nextui-org/react';
-import './globals.css';
+import { NextUIProvider } from "@nextui-org/react";
+import "./globals.css";
+import { StoreProvider } from "./store/context-provider";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className='dark min-h-screen'>
-        <NextUIProvider>
-          {children}
-        </NextUIProvider>
+      <body className="dark min-h-screen">
+        <StoreProvider>
+          <NextUIProvider>{children}</NextUIProvider>
+        </StoreProvider>
       </body>
     </html>
   );
