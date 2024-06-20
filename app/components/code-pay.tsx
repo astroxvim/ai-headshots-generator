@@ -162,7 +162,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         <CardFooter className="justify-end gap-2"></CardFooter>
       </Card>
       <Spacer y={12} />
-      {isPaid ? (
+      {!isPaid ? (
         <div>
           <div ref={codePayRef}></div>
         </div>
