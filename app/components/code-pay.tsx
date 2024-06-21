@@ -62,21 +62,17 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
     
     const blobUrls = [];
 
-    try {
-      if (files) {
-        for (const file of files) {
-          const blob = await upload(file.name, file, {
-            access: "public",
-            handleUploadUrl: "/astria/train-model/image-upload",
-          });
-          blobUrls.push(blob.url);
-        }
-      };
+    console.log('files', files);
 
-    } catch (e) {
-      console.log('blob-error:', e);
-    }
-
+    if (files) {
+      for (const file of files) {
+        const blob = await upload(file.name, file, {
+          access: "public",
+          handleUploadUrl: "/astria/train-model/image-upload",
+        });
+        blobUrls.push(blob.url);
+      }
+    };
 
     const payload = {
       id: nanoid(),

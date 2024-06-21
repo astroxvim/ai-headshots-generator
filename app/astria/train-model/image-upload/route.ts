@@ -1,6 +1,7 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import prisma from "@/lib/prisma";
 import { del } from '@vercel/blob';
 
 // Configure Vercel Blob (#7 step in the README)
@@ -19,7 +20,6 @@ export async function POST(request: Request): Promise<NextResponse> {
       ) => {
         return {
           allowedContentTypes: ["image/jpeg", "image/png", "image/gif"],
-          // validUntil: 1200000,
           tokenPayload: JSON.stringify({
             imageId
           }),

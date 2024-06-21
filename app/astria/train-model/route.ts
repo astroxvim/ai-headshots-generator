@@ -1,9 +1,10 @@
-// import prisma from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+
 
 const astriaApiKey = process.env.ASTRIA_API_KEY;
 const astriaTestModeIsOn = process.env.ASTRIA_TEST_MODE === "true";
@@ -29,14 +30,15 @@ export async function POST(request: Request) {
   // const expression = payload.expression;
   // const colorPalette = payload.colorPalette;
 
-  // const newimageGeneration = await prisma.imageGeneration.create({
-  //   data: {
-  //     gid: id,
-  //     blobUrls: images,
-  //     status: "pending",
-  //     count: 4
-  //   },
-  // });
+
+  const newimageGeneration = await prisma.imageGeneration.create({
+    data: {
+      gid: id,
+      blobUrls: images,
+      status: "pending",
+      count: 4
+    },
+  });
 
   if (!astriaApiKey) {
     return NextResponse.json(
@@ -59,9 +61,8 @@ export async function POST(request: Request) {
     );
   }
 
-  console.log('userID', id);
-
-  const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
+  try {
+    const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
     const trainWebhookWithParams = `${trainWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
 
     const promptWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/prompt-webhook`;
@@ -70,8 +71,6 @@ export async function POST(request: Request) {
     const API_KEY = astriaApiKey;
     const DOMAIN = "https://api.astria.ai";
 
-  try {
-    
     const body = {
       tune: {
         title: "test",
@@ -84,39 +83,31 @@ export async function POST(request: Request) {
         image_urls: images,
         callback: trainWebhookWithParams,
         prompts_attributes:
-          // process.env.NEXT_PUBLIC_FALLBACK == "origin"
-             [
-                ...[
-                  {
-                    text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-                    callback: promptWebhookWithParams,
-                    num_images:
-                      parseFloat(
-                        process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "2"
-                      ) / 2,
-                  },
-                  {
-                    text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-                    callback: promptWebhookWithParams,
-                    num_images:
-                      parseFloat(
-                        process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "2"
-                      ) / 2,
-                  },
-                ],
-              ],
-          //   : [
-          //       {
-          //         text: `${shot} of ohwx ${gender}
+          // process.env.NEXT_PUBLIC_FALLBACK == "origin" ? 
+          [
+            ...[{
+              text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+              callback: promptWebhookWithParams,
+              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+            },
+            {
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+              callback: promptWebhookWithParams,
+              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+            }]
+          ],
+          // : [
+          //   {
+          //     text: `${shot} of ohwx ${gender}
           // Background: ${background}
           // Expression: ${expression}
           // Clothing: ${clothing}
           // Lighting: ${light}
           // Color Palette: ${colorPalette}`,
-          //         callback: promptWebhookWithParams,
-          //         num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
-          //       },
-          //     ],
+          //     callback: promptWebhookWithParams,
+          //     num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+          //   },
+          // ]
       },
     };
 
@@ -152,7 +143,7 @@ export async function POST(request: Request) {
     console.error(e);
     return NextResponse.json(
       {
-        message: `Something went wrong! userid => ${id} ==> ${trainWebhookWithParams} ===> ${promptWebhookWithParams} ==> ${e}`,
+        message: "Something went wrong!",
       },
       { status: 500 }
     );

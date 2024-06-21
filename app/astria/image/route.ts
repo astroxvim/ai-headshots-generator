@@ -1,3 +1,6 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
+
 export async function POST(request: Request) {
   // Replace with your actual image URL
   const imageUrl = await request.json();
