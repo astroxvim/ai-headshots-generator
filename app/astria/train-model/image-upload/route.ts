@@ -19,7 +19,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       ) => {
         return {
           allowedContentTypes: ["image/jpeg", "image/png", "image/gif"],
-          validUntil: 1200000,
+          // validUntil: 1200000,
           tokenPayload: JSON.stringify({
             imageId
           }),
