@@ -27,7 +27,7 @@ const variants = {
 
 export default function UpicApp() {
   const [[page, direction], setPage] = useState([0, 0]);
-  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedPreference, setSelectedPreference] = useState(false);
 
   const paginate = useCallback((newDirection: number) => {

@@ -9,8 +9,8 @@ import uploadIcon from '@iconify/icons-mdi/folder-user-outline';
 
 export type UploadImageProps = {
   onNext: () => void;
-  setUploadedFiles: React.Dispatch<React.SetStateAction<string[]>>;
-  uploadedFiles: string[];
+  setUploadedFiles: React.Dispatch<React.SetStateAction<File[]>>;
+  uploadedFiles: File[];
 } & React.HTMLAttributes<HTMLFormElement>;
 
 const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
@@ -18,7 +18,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
     const onDrop = useCallback((acceptedFiles: File[]) => {
       setUploadedFiles((prevFiles) => [
         ...prevFiles,
-        ...acceptedFiles.map((file) => URL.createObjectURL(file)),
+        ...acceptedFiles.map((file) => (file)),
       ]);
     }, [setUploadedFiles]);
 
@@ -90,7 +90,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
                 <Image
                   alt="uploaded image cover"
                   className="h-14 w-14 rounded-small border-small border-default-200/50 object-cover"
-                  src={image}
+                  src={URL.createObjectURL(image)}
                 />
               </Badge>
             ))}

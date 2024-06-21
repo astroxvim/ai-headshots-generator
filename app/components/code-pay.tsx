@@ -19,7 +19,7 @@ import { nanoid } from "nanoid";
 import { useStore } from "../store/context-provider";
 
 type CodePayProps = CardProps & {
-  files: string[];
+  files: File[];
 };
 
 const CodePay = ({ files, ...props }: CodePayProps)  => {
@@ -62,15 +62,21 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
     
     const blobUrls = [];
 
-    if (files) {
-      for (const file of files) {
-        const blob = await upload(file, file, {
-          access: "public",
-          handleUploadUrl: "/astria/train-model/image-upload",
-        });
-        blobUrls.push(blob.url);
-      }
-    };
+    try {
+      if (files) {
+        for (const file of files) {
+          const blob = await upload(file.name, file, {
+            access: "public",
+            handleUploadUrl: "/astria/train-model/image-upload",
+          });
+          blobUrls.push(blob.url);
+        }
+      };
+
+    } catch (e) {
+      console.log('blob-error:', e);
+    }
+
 
     const payload = {
       id: nanoid(),
