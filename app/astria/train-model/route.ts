@@ -19,15 +19,15 @@ if (!appWebhookSecret) {
 export async function POST(request: Request) {
   const payload = await request.json();
   const images = payload.urls;
-  const gender = payload.gender;
+  const gender = 'male';
   // const name = payload.name;
   const id = payload.id;
-  const shot = payload.shot;
-  const background = payload.background;
-  const light = payload.light;
-  const clothing = payload.clothing;
-  const expression = payload.expression;
-  const colorPalette = payload.colorPalette;
+  // const shot = payload.shot;
+  // const background = payload.background;
+  // const light = payload.light;
+  // const clothing = payload.clothing;
+  // const expression = payload.expression;
+  // const colorPalette = payload.colorPalette;
 
   // const newimageGeneration = await prisma.imageGeneration.create({
   //   data: {
@@ -84,8 +84,8 @@ export async function POST(request: Request) {
         image_urls: images,
         callback: trainWebhookWithParams,
         prompts_attributes:
-          process.env.NEXT_PUBLIC_FALLBACK == "origin"
-            ? [
+          // process.env.NEXT_PUBLIC_FALLBACK == "origin"
+             [
                 ...[
                   {
                     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
@@ -104,19 +104,19 @@ export async function POST(request: Request) {
                       ) / 2,
                   },
                 ],
-              ]
-            : [
-                {
-                  text: `${shot} of ohwx ${gender}
-          Background: ${background}
-          Expression: ${expression}
-          Clothing: ${clothing}
-          Lighting: ${light}
-          Color Palette: ${colorPalette}`,
-                  callback: promptWebhookWithParams,
-                  num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
-                },
               ],
+          //   : [
+          //       {
+          //         text: `${shot} of ohwx ${gender}
+          // Background: ${background}
+          // Expression: ${expression}
+          // Clothing: ${clothing}
+          // Lighting: ${light}
+          // Color Palette: ${colorPalette}`,
+          //         callback: promptWebhookWithParams,
+          //         num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+          //       },
+          //     ],
       },
     };
 
@@ -152,7 +152,7 @@ export async function POST(request: Request) {
     console.error(e);
     return NextResponse.json(
       {
-        message: `Something went wrong! userid => ${id} ==> ${trainWebhookWithParams} ===> ${promptWebhookWithParams}`,
+        message: `Something went wrong! userid => ${id} ==> ${trainWebhookWithParams} ===> ${promptWebhookWithParams} ==> ${e}`,
       },
       { status: 500 }
     );
