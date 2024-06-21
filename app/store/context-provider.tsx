@@ -5,8 +5,10 @@ import { useState, createContext, useContext } from "react";
 export interface AuthContextProps {
   isPaid: boolean;
   currentID: string;
+  trainedImages: File[];
   setCurrentID: ({ currentID } : { currentID: string}) => void;
   setPaid: ({ paid }: { paid: boolean }) => void;
+  setTrainedImages: ({trainedImages}: {trainedImages: File[] | undefined}) => void;
 }
 
 const StoreContext = createContext<AuthContextProps>(null);
@@ -14,6 +16,7 @@ const StoreContext = createContext<AuthContextProps>(null);
 const StoreProvider = ({children}) => {
     const [isPaid, setIsPaid] = useState(false);
     const [currentID, setId] = useState("");
+    const [trainedImages, setTrainImages] = useState([]);
 
     const setPaid = ({paid}: {paid: boolean}) => {
         setIsPaid(paid);
@@ -23,8 +26,12 @@ const StoreProvider = ({children}) => {
         setId(currentID);
     }
 
+    const setTrainedImages = ({ trainedImages }) => {
+        setTrainImages(prevImages => [...prevImages, ...trainedImages]);
+    }
+
     return (
-        <StoreContext.Provider value={{ isPaid, setPaid, currentID, setCurrentID }}>
+        <StoreContext.Provider value={{ isPaid, setPaid, currentID, setCurrentID, trainedImages, setTrainedImages }}>
             {children}
         </StoreContext.Provider>
     )

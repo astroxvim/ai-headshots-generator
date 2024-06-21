@@ -31,6 +31,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   useEffect(() => {
     const { button } = code.elements.create("button", {
@@ -54,7 +55,10 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
       button.mount(codePayRef.current!);
     }
+    store.setTrainedImages(undefined);
   }, []);
+
+
 
   const submitModel = useCallback(async () => {
 
@@ -95,14 +99,44 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         const { message } = await response.json();
         console.log("Something went wrong!", message);
       }
-      setIsLoading(false);
-      router.push("/ai-headshots-list");
+      // setIsLoading(false);
 
     }  catch (e) {
       console.log('ERROR:', e);
     }
 
   }, [files]);
+
+  useEffect(() => {
+    let intervalId: any;
+
+    if (!store.currentID || store.currentID == "" || store.currentID == "error") {
+      clearInterval(intervalId);
+      return;
+    }
+
+    intervalId = setInterval(async () => {
+
+      const response = await fetch("/db/train-check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(store.currentID),
+      });
+      const { trained_image } = await response.json();
+      if (trained_image.length == process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT) {
+        setIsLoading(false);
+        clearInterval(intervalId);
+        store.setTrainedImages(trained_image);
+        console.log(trained_image);
+        router.push('/ai-headshots-list');
+      }
+    }, 5000); // 1000 milliseconds = 1 second
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [store.currentID]);
 
   const handleConfetti = () => {
 
