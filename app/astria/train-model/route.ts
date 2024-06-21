@@ -21,14 +21,17 @@ export async function POST(request: Request) {
   const payload = await request.json();
   const images = payload.urls;
   const gender = 'male';
-  // const name = payload.name;
   const id = payload.id;
-  // const shot = payload.shot;
-  // const background = payload.background;
-  // const light = payload.light;
-  // const clothing = payload.clothing;
-  // const expression = payload.expression;
-  // const colorPalette = payload.colorPalette;
+
+
+  // const name = payload.name;
+  const shot = "Close-Up: Focuses closely on the face, capturing fine details and expressions.";
+  const background = "Solid Color: Simple, distraction-free background in a single color.";
+  const light = "Natural: Soft, natural light that mimics daylight, creating a realistic and pleasant effect.";
+  const clothing = "Business Formal: Outfits such as suits and ties, blazers, and formal dresses.";
+  const expression = "Smiling: Adjusts facial features to create a warm, approachable smile.";
+  const colorPalette = "Warm: Uses warm tones such as reds, oranges, and yellows to create a cozy and inviting atmosphere.;
+
 
 
   const newimageGeneration = await prisma.imageGeneration.create({
@@ -84,30 +87,30 @@ export async function POST(request: Request) {
         callback: trainWebhookWithParams,
         prompts_attributes:
           // process.env.NEXT_PUBLIC_FALLBACK == "origin" ? 
-          [
-            ...[{
-              text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-              callback: promptWebhookWithParams,
-              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-            },
-            {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-              callback: promptWebhookWithParams,
-              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-            }]
-          ],
-          // : [
-          //   {
-          //     text: `${shot} of ohwx ${gender}
-          // Background: ${background}
-          // Expression: ${expression}
-          // Clothing: ${clothing}
-          // Lighting: ${light}
-          // Color Palette: ${colorPalette}`,
+          // [
+          //   ...[{
+          //     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
           //     callback: promptWebhookWithParams,
-          //     num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
           //   },
-          // ]
+          //   {
+          //     text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+          //     callback: promptWebhookWithParams,
+          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          //   }]
+          // ],
+          [
+            {
+              text: `${shot} of ohwx ${gender}
+          Background: ${background}
+          Expression: ${expression}
+          Clothing: ${clothing}
+          Lighting: ${light}
+          Color Palette: ${colorPalette}`,
+              callback: promptWebhookWithParams,
+              num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+            },
+          ],
       },
     };
 
