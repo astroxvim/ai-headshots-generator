@@ -55,7 +55,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
       button.mount(codePayRef.current!);
     }
-    store.setTrainedImages(undefined);
+    store.setTrainedImages();
   }, []);
 
 

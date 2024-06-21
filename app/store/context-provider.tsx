@@ -8,7 +8,7 @@ export interface AuthContextProps {
   trainedImages: File[];
   setCurrentID: ({ currentID } : { currentID: string}) => void;
   setPaid: ({ paid }: { paid: boolean }) => void;
-  setTrainedImages: ({trainedImages}: {trainedImages: File[]}) => void;
+  setTrainedImages: (args?: { trainedImages?: File[] }) => void;
 }
 
 const StoreContext = createContext<AuthContextProps>(null);
@@ -16,7 +16,7 @@ const StoreContext = createContext<AuthContextProps>(null);
 const StoreProvider = ({children}) => {
     const [isPaid, setIsPaid] = useState(false);
     const [currentID, setId] = useState("");
-    const [trainedImages, setTrainImages] = useState([]);
+    const [trainedImages, setTrainImages] = useState<File[]>([]);
 
     const setPaid = ({paid}: {paid: boolean}) => {
         setIsPaid(paid);
@@ -26,9 +26,13 @@ const StoreProvider = ({children}) => {
         setId(currentID);
     }
 
-    const setTrainedImages = ({ trainedImages }) => {
-        setTrainImages(prevImages => prevImages ? [...prevImages, ...trainedImages] : trainedImages);
-    }
+    const setTrainedImages = (args?: { trainedImages?: File[] }) => {
+        if (args?.trainedImages) {
+            setTrainImages(prevImages => [...prevImages, ...args.trainedImages]);
+        } else {
+            setTrainImages([]);
+        }
+    };
 
     return (
         <StoreContext.Provider value={{ isPaid, setPaid, currentID, setCurrentID, trainedImages, setTrainedImages }}>
