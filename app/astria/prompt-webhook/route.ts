@@ -65,33 +65,6 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Here we join all of the arrays into one.
-    const allHeadshots = prompt.images;
-    const modelId = prompt.tune_id;
-
-    await Promise.all(
-      allHeadshots.map(async (image) => {
-        // const newUser = await prisma.images.create({
-        //   data: {
-        //     gid: user_id,
-        //     blob: image
-        //   },
-        // });
-        // if (prisma && prisma.imageGeneration) {
-        //   const re = await prisma.imageGeneration.findUnique({
-        //     where: { gid: user_id },
-        //   });
-
-        //   const updatedUser = await prisma.imageGeneration.update({
-        //     where: { gid: user_id }, // Use parseInt to convert string to number
-        //     data: {
-        //       count: (re?.count ?? 1) - 1
-        //     },
-        //   });
-        // }
-      })
-    );
-
     return NextResponse.json(
       {
         message: "success",
@@ -102,7 +75,7 @@ export async function POST(request: Request) {
     console.error(e);
     return NextResponse.json(
       {
-        message: "Something went wrong!",
+        message: "Something went wrong (prompt-webhook)!",
       },
       { status: 500 }
     );

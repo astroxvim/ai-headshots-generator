@@ -59,11 +59,6 @@ export async function POST(request: Request) {
 
   try {
 
-    // const updatedUser = await prisma.imageGeneration.update({
-    //   where: { gid: user_id },
-    //   data: { status: "finished" },
-    // });
-
     return NextResponse.json(
       {
         message: "success",
@@ -74,7 +69,7 @@ export async function POST(request: Request) {
     console.error(e);
     return NextResponse.json(
       {
-        message: "Something went wrong!",
+        message: "Something went wrong (train-webhook)!",
       },
       { status: 500 }
     );

@@ -59,8 +59,9 @@ export async function POST(request: Request) {
     );
   }
 
-  try {
-    const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
+  console.log('userID', id);
+
+  const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
     const trainWebhookWithParams = `${trainWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
 
     const promptWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/prompt-webhook`;
@@ -69,6 +70,8 @@ export async function POST(request: Request) {
     const API_KEY = astriaApiKey;
     const DOMAIN = "https://api.astria.ai";
 
+  try {
+    
     const body = {
       tune: {
         title: "test",
@@ -79,14 +82,14 @@ export async function POST(request: Request) {
         branch: astriaTestModeIsOn ? "fast" : "sd15",
         token: "ohwx",
         image_urls: images,
-        // callback: trainWebhookWithParams,
+        callback: trainWebhookWithParams,
         prompts_attributes:
           process.env.NEXT_PUBLIC_FALLBACK == "origin"
             ? [
                 ...[
                   {
                     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-                    // callback: promptWebhookWithParams,
+                    callback: promptWebhookWithParams,
                     num_images:
                       parseFloat(
                         process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "2"
@@ -94,7 +97,7 @@ export async function POST(request: Request) {
                   },
                   {
                     text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-                    // callback: promptWebhookWithParams,
+                    callback: promptWebhookWithParams,
                     num_images:
                       parseFloat(
                         process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "2"
@@ -110,7 +113,7 @@ export async function POST(request: Request) {
           Clothing: ${clothing}
           Lighting: ${light}
           Color Palette: ${colorPalette}`,
-                  // callback: promptWebhookWithParams,
+                  callback: promptWebhookWithParams,
                   num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
                 },
               ],
@@ -149,7 +152,7 @@ export async function POST(request: Request) {
     console.error(e);
     return NextResponse.json(
       {
-        message: "Something went wrong!",
+        message: `Something went wrong! userid => ${id} ==> ${trainWebhookWithParams} ===> ${promptWebhookWithParams}`,
       },
       { status: 500 }
     );
