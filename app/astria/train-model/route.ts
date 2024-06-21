@@ -121,7 +121,10 @@ export async function POST(request: Request) {
       },
     });
 
+
     const { status, statusText, data: tune } = response;
+
+    console.log('status =====>', status)
 
     if (status !== 201) {
       console.error({ status });
@@ -154,7 +157,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json(
     {
-      message: "success",
+      message: `success`,
     },
     { status: 200 }
   );
