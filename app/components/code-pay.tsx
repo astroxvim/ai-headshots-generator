@@ -178,6 +178,18 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
           Generate Your Headshot
         </Button>
       )}
+      <Spacer y={12} />
+      <Button
+          ref={buttonRef}
+          disableRipple
+          className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+          size="lg"
+          style={buttonStyle}
+          isLoading={isLoading}
+          onPress={handleConfetti}
+        >
+          Generate Your Headshot - temporary
+        </Button>
     </div>
   );
 };
