@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   const light = "Natural: Soft, natural light that mimics daylight, creating a realistic and pleasant effect.";
   const clothing = "Business Formal: Outfits such as suits and ties, blazers, and formal dresses.";
   const expression = "Smiling: Adjusts facial features to create a warm, approachable smile.";
-  const colorPalette = "Warm: Uses warm tones such as reds, oranges, and yellows to create a cozy and inviting atmosphere.;
+  const colorPalette = "Warm: Uses warm tones such as reds, oranges, and yellows to create a cozy and inviting atmosphere.";
 
 
 
