@@ -26,7 +26,7 @@ const AIHeadshotsList = () => {
     setTrainedImages(store.trainedImages);
 
     setTimeout(() => {
-      setLoading(false);
+      store.trainedImages.length !==0 && setLoading(false);
     }, 1000);
   }, [store.trainedImages]);
 

@@ -8,7 +8,7 @@ export interface AuthContextProps {
   trainedImages: File[];
   setCurrentID: ({ currentID } : { currentID: string}) => void;
   setPaid: ({ paid }: { paid: boolean }) => void;
-  setTrainedImages: ({trainedImages}: {trainedImages: File[] | undefined}) => void;
+  setTrainedImages: ({trainedImages}: {trainedImages: File[]}) => void;
 }
 
 const StoreContext = createContext<AuthContextProps>(null);
@@ -27,7 +27,7 @@ const StoreProvider = ({children}) => {
     }
 
     const setTrainedImages = ({ trainedImages }) => {
-        setTrainImages(prevImages => [...prevImages, ...trainedImages]);
+        setTrainImages(prevImages => prevImages ? [...prevImages, ...trainedImages] : trainedImages);
     }
 
     return (
