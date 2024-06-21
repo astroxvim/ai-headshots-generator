@@ -79,7 +79,7 @@ export async function POST(request: Request) {
         branch: astriaTestModeIsOn ? "fast" : "sd15",
         token: "ohwx",
         image_urls: images,
-        callback: trainWebhookWithParams,
+        // callback: trainWebhookWithParams,
         prompts_attributes:
           process.env.NEXT_PUBLIC_FALLBACK == "origin"
             ? [
