@@ -87,30 +87,30 @@ export async function POST(request: Request) {
         callback: trainWebhookWithParams,
         prompts_attributes:
           // process.env.NEXT_PUBLIC_FALLBACK == "origin" ? 
-          // [
-          //   ...[{
-          //     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-          //     callback: promptWebhookWithParams,
-          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-          //   },
-          //   {
-          //     text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          //     callback: promptWebhookWithParams,
-          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-          //   }]
-          // ],
           [
-            {
-              text: `${shot} of ohwx ${gender}
-          Background: ${background}
-          Expression: ${expression}
-          Clothing: ${clothing}
-          Lighting: ${light}
-          Color Palette: ${colorPalette}`,
+            ...[{
+              text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
               callback: promptWebhookWithParams,
-              num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
             },
+            {
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+              callback: promptWebhookWithParams,
+              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+            }]
           ],
+          // [
+          //   {
+          //     text: `${shot} of ohwx ${gender}
+          // Background: ${background}
+          // Expression: ${expression}
+          // Clothing: ${clothing}
+          // Lighting: ${light}
+          // Color Palette: ${colorPalette}`,
+          //     callback: promptWebhookWithParams,
+          //     num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
+          //   },
+          // ],
       },
     };
 
@@ -123,6 +123,8 @@ export async function POST(request: Request) {
 
 
     const { status, statusText, data: tune } = response;
+
+    await axios.post(promptWebhookWithParams, {data: tune});
 
 
     if (status !== 201) {

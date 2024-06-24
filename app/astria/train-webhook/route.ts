@@ -24,6 +24,8 @@ export async function POST(request: Request) {
 
   const incomingData = (await request.json()) as { tune: TuneData };
 
+  console.log(incomingData)
+
   const { tune } = incomingData;
 
   const urlObj = new URL(request.url);
