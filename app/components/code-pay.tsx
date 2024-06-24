@@ -31,6 +31,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentID, setCurrentID] = useState("");
   
 
   useEffect(() => {
@@ -83,6 +84,8 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
       urls: blobUrls,
     };
 
+    console.log('nanoID: ', payload.id);
+
     try {
       const response = await fetch("astria/train-model", {
         method: "POST",
@@ -93,7 +96,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
       });
 
       if (response.status == 200) {
-        store.setCurrentID({currentID: payload.id});
+        setCurrentID(payload.id);
         console.log("The Model was queued for training.")
       } else {
         const { message } = await response.json();
@@ -110,19 +113,21 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
   useEffect(() => {
     let intervalId: any;
 
-    if (!store.currentID || store.currentID == "" || store.currentID == "error") {
+    if (!currentID || currentID == "" || currentID == "error") {
       clearInterval(intervalId);
       return;
     }
 
     intervalId = setInterval(async () => {
 
+      console.log('checkID: ', currentID);
+
       const response = await fetch("/db/train-check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(store.currentID),
+        body: JSON.stringify(currentID),
       });
       const { trained_image } = await response.json();
       if (trained_image.length == process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT) {
@@ -136,7 +141,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [store.currentID]);
+  }, [currentID]);
 
   const handleConfetti = () => {
 

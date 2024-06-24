@@ -4,10 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: Request): Promise<NextResponse> {
 	const id = await request.json();
 
+	console.log('db/traincheck: ', id);
+
 	try {
-		const user = await prisma.imageGeneration.findUnique({
-			where: { gid: id },
-		});
+		// const user = await prisma.imageGeneration.findUnique({
+		// 	where: { gid: id },
+		// });
+
+		
 
 		const trained_image = await prisma.images.findMany({
 			where: { gid: id },
