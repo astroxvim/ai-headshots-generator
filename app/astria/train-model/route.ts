@@ -64,7 +64,7 @@ export async function POST(request: Request) {
     );
   }
 
-  try {
+  // try {
     const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
     const trainWebhookWithParams = `${trainWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
 
@@ -152,20 +152,20 @@ export async function POST(request: Request) {
       );
 
     }
-  } catch (e) {
-    console.error(e);
-    return NextResponse.json(
-      {
-        message: "Something went wrong!",
-      },
-      { status: 500 }
-    );
-  }
+  // } catch (e) {
+  //   console.error(e);
+  //   return NextResponse.json(
+  //     {
+  //       message: "Something went wrong!",
+  //     },
+  //     { status: 500 }
+  //   );
+  // }
 
-  return NextResponse.json(
-    {
-      message: "success",
-    },
-    { status: 200 }
-  );
+  // return NextResponse.json(
+  //   {
+  //     message: "success",
+  //   },
+  //   { status: 200 }
+  // );
 }
