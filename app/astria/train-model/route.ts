@@ -124,9 +124,6 @@ export async function POST(request: Request) {
 
     const { status, statusText, data: tune } = response;
 
-    await axios.post(promptWebhookWithParams, {data: tune});
-
-
     if (status !== 201) {
       console.error({ status });
       if (status === 400) {
@@ -145,6 +142,15 @@ export async function POST(request: Request) {
           { status }
         );
       }
+
+      return NextResponse.json(
+        {
+          message: "success",
+          data: tune,
+        },
+        { status: 200 },
+      );
+
     }
   } catch (e) {
     console.error(e);
