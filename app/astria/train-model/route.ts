@@ -143,15 +143,17 @@ export async function POST(request: Request) {
         );
       }
 
-      return NextResponse.json(
-        {
-          message: "success",
-          data: tune,
-        },
-        { status: 200 },
-      );
+      
 
     }
+
+    return NextResponse.json(
+      {
+        message: "success",
+        data: tune,
+      },
+      { status: 200 },
+    );
   // } catch (e) {
   //   console.error(e);
   //   return NextResponse.json(
