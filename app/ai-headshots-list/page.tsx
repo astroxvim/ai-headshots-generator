@@ -26,8 +26,10 @@ const AIHeadshotsList = () => {
     setTrainedImages(store.trainedImages);
 
     setTimeout(() => {
-      store.trainedImages.length !==0 && setLoading(false);
+      if( store.trainedImages.length !== 0 ) setLoading(false);
     }, 1000);
+
+    console.log('trained:', trainedImages);
   }, [store.trainedImages]);
 
   const downloadFile = async (files: any) => {
