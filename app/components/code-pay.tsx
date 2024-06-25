@@ -56,10 +56,8 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
       button.mount(codePayRef.current!);
     }
-    store.setTrainedImages();
+    store.setTrainedImages([]);
   }, []);
-
-
 
   const submitModel = useCallback(async () => {
 

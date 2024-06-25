@@ -5,10 +5,10 @@ import { useState, createContext, useContext } from "react";
 export interface AuthContextProps {
   isPaid: boolean;
   currentID: string;
-  trainedImages: File[];
+  trainedImages: [];
   setCurrentID: ({ currentID } : { currentID: string}) => void;
   setPaid: ({ paid }: { paid: boolean }) => void;
-  setTrainedImages: (args?: { trainedImages?: File[] }) => void;
+  setTrainedImages: ([]) => void;
 }
 
 const StoreContext = createContext<AuthContextProps>(null);
@@ -16,7 +16,7 @@ const StoreContext = createContext<AuthContextProps>(null);
 const StoreProvider = ({children}) => {
     const [isPaid, setIsPaid] = useState(false);
     const [currentID, setId] = useState("");
-    const [trainedImages, setTrainImages] = useState<File[]>([]);
+    const [trainedImages, setTrainImages] = useState<[]>([]);
 
     const setPaid = ({paid}: {paid: boolean}) => {
         setIsPaid(paid);
@@ -26,9 +26,9 @@ const StoreProvider = ({children}) => {
         setId(currentID);
     }
 
-    const setTrainedImages = (args?: { trainedImages?: File[] }) => {
-        if (args?.trainedImages) {
-            setTrainImages(prevImages => [...prevImages, ...args.trainedImages]);
+    const setTrainedImages = (trainedImages: []) => {  // Change [] to any[] or a more specific type
+        if (trainedImages.length > 0) {  // Check if the array has elements
+            setTrainImages(prevImages => [...prevImages, ...trainedImages]);
         } else {
             setTrainImages([]);
         }

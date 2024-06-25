@@ -27,9 +27,9 @@ const AIHeadshotsList = () => {
 
     setTimeout(() => {
       if( store.trainedImages.length !== 0 ) setLoading(false);
-    }, 1000);
+    }, 2000);
 
-    console.log('trained:', trainedImages);
+    console.log('trained:', store.trainedImages);
   }, [store.trainedImages]);
 
   const downloadFile = async (files: any) => {
@@ -83,7 +83,7 @@ const AIHeadshotsList = () => {
           Your images are generating and it may take a few minutes. Please do not close or refresh the window.
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-          {loading && trainedImages.length === 0 ? (
+          {loading || trainedImages.length === 0 ? (
             Array(4).fill('_').map((_, index) => (
               <div key={index} className="animate-pulse flex flex-col items-center">
                 <div className="h-64 w-full bg-gray-300 rounded-lg" />
@@ -92,13 +92,7 @@ const AIHeadshotsList = () => {
           ) : (
             trainedImages.map((trainedImage, index) => (
               <React.Fragment key={index}>
-                {trainedImages.includes(index) ? (
                   <HeadshotListItem headshot={{ title: index, src: trainedImage?.blob }} />
-                ) : (
-                  <div className="animate-pulse flex flex-col items-center">
-                    <div className="h-64 w-full bg-gray-300 rounded-lg" />
-                  </div>
-                )}
               </React.Fragment>
             ))
           )}
