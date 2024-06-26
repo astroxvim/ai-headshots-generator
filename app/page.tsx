@@ -1,10 +1,10 @@
 import React from 'react';
-import App from './App';
+import IntroPage from './intro/page';
 
 export default function Home() {
   return (
     <main className="custom-gradient-bg min-h-screen">
-      <App />
+      <IntroPage />
     </main>
   );
 }
