@@ -13,7 +13,7 @@ export const preferenceOptions = [
     key: PreferenceEnum.EnvironmentalMale,
     gender: "male",
     title: "Environmental Male",
-    description: "Relaxed, authentic photos in natural settings",
+    description: "Professional photos in natural settings",
     imageUrl: "/images/male-environ.png",
   },
   {
