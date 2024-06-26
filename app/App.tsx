@@ -7,8 +7,8 @@ import SelectPreferences from "./components/select-preferences";
 import UploadImage from "./components/upload-image";
 import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { genders } from "./constants/preference-types";
 import { useRouter } from "next/navigation";
 
@@ -38,7 +38,6 @@ export default function UpicApp() {
 
   const router = useRouter();
 
-
   const paginate = useCallback((newDirection: number) => {
     setPage((prev) => {
       const nextPage = prev[0] + newDirection;
@@ -57,14 +56,13 @@ export default function UpicApp() {
 
   const onBack = useCallback(() => {
     if (page === 0) {
-      router.push('/'); // Navigate back to the intro-page
+      router.push("/"); // Navigate back to the intro-page
     } else {
       paginate(-1);
     }
   }, [page, paginate, router]);
-  const onNext = useCallback(
-    () => {
-    console.log('onNext', selectedPreference);
+  const onNext = useCallback(() => {
+    console.log("onNext", selectedPreference);
     if (page === 0 && !selectedPreference) {
       toast.error("Please select a preference before continuing.");
       return;
@@ -126,15 +124,19 @@ export default function UpicApp() {
         </m.div>
       </LazyMotion>
     );
-  }, [direction, page, onNext, selectedPreference, selectedGender, selectedOption, uploadedFiles]);
+  }, [
+    direction,
+    page,
+    onNext,
+    selectedPreference,
+    selectedGender,
+    selectedOption,
+    uploadedFiles,
+  ]);
 
   return (
     <>
-    <div className="relative min-h-screen">
-        <div className="bg-image"></div>
-        <div className="overlay"></div>
-        <div className="content"></div>
-     <ToastContainer 
+      <ToastContainer
         toastClassName="toast-dark"
         autoClose={3000} // Set autoClose to 3000ms (3 seconds)
       />
@@ -155,17 +157,13 @@ export default function UpicApp() {
               backButtonProps={{ isDisabled: page === 0 }}
               className="hidden justify-center lg:flex"
               nextButtonProps={{
-                children:
-                  page === 0
-                    ? "Continue to Upload"
-                    : "Continue to Pay",
+                children: page === 0 ? "Continue to Upload" : "Continue to Pay",
                 onClick: onNext,
               }}
             />
           )}
         </div>
       </MultistepSidebar>
-      </div>
     </>
   );
 }

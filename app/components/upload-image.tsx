@@ -36,8 +36,8 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
     return (
       <>
         <div className="flex max-w-xl flex-col text-center">
-          <h2 className="font-medium text-upic-primary">References</h2>
-          <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Upload Your Images</h1>
+          <h2 className="font-medium text-primary">References</h2>
+          <h1 className="text-4xl black font-medium tracking-tight">Upload Your Images</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
           Provide 4 to 10 high-quality reference photos for AI headshot generation.

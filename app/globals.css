@@ -29,8 +29,6 @@ body {
 body {
   font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
-  padding: 20px 20px 60px;
-  margin: 0 auto;
 }
 
 @layer utilities {
@@ -116,5 +114,4 @@ body {
 .content {
   position: relative;
   z-index: 1;
-  min-height: 100vh; /* Ensures the content area covers the full viewport height */
 }

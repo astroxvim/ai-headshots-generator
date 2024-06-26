@@ -10,14 +10,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark min-h-screen">
+      <body className="dark h-screen min-h-screen">
         <StoreProvider>
           <NextUIProvider>
             <div className="bg-image"></div>
             <div className="overlay"></div>
             <div className="content">
               {children}
-            </div></NextUIProvider>
+            </div>
+            </NextUIProvider>
         </StoreProvider>
       </body>
     </html>

@@ -50,7 +50,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   return (
     <div className="flex max-w-4xl flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-upic-primary">Settings</h2>
+        <h2 className="font-medium text-primary">Settings</h2>
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">

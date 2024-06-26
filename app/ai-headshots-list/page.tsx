@@ -152,7 +152,7 @@ const AIHeadshotsList = () => {
           </AnimatePresence>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
             {loading && trainedImages.length === 0 ? (
-              Array(trainedImages.length).fill('_').map((_, index) => (
+              Array(4).fill('_').map((_, index) => (
                 <div key={index} className="animate-pulse flex flex-col items-center">
                   <div className="h-64 w-full bg-gray-300 rounded-lg" />
                 </div>

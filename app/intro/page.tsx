@@ -16,7 +16,7 @@ const IntroPage = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen py-0">
+    <div className="relative flex flex-col items-center justify-center pb-[32px]">
       <div
         aria-hidden="true"
         className="px:5 absolute inset-x-0 top-3 z-0 h-full w-full transform-gpu overflow-hidden blur-3xl md:right-20 md:h-auto md:w-auto md:px-36"
@@ -41,7 +41,6 @@ const IntroPage = () => {
           Select the best service for your needs.
         </h2>
       </div>
-      <Spacer y={12} />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 z-10">
         {services.map((service) => (
           <Card

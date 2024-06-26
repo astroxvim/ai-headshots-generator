@@ -135,7 +135,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
   return (
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-upic-primary">Payment</h2>
+        <h2 className="font-medium text-primary">Payment</h2>
         <h1 className="text-4xl font-medium tracking-tight">Pay $1 to Generate</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
@@ -143,16 +143,23 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         </h2>
       </div>
       <Spacer y={8} />
-      <Button
-        ref={buttonRef}
-        disableRipple
-        className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
-        size="lg"
-        style={buttonStyle}
-        onPress={handleConfetti}
-      >
-        Generate Your Headshot
-      </Button>
+      {!isPaid ? (
+        <div>
+          <div ref={codePayRef}></div>
+        </div>
+      ) : (
+        <Button
+          ref={buttonRef}
+          disableRipple
+          className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+          size="lg"
+          style={buttonStyle}
+          isLoading={isLoading}
+          onPress={handleConfetti}
+        >
+          Generate Your Headshot
+        </Button>
+      )}
       <Spacer y={12} />
       <Card className="w-full max-w-[420px] sm:w-[420px]" {...props}>
         <CardBody className="px-3 pb-1">
@@ -181,24 +188,6 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         </CardBody>
         <CardFooter className="justify-end gap-2"></CardFooter>
       </Card>
-      <Spacer y={12} />
-      {!isPaid ? (
-        <div>
-          <div ref={codePayRef}></div>
-        </div>
-      ) : (
-        <Button
-          ref={buttonRef}
-          disableRipple
-          className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
-          size="lg"
-          style={buttonStyle}
-          isLoading={isLoading}
-          onPress={handleConfetti}
-        >
-          Generate Your Headshot
-        </Button>
-      )}
       <Spacer y={12} />
       <Button
           ref={buttonRef}
