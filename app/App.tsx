@@ -9,6 +9,7 @@ import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { genders } from "./constants/preference-types";
 
 const variants = {
   enter: (direction: number) => ({
@@ -31,6 +32,9 @@ export default function UpicApp() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedPreference, setSelectedPreference] = useState(false);
+  const [selectedGender, setSelectedGender] = useState(genders[0].key);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
 
   const paginate = useCallback((newDirection: number) => {
     setPage((prev) => {
@@ -56,11 +60,11 @@ export default function UpicApp() {
     () => {
     console.log('onNext', selectedPreference);
     if (page === 0 && !selectedPreference) {
-      toast.error("Please select a preference before continuing.", { className: 'toast-dark' });
+      toast.error("Please select a preference before continuing.");
       return;
     }
     if (page === 1 && (uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
-      toast.error("Please upload between 4 and 10 images to continue.", { className: 'toast-dark' });
+      toast.error("Please upload between 4 and 10 images to continue.");
       return;
     }
     paginate(1);
@@ -72,6 +76,10 @@ export default function UpicApp() {
         onNext={onNext}
         selectedPreference={selectedPreference}
         setSelectedPreference={setSelectedPreference}
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
       />
     );
 
@@ -112,10 +120,14 @@ export default function UpicApp() {
         </m.div>
       </LazyMotion>
     );
-  }, [direction, page, onNext, selectedPreference, uploadedFiles]);
+  }, [direction, page, onNext, selectedPreference, selectedGender, selectedOption, uploadedFiles]);
 
   return (
     <>
+     <ToastContainer 
+        toastClassName="toast-dark"
+        autoClose={3000} // Set autoClose to 3000ms (3 seconds)
+      />
       <MultistepSidebar
         currentPage={page}
         onBack={onBack}
@@ -123,27 +135,25 @@ export default function UpicApp() {
         onNext={onNext}
         selectedPreference={selectedPreference}
         uploadedFiles={uploadedFiles}
+        selectedGender={selectedGender}
+        selectedOption={selectedOption}
       >
         <div className="relative flex h-fit w-full flex-col items-center pt-6 text-center lg:h-full lg:justify-center lg:pt-0">
           {content}
           {page !== 2 && (
             <MultistepNavigationButtons
-              backButtonProps={{ className: "enabled-button-class" }}
+              backButtonProps={{ isDisabled: page === 0 }}
               className="hidden justify-center lg:flex"
               nextButtonProps={{
                 children:
                   page === 0
                     ? "Continue to Upload Images"
-                    : page === 1
-                    ? "Go to Payment"
-                    : null, // Ensure no button on page 2
+                    : "Continue to Payment",
                 onClick: onNext,
               }}
-              onBack={onBack}
             />
           )}
         </div>
-        <ToastContainer />
       </MultistepSidebar>
     </>
   );

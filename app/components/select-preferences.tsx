@@ -7,21 +7,27 @@ interface SelectPreferencesProps {
   onNext: () => void;
   selectedPreference: boolean;
   setSelectedPreference: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedGender: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedGender: string;
+  selectedOption: string | null;
 }
 
 const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   onNext,
   selectedPreference,
   setSelectedPreference,
+  setSelectedGender,
+  setSelectedOption,
+  selectedGender,
+  selectedOption,
 }) => {
-  const [selectedGender, setSelectedGender] = React.useState(genders[0].key);
-  const [selectedOption, setSelectedOption] = React.useState<string | null>(null);
 
   useEffect(() => {
     // Reset selected option and disable the button when gender changes
     setSelectedOption(null);
     setSelectedPreference(false);
-  }, [selectedGender, setSelectedPreference]);
+  }, [selectedGender,setSelectedOption, setSelectedPreference]);
 
   const handleOptionChange = (value: string) => {
     setSelectedOption(value);
@@ -53,6 +59,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
         radius="full"
         size="lg"
         color="primary"
+        selectedKey={selectedGender}
         onSelectionChange={handleGenderChange}
       >
         {genders.map((gender) => (

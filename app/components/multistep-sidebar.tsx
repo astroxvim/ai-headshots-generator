@@ -19,6 +19,8 @@ export type MultiStepSidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   onChangePage: (page: number) => void;
   uploadedFiles?: File[];
   selectedPreference?: boolean;
+  selectedGender?: string;
+  selectedOption?: string | null;
 };
 
 const stepperClasses = cn(
@@ -38,7 +40,7 @@ const stepperClasses = cn(
 );
 
 const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>(
-  ({ children, className, currentPage, onBack, onNext, onChangePage, uploadedFiles, selectedPreference, ...props }, ref) => {
+  ({ children, className, currentPage, onBack, onNext, onChangePage, uploadedFiles, selectedPreference, selectedGender, selectedOption, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -84,15 +86,11 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             ]}
             onStepChange={(stepIdx) => {
               if (stepIdx === 1 && !selectedPreference) {
-                toast.error("Please select a preference before continuing.", {
-                  className: "toast-dark",
-                });
+                toast.error("Please select a preference before continuing.");
                 return;
               }
               if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
-                toast.error("Please upload between 4 and 10 images to continue.", {
-                  className: "toast-dark",
-                });
+                toast.error("Please upload between 4 and 10 images to continue.");
                 return;
               }
               onChangePage(stepIdx);
@@ -121,15 +119,11 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 ]}
                 onStepChange={(stepIdx) => {
                   if (stepIdx === 1 && !selectedPreference) {
-                    toast.error("Please select a preference before continuing.", {
-                      className: "toast-dark",
-                    });
+                    toast.error("Please select a preference before continuing.");
                     return;
                   }
                   if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
-                    toast.error("Please upload between 4 and 10 images to continue.", {
-                      className: "toast-dark",
-                    });
+                    toast.error("Please upload between 4 and 10 images to continue.");
                     return;
                   }
                   onChangePage(stepIdx);
@@ -147,9 +141,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                   children:
                     currentPage === 0
                       ? "Continue to Upload Images"
-                      : currentPage === 1
-                      ? "Go to Payment"
-                      : null,
+                      : "continue to Payment",
                   onClick: onNext,
                 }}
                 onBack={onBack}
