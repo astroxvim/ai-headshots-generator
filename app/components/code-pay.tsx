@@ -136,9 +136,11 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
         <h2 className="font-medium text-upic-primary">Payment</h2>
-        <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">
-          Submit Your Payment
-        </h1>
+        <h1 className="text-4xl font-medium tracking-tight">Pay $1 to Generate</h1>
+        <Spacer y={4} />
+        <h2 className="text-large text-default-500">
+          Simply pay for what you use. No strings attached.
+        </h2>
       </div>
       <Spacer y={8} />
       <Card className="w-[420px] bg-black/90" {...props}>
