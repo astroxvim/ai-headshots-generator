@@ -8,8 +8,7 @@ export const services: Service[] = [
     priceSuffix: "per use", // Add the price suffix here
     description: "Photos for professional and career use",
     features: [
-      "Choose from studio or on-location styles",
-      "Formal, professional attire",
+      "Studio or on-location style options",
       "Set of 4 high-quality images",
       "No account creation required",
       "No subscriptions or bundles",
