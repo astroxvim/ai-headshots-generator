@@ -143,6 +143,17 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         </h2>
       </div>
       <Spacer y={8} />
+      <Button
+        ref={buttonRef}
+        disableRipple
+        className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+        size="lg"
+        style={buttonStyle}
+        onPress={handleConfetti}
+      >
+        Generate Your Headshot
+      </Button>
+      <Spacer y={12} />
       <Card className="w-[420px] bg-black/90" {...props}>
         <CardBody className="px-3 pb-1">
           <Image
