@@ -33,7 +33,7 @@ const IntroPage = () => {
         <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
       </div>
       <div className="flex flex-col items-center text-center z-10">
-        <h1 className="inline bg-gradient-to-br from-foreground-800 to-foreground-500 bg-clip-text text-6xl font-semibold tracking-tight text-transparent dark:to-foreground-200">
+      <h1 className="inline bg-gradient-to-br from-foreground-800 to-foreground-600 bg-clip-text text-6xl font-semibold tracking-tight text-transparent dark:to-foreground-400">
           Welcome to UPIC&nbsp;AI
         </h1>
         <Spacer y={4} />
