@@ -101,7 +101,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
                     size="lg"
                     src={option.imageUrl}
                   />
-                  <div className="flex flex-col items-start">
+                  <div className="flex flex-col items-start text-left"> {/* Added text-left class here */}
                     <span className="text-medium">{option.title.replace(' Male', '').replace(' Female', '')}</span>
                     <span className="text-small text-default-400">{option.description}</span>
                   </div>
