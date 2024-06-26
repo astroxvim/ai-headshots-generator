@@ -124,6 +124,10 @@ export default function UpicApp() {
 
   return (
     <>
+    <div className="relative min-h-screen">
+        <div className="bg-image"></div>
+        <div className="overlay"></div>
+        <div className="content"></div>
      <ToastContainer 
         toastClassName="toast-dark"
         autoClose={3000} // Set autoClose to 3000ms (3 seconds)
@@ -157,6 +161,7 @@ export default function UpicApp() {
           )}
         </div>
       </MultistepSidebar>
+      </div>
     </>
   );
 }

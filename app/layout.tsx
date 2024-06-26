@@ -12,7 +12,12 @@ export default function RootLayout({
     <html lang="en">
       <body className="dark min-h-screen">
         <StoreProvider>
-          <NextUIProvider>{children}</NextUIProvider>
+          <NextUIProvider>
+            <div className="bg-image"></div>
+            <div className="overlay"></div>
+            <div className="content">
+              {children}
+            </div></NextUIProvider>
         </StoreProvider>
       </body>
     </html>

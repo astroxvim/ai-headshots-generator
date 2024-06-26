@@ -40,7 +40,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   };
 
   const radioClassNames = {
-    base: "inline-flex m-0 bg-default-100 items-center justify-between flex-row-reverse w-full max-w-full cursor-pointer rounded-lg p-4 border-medium border-transparent data-[selected=true]:border-primary transform transition-transform duration-300 hover:scale-105",
+    base: "inline-flex m-0 bg-default-100/70 items-center justify-between flex-row-reverse w-full max-w-full cursor-pointer rounded-lg p-4 border-medium border-transparent data-[selected=true]:border-primary transform transition-transform duration-300 hover:scale-105",
     control: "bg-primary text-primary-foreground",
     wrapper: "group-data-[selected=true]:border-primary",
     label: "text-small text-default-500 font-medium",

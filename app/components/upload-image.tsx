@@ -47,7 +47,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
         <form
           ref={ref}
           {...props}
-          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-black/90 transition-colors cursor-pointer hover:bg-black/70 border-2 border-default-100", className)}
+          className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-default-100/70 transition-colors hover:bg-default-100/90 border-2 border-default-200", className)}
         >
           <div {...getRootProps({ className: "group flex w-full flex-col items-center gap-2 p-4" })}>
             <input {...getInputProps()} />
