@@ -148,7 +148,9 @@ export default function UpicApp() {
                 children:
                   page === 0
                     ? "Continue to Upload Images"
-                    : "Continue to Payment",
+                    : page === 1
+                    ? "Continue to Payment"
+                    : null,
                 onClick: onNext,
               }}
             />
