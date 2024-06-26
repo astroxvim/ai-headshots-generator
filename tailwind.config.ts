@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       backgroundImage: {
         'custom-vertical-gradient': 'linear-gradient(180deg, rgba(102, 69, 235, 0.4) 0%, rgba(31, 197, 219, 0.3) 50%, rgba(154, 40, 230, 0.2) 100%)',
-        'custom-horizontal-gradient': 'linear-gradient(90deg, rgba(102, 69, 235, 0.4) 0%, rgba(31, 197, 219, 0.3) 50%, rgba(154, 40, 230, 0.2) 100%)',
+        'custom-horizontal-gradient': 'linear-gradient(90deg, rgba(44, 33, 104, 1) 0%, rgba(18, 65, 83, 1) 50%, rgba(37, 15, 63, 1) 100%)',
         'custom-blur-bg': 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3))'
       },
       colors: {
