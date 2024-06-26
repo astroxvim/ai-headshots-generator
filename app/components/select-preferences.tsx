@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Tabs, Tab, RadioGroup, Spacer } from "@nextui-org/react";
-import PreferenceRadioItem from "./nextui/preference-radio-item";
+import { Tabs, Tab, RadioGroup, Spacer, Avatar, Radio } from "@nextui-org/react";
 import { preferenceOptions, genders } from "../constants/preference-types";
 
 interface SelectPreferencesProps {
@@ -40,6 +39,14 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
     setSelectedGender(key);
   };
 
+  const radioClassNames = {
+    base: "inline-flex m-0 bg-default-100 items-center justify-between flex-row-reverse w-full max-w-full cursor-pointer rounded-lg p-4 border-medium border-transparent data-[selected=true]:border-primary transform transition-transform duration-300 hover:scale-105",
+    control: "bg-primary text-primary-foreground",
+    wrapper: "group-data-[selected=true]:border-primary",
+    label: "text-small text-default-500 font-medium",
+    labelWrapper: "m-0",
+  };
+
   return (
     <div className="flex max-w-4xl flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
@@ -49,8 +56,9 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
         <h2 className="text-large text-default-500">
           Choose Your Preferences for your professional headshot.
         </h2>
+        <Spacer y={8} />
       </div>
-      <Spacer y={8} />
+      {/* Tabs for gender selection */}
       <Tabs
         classNames={{
           tab: "data-[hover-unselected=true]:opacity-90 px-4",
@@ -70,36 +78,38 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
           />
         ))}
       </Tabs>
-      <Spacer y={12} />
-      <RadioGroup
-        aria-label="Style Option"
-        value={selectedOption}
-        onValueChange={handleOptionChange}
-        classNames={{
-          wrapper: "w-fit grid grid-cols-1 gap-6 md:gap-4 sm:grid-cols-2 lg:grid-cols-2",
-        }}
-      >
-        {preferenceOptions
-          .filter((option) => option.gender === selectedGender)
-          .map((option) => (
-            <div key={option.key} className="flex flex-col items-center">
-              <PreferenceRadioItem
-                value={option.key}
-                title={option.title.replace(' Male', '').replace(' Female', '')}
-                className="flex"
-                description={
-                  <img
-                    src={option.imageUrl}
+      <Spacer y={8} />
+
+      {/* RadioGroup for preference options */}
+      <div className="w-full mb-8">
+        <RadioGroup
+          className="col-span-12"
+          classNames={{
+            wrapper: "gap-4",
+          }}
+          value={selectedOption}
+          onValueChange={handleOptionChange}
+        >
+          {preferenceOptions
+            .filter((option) => option.gender === selectedGender)
+            .map((option) => (
+              <Radio key={option.key} classNames={radioClassNames} value={option.key}>
+                <div className="flex gap-4 items-center">
+                  <Avatar
                     alt={option.title}
-                    className="w-[300px] rounded-lg transform transition-transform duration-300 hover:scale-105"
+                    className="max-w-[280px] rounded-lg"
+                    size="lg"
+                    src={option.imageUrl}
                   />
-                }
-              />
-              <Spacer y={2} />
-              <p className="text-sm text-default-500">{option.title.replace(' Male', '').replace(' Female', '')}</p>
-            </div>
-          ))}
-      </RadioGroup>
+                  <div className="flex flex-col items-start">
+                    <span className="text-medium">{option.title.replace(' Male', '').replace(' Female', '')}</span>
+                    <span className="text-small text-default-400">{option.description}</span>
+                  </div>
+                </div>
+              </Radio>
+            ))}
+        </RadioGroup>
+      </div>
     </div>
   );
 };
