@@ -10,7 +10,7 @@ import MultistepNavigationButtons from "./components/nextui/multistep-navigation
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { genders } from "./constants/preference-types";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const variants = {
   enter: (direction: number) => ({
