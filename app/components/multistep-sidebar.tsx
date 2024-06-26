@@ -84,12 +84,15 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             ]}
             onStepChange={(stepIdx) => {
               if (stepIdx === 1 && !selectedPreference) {
-                toast.error("Please select a preference before continuing.");
-                console.log('111');
+                toast.error("Please select a preference before continuing.", {
+                  className: "toast-dark",
+                });
                 return;
               }
               if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
-                toast.error("Please upload between 4 and 10 images to continue.");
+                toast.error("Please upload between 4 and 10 images to continue.", {
+                  className: "toast-dark",
+                });
                 return;
               }
               onChangePage(stepIdx);
@@ -118,12 +121,15 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 ]}
                 onStepChange={(stepIdx) => {
                   if (stepIdx === 1 && !selectedPreference) {
-                    toast.error("Please select a preference before continuing.");
-                    console.log('row-222');
+                    toast.error("Please select a preference before continuing.", {
+                      className: "toast-dark",
+                    });
                     return;
                   }
                   if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
-                    toast.error("Please upload between 4 and 10 images to continue.");
+                    toast.error("Please upload between 4 and 10 images to continue.", {
+                      className: "toast-dark",
+                    });
                     return;
                   }
                   onChangePage(stepIdx);
@@ -133,20 +139,22 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
           </div>
           <div className="h-full w-full p-4">
             {children}
-            <MultistepNavigationButtons
-              backButtonProps={{ className: "enabled-button-class" }}
-              className="lg:hidden"
-              nextButtonProps={{
-                children:
-                  currentPage === 0
-                    ? "Continue to Upload Images"
-                    : currentPage === 2
-                    ? "Generate Headshot"
-                    : "Go to Payment",
-              }}
-              onBack={onBack}
-              onNext={onNext}
-            />
+            {currentPage !== 2 && ( // Ensure no button on page 2 for mobile view
+              <MultistepNavigationButtons
+                backButtonProps={{ className: "enabled-button-class" }}
+                className="lg:hidden"
+                nextButtonProps={{
+                  children:
+                    currentPage === 0
+                      ? "Continue to Upload Images"
+                      : currentPage === 1
+                      ? "Go to Payment"
+                      : null,
+                  onClick: onNext,
+                }}
+                onBack={onBack}
+              />
+            )}
           </div>
         </div>
       </div>

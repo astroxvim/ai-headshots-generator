@@ -106,12 +106,15 @@ const VerticalSteps = React.forwardRef<HTMLButtonElement, VerticalStepsProps>(
 
     const handleStepClick = (stepIdx: number) => {
       if (stepIdx === 1 && !selectedPreference) {
-        toast.error("Please select a preference before continuing.");
-        console.log('333');
+        toast.error("Please select a preference before continuing.", {
+          className: "toast-dark",
+        });
         return;
       }
       if (stepIdx === 2 && (!uploadedFiles || uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
-        toast.error("Please upload between 4 and 10 images to continue.");
+        toast.error("Please upload between 4 and 10 images to continue.", {
+          className: "toast-dark",
+        });
         return;
       }
       setCurrentStep(stepIdx);

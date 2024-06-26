@@ -115,8 +115,7 @@ export default function UpicApp() {
   }, [direction, page, onNext, selectedPreference, uploadedFiles]);
 
   return (
-    <div>
-      <ToastContainer toastClassName="toast-dark" />
+    <>
       <MultistepSidebar
         currentPage={page}
         onBack={onBack}
@@ -129,27 +128,23 @@ export default function UpicApp() {
           {content}
           {page !== 2 && (
             <MultistepNavigationButtons
-              backButtonProps={{ isDisabled: page === 0 }}
+              backButtonProps={{ className: "enabled-button-class" }}
               className="hidden justify-center lg:flex"
               nextButtonProps={{
                 children:
                   page === 0
                     ? "Continue to Upload Images"
-                    : page === 2
-                    ? "Generate Your Headshot"
-                    : "Continue to Payment",
-                isDisabled:
-                  page === 0
-                    ? !selectedPreference
-                    : page === 1 &&
-                      (uploadedFiles.length < 4 || uploadedFiles.length > 10),
+                    : page === 1
+                    ? "Go to Payment"
+                    : null, // Ensure no button on page 2
+                onClick: onNext,
               }}
               onBack={onBack}
-              onNext={onNext}
             />
           )}
         </div>
+        <ToastContainer />
       </MultistepSidebar>
-    </div>
+    </>
   );
 }
