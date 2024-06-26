@@ -160,7 +160,7 @@ const AIHeadshotsList = () => {
             ) : (
               trainedImages.map((headshot, index) => (
                 <React.Fragment key={headshot.id}>
-                    <HeadshotListItem headshot={headshot} />
+                    <HeadshotListItem headshot={{ title: index, src: headshot?.blob }} />
                 </React.Fragment>
               ))
             )}
