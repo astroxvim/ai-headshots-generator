@@ -10,6 +10,7 @@ import MultistepNavigationButtons from "./components/nextui/multistep-navigation
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { genders } from "./constants/preference-types";
+import { useRouter } from "next/router";
 
 const variants = {
   enter: (direction: number) => ({
@@ -35,6 +36,8 @@ export default function UpicApp() {
   const [selectedGender, setSelectedGender] = useState(genders[0].key);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
+  const router = useRouter();
+
 
   const paginate = useCallback((newDirection: number) => {
     setPage((prev) => {
@@ -53,9 +56,12 @@ export default function UpicApp() {
   }, []);
 
   const onBack = useCallback(() => {
-    paginate(-1);
-  }, [paginate]);
-
+    if (page === 0) {
+      router.push('/'); // Navigate back to the intro-page
+    } else {
+      paginate(-1);
+    }
+  }, [page, paginate, router]);
   const onNext = useCallback(
     () => {
     console.log('onNext', selectedPreference);
