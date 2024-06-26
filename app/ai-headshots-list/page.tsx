@@ -170,7 +170,7 @@ const AIHeadshotsList = () => {
               <Button
                 className="relative overflow-hidden rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
                 size="lg"
-                onPress={downloadFile}
+                onPress={() => downloadFile(trainedImages)}
               >
                 Download Images
               </Button>
