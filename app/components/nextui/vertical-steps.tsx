@@ -6,6 +6,7 @@ import type {ButtonProps} from "@nextui-org/react";
 import React from "react";
 import {useControlledState} from "@react-stately/utils";
 import {m, LazyMotion, domAnimation} from "framer-motion";
+import { toast } from 'react-toastify';
 
 import {cn} from "../../utils/cn";
 
@@ -56,6 +57,8 @@ export interface VerticalStepsProps extends React.HTMLAttributes<HTMLButtonEleme
    * Callback function when the step index changes.
    */
   onStepChange?: (stepIndex: number) => void;
+  selectedPreference?: boolean;
+  uploadedFiles?: File[];
 }
 
 function CheckIcon(props: ComponentProps<"svg">) {
@@ -89,6 +92,8 @@ const VerticalSteps = React.forwardRef<HTMLButtonElement, VerticalStepsProps>(
       hideProgressBars = false,
       stepClassName,
       className,
+      selectedPreference,
+      uploadedFiles,
       ...props
     },
     ref,
@@ -98,6 +103,19 @@ const VerticalSteps = React.forwardRef<HTMLButtonElement, VerticalStepsProps>(
       defaultStep,
       onStepChange,
     );
+
+    const handleStepClick = (stepIdx: number) => {
+      if (stepIdx === 1 && !selectedPreference) {
+        toast.error("Please select a preference before continuing.");
+        console.log('333');
+        return;
+      }
+      if (stepIdx === 2 && (!uploadedFiles || uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
+        toast.error("Please upload between 4 and 10 images to continue.");
+        return;
+      }
+      setCurrentStep(stepIdx);
+    };
 
     const colors = React.useMemo(() => {
       let userColor;
@@ -170,7 +188,7 @@ const VerticalSteps = React.forwardRef<HTMLButtonElement, VerticalStepsProps>(
                       "group flex w-full cursor-pointer items-center justify-center gap-4 rounded-large px-3 py-2.5",
                       stepClassName,
                     )}
-                    onClick={() => setCurrentStep(stepIdx)}
+                    onClick={() => handleStepClick(stepIdx)}
                     {...props}
                   >
                     <div className="flex h-full items-center">

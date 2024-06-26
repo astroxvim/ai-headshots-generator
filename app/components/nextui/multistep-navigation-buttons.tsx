@@ -9,9 +9,7 @@ export type MultistepNavigationButtonsProps = React.HTMLAttributes<HTMLDivElemen
   onBack?: () => void;
   onNext?: () => void;
   backButtonProps?: React.ComponentProps<typeof Button>;
-  nextButtonProps?: React.ComponentProps<typeof ButtonWithBorderGradient> & {
-    isDisabled?: boolean;
-  };
+  nextButtonProps?: React.ComponentProps<typeof ButtonWithBorderGradient>;
 };
 
 const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNavigationButtonsProps>(

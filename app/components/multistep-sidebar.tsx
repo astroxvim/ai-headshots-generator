@@ -10,13 +10,14 @@ import SupportCard from "./support-card";
 import VerticalSteps from "./nextui/vertical-steps";
 import RowSteps from "./nextui/row-steps";
 import MultistepNavigationButtons from "./nextui/multistep-navigation-buttons";
+import { toast, ToastContainer } from 'react-toastify';
 
 export type MultiStepSidebarProps = React.HTMLAttributes<HTMLDivElement> & {
   currentPage: number;
   onBack: () => void;
   onNext: () => void;
   onChangePage: (page: number) => void;
-  uploadedFiles?: string[];
+  uploadedFiles?: File[];
   selectedPreference?: boolean;
 };
 
@@ -47,7 +48,6 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
         <div className="hidden h-[100vh-48px] w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
           <Button
             className="bg-black text-small font-medium text-neutral-50"
-            isDisabled={currentPage === 0}
             radius="full"
             variant="flat"
             onPress={onBack}
@@ -69,6 +69,8 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
           <VerticalSteps
             className={stepperClasses}
             currentStep={currentPage}
+            selectedPreference={selectedPreference}
+            uploadedFiles={uploadedFiles}
             steps={[
               {
                 title: "Select Settings",
@@ -80,7 +82,18 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 title: "Pay $1 to Generate",
               },
             ]}
-            onStepChange={onChangePage}
+            onStepChange={(stepIdx) => {
+              if (stepIdx === 1 && !selectedPreference) {
+                toast.error("Please select a preference before continuing.");
+                console.log('111');
+                return;
+              }
+              if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
+                toast.error("Please upload between 4 and 10 images to continue.");
+                return;
+              }
+              onChangePage(stepIdx);
+            }}
           />
           <SupportCard className="w-full backdrop-blur-lg lg:bg-black lg:shadow-none dark:lg:bg-black" />
         </div>
@@ -90,6 +103,8 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
               <RowSteps
                 className={cn("pl-6", stepperClasses)}
                 currentStep={currentPage}
+                selectedPreference={selectedPreference}
+                uploadedFiles={uploadedFiles}
                 steps={[
                   {
                     title: "Settings",
@@ -101,14 +116,25 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                     title: "Payment",
                   },
                 ]}
-                onStepChange={onChangePage}
+                onStepChange={(stepIdx) => {
+                  if (stepIdx === 1 && !selectedPreference) {
+                    toast.error("Please select a preference before continuing.");
+                    console.log('row-222');
+                    return;
+                  }
+                  if (stepIdx === 2 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)) {
+                    toast.error("Please upload between 4 and 10 images to continue.");
+                    return;
+                  }
+                  onChangePage(stepIdx);
+                }}
               />
             </div>
           </div>
           <div className="h-full w-full p-4">
             {children}
             <MultistepNavigationButtons
-              backButtonProps={{ isDisabled: currentPage === 0 }}
+              backButtonProps={{ className: "enabled-button-class" }}
               className="lg:hidden"
               nextButtonProps={{
                 children:
@@ -117,9 +143,6 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                     : currentPage === 2
                     ? "Generate Headshot"
                     : "Go to Payment",
-                isDisabled:
-                  (currentPage === 0 && !selectedPreference) ||
-                  (currentPage === 1 && (uploadedFiles?.length < 4 || uploadedFiles?.length > 10)),
               }}
               onBack={onBack}
               onNext={onNext}

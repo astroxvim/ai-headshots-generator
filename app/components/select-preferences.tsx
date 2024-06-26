@@ -21,7 +21,6 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
     // Reset selected option and disable the button when gender changes
     setSelectedOption(null);
     setSelectedPreference(false);
-    console.log("Gender Changed: ", selectedGender);
   }, [selectedGender, setSelectedPreference]);
 
   const handleOptionChange = (value: string) => {

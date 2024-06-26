@@ -76,3 +76,8 @@ body {
 .custom-radio .nextui-radio-dot {
   display: none;
 }
+
+.toast-dark {
+  background-color: #12121E !important;
+  color: #fff !important;
+}

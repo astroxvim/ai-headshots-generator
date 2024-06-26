@@ -7,6 +7,8 @@ import SelectPreferences from "./components/select-preferences";
 import UploadImage from "./components/upload-image";
 import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const variants = {
   enter: (direction: number) => ({
@@ -50,9 +52,19 @@ export default function UpicApp() {
     paginate(-1);
   }, [paginate]);
 
-  const onNext = useCallback(() => {
+  const onNext = useCallback(
+    () => {
+    console.log('onNext', selectedPreference);
+    if (page === 0 && !selectedPreference) {
+      toast.error("Please select a preference before continuing.", { className: 'toast-dark' });
+      return;
+    }
+    if (page === 1 && (uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
+      toast.error("Please upload between 4 and 10 images to continue.", { className: 'toast-dark' });
+      return;
+    }
     paginate(1);
-  }, [paginate]);
+  }, [page, selectedPreference, uploadedFiles.length, paginate]);
 
   const content = useMemo(() => {
     let component = (
@@ -103,36 +115,41 @@ export default function UpicApp() {
   }, [direction, page, onNext, selectedPreference, uploadedFiles]);
 
   return (
-    <MultistepSidebar
-      currentPage={page}
-      onBack={onBack}
-      onChangePage={onChangePage}
-      onNext={onNext}
-    >
-      <div className="relative flex h-fit w-full flex-col items-center pt-6 text-center lg:h-full lg:justify-center lg:pt-0">
-        {content}
-        {page !== 2 && (
-          <MultistepNavigationButtons
-            backButtonProps={{ isDisabled: page === 0 }}
-            className="hidden justify-center lg:flex"
-            nextButtonProps={{
-              children:
-                page === 0
-                  ? "Continue to Upload Images"
-                  : page === 2
-                  ? "Generate Your Headshot"
-                  : "Continue to Payment",
-              isDisabled:
-                page === 0
-                  ? !selectedPreference
-                  : page === 1 &&
-                    (uploadedFiles.length < 4 || uploadedFiles.length > 10),
-            }}
-            onBack={onBack}
-            onNext={onNext}
-          />
-        )}
-      </div>
-    </MultistepSidebar>
+    <div>
+      <ToastContainer toastClassName="toast-dark" />
+      <MultistepSidebar
+        currentPage={page}
+        onBack={onBack}
+        onChangePage={onChangePage}
+        onNext={onNext}
+        selectedPreference={selectedPreference}
+        uploadedFiles={uploadedFiles}
+      >
+        <div className="relative flex h-fit w-full flex-col items-center pt-6 text-center lg:h-full lg:justify-center lg:pt-0">
+          {content}
+          {page !== 2 && (
+            <MultistepNavigationButtons
+              backButtonProps={{ isDisabled: page === 0 }}
+              className="hidden justify-center lg:flex"
+              nextButtonProps={{
+                children:
+                  page === 0
+                    ? "Continue to Upload Images"
+                    : page === 2
+                    ? "Generate Your Headshot"
+                    : "Continue to Payment",
+                isDisabled:
+                  page === 0
+                    ? !selectedPreference
+                    : page === 1 &&
+                      (uploadedFiles.length < 4 || uploadedFiles.length > 10),
+              }}
+              onBack={onBack}
+              onNext={onNext}
+            />
+          )}
+        </div>
+      </MultistepSidebar>
+    </div>
   );
 }
