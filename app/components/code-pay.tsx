@@ -31,7 +31,6 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentID, setCurrentID] = useState("");
   
 
   useEffect(() => {
@@ -94,8 +93,9 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
       });
 
       if (response.status == 200) {
-        setCurrentID(payload.id);
+        store.setCurrentID({currentID: payload.id});
         console.log("The Model was queued for training.")
+        router.push('/ai-headshots-list')
       } else {
         const { message } = await response.json();
         console.log("Something went wrong!", message);
@@ -108,38 +108,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
 
   }, [files]);
 
-  useEffect(() => {
-    let intervalId: any;
-
-    if (!currentID || currentID == "" || currentID == "error") {
-      clearInterval(intervalId);
-      return;
-    }
-
-    intervalId = setInterval(async () => {
-
-      console.log('checkID: ', currentID);
-
-      const response = await fetch("/db/train-check", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(currentID),
-      });
-      const { trained_image } = await response.json();
-      if (trained_image.length == process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT) {
-        setIsLoading(false);
-        clearInterval(intervalId);
-        store.setTrainedImages(trained_image);
-        console.log(trained_image);
-        router.push('/ai-headshots-list');
-      }
-    }, 5000); // 1000 milliseconds = 1 second
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, [currentID]);
+  
 
   const handleConfetti = () => {
 

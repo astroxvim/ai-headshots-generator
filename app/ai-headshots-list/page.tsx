@@ -21,16 +21,35 @@ const AIHeadshotsList = () => {
   };
 
   useEffect(() => {
+    let intervalId: any;
 
-    setLoading(true);
-    setTrainedImages(store.trainedImages);
+    if (!store.currentID || store.currentID == "" || store.currentID == "error") {
+      clearInterval(intervalId);
+      return;
+    }
 
-    setTimeout(() => {
-      if( store.trainedImages.length !== 0 ) setLoading(false);
-    }, 2000);
+    intervalId = setInterval(async () => {
 
-    console.log('trained:', store.trainedImages);
-  }, [store.trainedImages]);
+      console.log('checkID: ', store.currentID);
+
+      const response = await fetch("/db/train-check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(store.currentID),
+      });
+      const { trained_image } = await response.json();
+      if (trained_image.length == process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT) {
+        setLoading(false);
+        clearInterval(intervalId);
+        setTrainedImages(trained_image);
+      }
+    }, 5000); // 1000 milliseconds = 1 second
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [store.currentID]);
 
   const downloadFile = async (files: any) => {
     setDownloading(true);
