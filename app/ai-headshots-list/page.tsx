@@ -8,10 +8,19 @@ import HeadshotListItem from './headshot-list-item';
 
 import JSZip from "jszip";
 
+import { motion, AnimatePresence } from 'framer-motion';
+
+const messages = [
+  "AI is processing and generating...",
+  "It may take a few minutes...",
+  "Please do not close or refresh the window..."
+];
+
 const AIHeadshotsList = () => {
   const [loading, setLoading] = useState(true);
   const [isDownloading, setDownloading] = useState(false);
   const [trainedImages, setTrainedImages] = useState([]);
+  const [messageIndex, setMessageIndex] = useState(0);
   
   const router = useRouter();
   const store = useStore();
@@ -19,6 +28,14 @@ const AIHeadshotsList = () => {
   const handleStartNewSession = () => {
     router.push('/');
   };
+
+  useEffect(() => {
+    const messageInterval = setInterval(() => {
+      setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    }, 3000);
+
+    return () => clearInterval(messageInterval);
+  }, []);
 
   useEffect(() => {
     let intervalId: any;
@@ -97,13 +114,42 @@ const AIHeadshotsList = () => {
       <div className="bg-image"></div>
       <div className="overlay"></div>
       <div className="content flex flex-col items-center py-12">
+        <div className="w-full flex justify-center items-center mt-8 mb-4">
+          <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
+        </div>
         <div className="max-w-xl text-center">
-          <h2 className="font-medium text-primary">Your AI Headshots</h2>
-          <h1 className="text-4xl font-medium tracking-tight">Here are your generated headshots</h1>
+          <h2 className="font-medium text-primary">Your AI Headshots</h2><h1 className="text-4xl font-medium tracking-tight">
+            {loading ? "Your images are generating..." : "Your images are ready"}
+          </h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
             Your images are generating and it may take a few minutes. Please do not close or refresh the window.
           </h2>
+          <AnimatePresence mode="wait">
+            {loading ? (
+              <motion.h2
+                key={messageIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="text-large text-default-500"
+              >
+                {messages[messageIndex]}
+              </motion.h2>
+            ) : (
+              <motion.h2
+                key="complete"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="text-large text-default-500"
+              >
+                Image generation is now complete.
+              </motion.h2>
+            )}
+          </AnimatePresence>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
             {loading && trainedImages.length === 0 ? (
               Array(trainedImages.length).fill('_').map((_, index) => (
