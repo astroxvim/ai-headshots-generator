@@ -16,7 +16,7 @@ const IntroPage = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center pb-[32px]">
+    <div className="relative flex flex-col items-center justify-center min-h-screen py-0">
       <div
         aria-hidden="true"
         className="px:5 absolute inset-x-0 top-3 z-0 h-full w-full transform-gpu overflow-hidden blur-3xl md:right-20 md:h-auto md:w-auto md:px-36"

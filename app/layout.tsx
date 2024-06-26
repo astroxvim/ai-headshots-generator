@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="dark h-screen min-h-screen">
+      <body className="dark min-h-screen">
         <StoreProvider>
           <NextUIProvider>
             <div className="bg-image"></div>
