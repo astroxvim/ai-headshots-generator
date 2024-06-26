@@ -154,7 +154,7 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
         Generate Your Headshot
       </Button>
       <Spacer y={12} />
-      <Card className="w-[420px] bg-black/90" {...props}>
+      <Card className="w-full max-w-[420px] sm:w-[420px]" {...props}>
         <CardBody className="px-3 pb-1">
           <Image
             alt="Card image"

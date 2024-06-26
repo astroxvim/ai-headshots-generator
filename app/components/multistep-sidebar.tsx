@@ -140,8 +140,8 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 nextButtonProps={{
                   children:
                     currentPage === 0
-                      ? "Continue to Upload Images"
-                      : "Continue to Payment",
+                      ? "Continue to Upload"
+                      : "Continue to Pay",
                   onClick: onNext,
                 }}
                 onBack={onBack}

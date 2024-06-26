@@ -62,7 +62,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
               <ul>
                 <li className="flex items-center gap-1">
                   <Icon className="text-default-600" icon="ci:check" width={24} />
-                  <p className="text-small text-default-500">Ensure face is centered and fully visible</p>
+                  <p className="text-small text-default-500">Face centered and fully visible</p>
                 </li>
                 <li className="flex items-center gap-1">
                   <Icon className="text-default-600" icon="ci:check" width={24} />
@@ -82,7 +82,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
                 </li>
               </ul>
             </div>
-            <div className="group flex gap-2 px-4 pt-4">
+            <div className="group flex gap-2 px-4 pt-4 overflow-x-auto">
             {uploadedFiles.map((image, index) => (
               <Badge
                 key={index}

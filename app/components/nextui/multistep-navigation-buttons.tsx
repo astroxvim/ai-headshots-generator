@@ -38,7 +38,7 @@ const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNav
         onPress={onNext}
         {...nextButtonProps}
       >
-        {nextButtonProps?.children || "Continue to Upload Images"}
+        {nextButtonProps?.children || "Continue to Upload"}
       </ButtonWithBorderGradient>
     </div>
   )

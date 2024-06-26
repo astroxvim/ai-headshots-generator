@@ -157,10 +157,8 @@ export default function UpicApp() {
               nextButtonProps={{
                 children:
                   page === 0
-                    ? "Continue to Upload Images"
-                    : page === 1
-                    ? "Continue to Payment"
-                    : null,
+                    ? "Continue to Upload"
+                    : "Continue to Pay",
                 onClick: onNext,
               }}
             />
