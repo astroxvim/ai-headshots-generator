@@ -89,15 +89,18 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
                 isOneChar
                 className="opacity-0 group-hover:opacity-100"
                 content={
+                  <div className="relative -top-[8px] right-[8px]">
                   <Button
                     isIconOnly
                     radius="full"
                     size="sm"
                     variant="light"
                     onPress={() => handleDelete(index)}
+                    // className="-translate-x-1/2 -translate-y-1/2 top-0 right-0"
                   >
-                    <Icon className="text-foreground" icon="iconamoon:close-thin" width={16} />
+                      <Icon className="text-foreground top-[6px] left-[6px]" icon="iconamoon:close-thin" width={16} />
                   </Button>
+                    </div>
                 }
               >
                 <Image
