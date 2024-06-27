@@ -2,6 +2,7 @@
 import { NextUIProvider } from "@nextui-org/react";
 import "./globals.css";
 import { StoreProvider } from "./store/context-provider";
+import Head from "next/head";
 
 export default function RootLayout({
   children,

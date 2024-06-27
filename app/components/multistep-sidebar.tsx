@@ -31,12 +31,12 @@ const stepperClasses = cn(
   "[--inactive-bar-color:hsl(var(--nextui-secondary-200))]",
   "[--inactive-color:hsl(var(--nextui-secondary-300))]",
   // dark
-  // "dark:[--step-color:rgba(255,255,255,0.1)]",
-  // "dark:[--active-color:hsl(var(--nextui-foreground-600))]",
-  // "dark:[--active-border-color:rgba(255,255,255,0.5)]",
-  // "dark:[--inactive-border-color:rgba(255,255,255,0.1)]",
-  // "dark:[--inactive-bar-color:rgba(255,255,255,0.1)]",
-  // "dark:[--inactive-color:rgba(255,255,255,0.2)]",
+  "dark:[--step-color:rgba(255,255,255,0.1)]",
+  "dark:[--active-color:hsl(var(--nextui-foreground-600))]",
+  "dark:[--active-border-color:rgba(255,255,255,0.5)]",
+  "dark:[--inactive-border-color:rgba(255,255,255,0.1)]",
+  "dark:[--inactive-bar-color:rgba(255,255,255,0.1)]",
+  "dark:[--inactive-color:rgba(255,255,255,0.2)]",
 );
 
 const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>(
@@ -44,10 +44,10 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
     return (
       <div
         ref={ref}
-        className={cn("flex min-h-screen p-[24px] w-full gap-x-2", className)}
+        className={cn("flex min-h-screen h-[calc(110vh_-_40px)] w-full gap-x-2", className)}
         {...props}
       >
-        <div className="hidden h-[100vh-48px] w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
+        <div className="hidden h-full w-[344px] flex-shrink-0 flex-col items-start gap-y-8 rounded-large bg-custom-vertical-gradient px-8 py-6 shadow-small lg:flex">
           <Button
             className="bg-default-50 text-small font-medium text-default-500"
             radius="full"
@@ -73,6 +73,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             currentStep={currentPage}
             selectedPreference={selectedPreference}
             uploadedFiles={uploadedFiles}
+            color="secondary"
             steps={[
               {
                 title: "Select Settings",
@@ -131,7 +132,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
               />
             </div>
           </div>
-          <div className="h-full w-full p-4">
+          <div className="h-full w-full p-4 sm:max-w-md md:max-w-lg">
             {children}
             {currentPage !== 2 && (
               <MultistepNavigationButtons

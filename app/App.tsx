@@ -98,7 +98,13 @@ export default function UpicApp() {
         );
         break;
       case 2:
-        component = <CodePay files={uploadedFiles} selectedOption={selectedOption} selectedGender={selectedGender} />;
+        component = (
+          <CodePay
+            files={uploadedFiles}
+            selectedOption={selectedOption}
+            selectedGender={selectedGender}
+          />
+        );
         break;
     }
 
@@ -136,35 +142,39 @@ export default function UpicApp() {
 
   return (
     <>
-    <div className="dark relative min-h-screen">
-      <ToastContainer
-        toastClassName="toast-dark"
-        autoClose={3000} // Set autoClose to 3000ms (3 seconds)
-      />
-      <MultistepSidebar
-        currentPage={page}
-        onBack={onBack}
-        onChangePage={onChangePage}
-        onNext={onNext}
-        selectedPreference={selectedPreference}
-        uploadedFiles={uploadedFiles}
-        selectedGender={selectedGender}
-        selectedOption={selectedOption}
-      >
-        <div className="relative flex h-fit w-full flex-col items-center pt-6 text-center lg:h-full lg:justify-center lg:pt-0">
-          {content}
-          {page !== 2 && (
-            <MultistepNavigationButtons
-              backButtonProps={{ isDisabled: page === 0 }}
-              className="hidden justify-center lg:flex"
-              nextButtonProps={{
-                children: page === 0 ? "Continue to Upload" : "Continue to Pay",
-                onClick: onNext,
-              }}
-            />
-          )}
-        </div>
-      </MultistepSidebar>
+      <div className="bg-image"></div>
+      <div className="overlay"></div>
+
+      <div className="dark relative min-h-screen">
+        <ToastContainer
+          toastClassName="toast-dark"
+          autoClose={3000} // Set autoClose to 3000ms (3 seconds)
+        />
+        <MultistepSidebar
+          currentPage={page}
+          onBack={onBack}
+          onChangePage={onChangePage}
+          onNext={onNext}
+          selectedPreference={selectedPreference}
+          uploadedFiles={uploadedFiles}
+          selectedGender={selectedGender}
+          selectedOption={selectedOption}
+        >
+          <div className="relative flex h-fit w-full flex-col items-center text-center lg:h-full lg:justify-center lg:pt-0">
+            {content}
+            {page !== 2 && (
+              <MultistepNavigationButtons
+                backButtonProps={{ isDisabled: page === 0 }}
+                className="hidden justify-center lg:flex"
+                nextButtonProps={{
+                  children:
+                    page === 0 ? "Continue to Upload" : "Continue to Pay",
+                  onClick: onNext,
+                }}
+              />
+            )}
+          </div>
+        </MultistepSidebar>
       </div>
     </>
   );

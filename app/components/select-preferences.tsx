@@ -48,7 +48,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   };
 
   return (
-    <div className="flex max-w-4xl flex-col items-center py-12">
+    <div className="flex max-w-4xl flex-col items-center py-2">
       <div className="flex max-w-xl flex-col text-center">
         <h2 className="font-medium text-primary">Settings</h2>
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
@@ -61,8 +61,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
       {/* Tabs for gender selection */}
       <Tabs
         classNames={{
-          tab: "data-[hover-unselected=true]:opacity-90 px-4",
-          tabList: "bg-black/90"
+          tab: "data-[hover-unselected=true]:opacity-90 px-4",  
         }}
         radius="full"
         size="lg"

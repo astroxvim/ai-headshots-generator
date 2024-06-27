@@ -110,10 +110,10 @@ const AIHeadshotsList = () => {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="dark relative min-h-screen">
       <div className="bg-image"></div>
       <div className="overlay"></div>
-      <div className="content flex flex-col items-center py-12">
+      <div className="content flex flex-col items-center">
         <div className="w-full flex justify-center items-center mt-8 mb-4">
           <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
         </div>
