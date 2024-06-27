@@ -79,7 +79,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                 title: "Select Settings",
               },
               {
-                title: "Upload Images",
+                title: "References",
               },
               {
                 title: "Pay $1 to Generate",
@@ -96,6 +96,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
               }
               onChangePage(stepIdx);
             }}
+            onClick={()=>{}}
           />
           <SupportCard className="w-full backdrop-blur-lg lg:bg-white/40 lg:shadow-none dark:lg:bg-white/20" />
         </div>
