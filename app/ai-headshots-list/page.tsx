@@ -122,9 +122,6 @@ const AIHeadshotsList = () => {
             {loading ? "Your images are generating..." : "Your images are ready"}
           </h1>
           <Spacer y={4} />
-          <h2 className="text-large text-default-500">
-            Your images are generating and it may take a few minutes. Please do not close or refresh the window.
-          </h2>
           <AnimatePresence mode="wait">
             {loading ? (
               <motion.h2
