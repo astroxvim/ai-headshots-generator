@@ -11,9 +11,9 @@ const HeadshotListItem = ({ headshot }) => {
         width="100%"
         height="auto"
       />
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-white">
+      {/* <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-white">
         <p className="text-center">{headshot.title}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

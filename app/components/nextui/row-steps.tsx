@@ -6,8 +6,9 @@ import type { ButtonProps } from "@nextui-org/react";
 import React from "react";
 import { useControlledState } from "@react-stately/utils";
 import { m, LazyMotion, domAnimation } from "framer-motion";
+import { toast } from 'react-toastify';
 
-import { cn } from "./cn";
+import { cn } from "../../utils/cn";
 
 export type RowStepProps = {
   title?: React.ReactNode;
@@ -22,7 +23,9 @@ export interface RowStepsProps extends React.HTMLAttributes<HTMLButtonElement> {
   hideProgressBars?: boolean;
   className?: string;
   stepClassName?: string;
-  onStepChange?: (stepIndex: number) => void;
+  onStepChange?: (stepIndex: number) => void;  
+  selectedPreference?: boolean;
+  uploadedFiles?: File[];
 }
 
 function CheckIcon(props: ComponentProps<"svg">) {
@@ -56,6 +59,8 @@ const RowSteps = React.forwardRef<HTMLButtonElement, RowStepsProps>(
       hideProgressBars = false,
       stepClassName,
       className,
+      selectedPreference,
+      uploadedFiles,
       ...props
     },
     ref,
@@ -65,6 +70,22 @@ const RowSteps = React.forwardRef<HTMLButtonElement, RowStepsProps>(
       defaultStep,
       onStepChange,
     );
+
+    const handleStepClick = (stepIdx: number) => {
+      if (stepIdx === 1 && !selectedPreference) {
+        toast.error("Please select a preference before continuing.", {
+          className: "toast-dark",
+        });
+        return;
+      }
+      if (stepIdx === 2 && (!uploadedFiles || uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
+        toast.error("Please upload between 4 and 10 images to continue.", {
+          className: "toast-dark",
+        });
+        return;
+      }
+      setCurrentStep(stepIdx);
+    };
 
     const colors = React.useMemo(() => {
       let userColor;
@@ -136,7 +157,7 @@ const RowSteps = React.forwardRef<HTMLButtonElement, RowStepsProps>(
                     "group flex w-full cursor-pointer flex-row items-center justify-center gap-x-3 rounded-large py-2.5",
                     stepClassName,
                   )}
-                  onClick={() => setCurrentStep(stepIdx)}
+                  onClick={() => handleStepClick(stepIdx)}
                   {...props}
                 >
                   <div className="h-ful relative flex items-center">

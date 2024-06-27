@@ -2,16 +2,14 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
-import { cn } from "./cn";
+import { cn } from "../../utils/cn";
 import { ButtonWithBorderGradient } from "./button-with-border-gradient";
 
 export type MultistepNavigationButtonsProps = React.HTMLAttributes<HTMLDivElement> & {
   onBack?: () => void;
   onNext?: () => void;
   backButtonProps?: React.ComponentProps<typeof Button>;
-  nextButtonProps?: React.ComponentProps<typeof ButtonWithBorderGradient> & {
-    isDisabled?: boolean;
-  };
+  nextButtonProps?: React.ComponentProps<typeof ButtonWithBorderGradient>;
 };
 
 const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNavigationButtonsProps>(
@@ -40,7 +38,7 @@ const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNav
         onPress={onNext}
         {...nextButtonProps}
       >
-        {nextButtonProps?.children || "Continue to Upload Images"}
+        {nextButtonProps?.children || "Continue to Upload"}
       </ButtonWithBorderGradient>
     </div>
   )

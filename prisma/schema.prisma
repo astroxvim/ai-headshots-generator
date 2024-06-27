@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://default:m3ke6MnhrUjs@ep-late-waterfall-a4q2jdgp-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+}
+
+// Define your models here
+model imageGeneration {
+  id      Int      @id @default(autoincrement())
+  gid      String    @unique
+  blobUrls    String[]
+  status      String   
+  count       Int
+  createdAt DateTime @default(now())
+}
+
+model images {
+  id      Int      @id @default(autoincrement())
+  gid      String
+  blob       String   
+  createdAt DateTime @default(now())
+}

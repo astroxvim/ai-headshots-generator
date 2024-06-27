@@ -4,17 +4,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
@@ -29,7 +21,7 @@ body {
 body {
   font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
-  padding: 20px 20px 60px;
+    padding: 20px 20px 60px;
   margin: 0 auto;
 }
 
@@ -38,6 +30,7 @@ body {
     text-wrap: balance;
   }
 }
+
 .dropzone {
   cursor: pointer;
   padding: 20px;
@@ -67,18 +60,53 @@ body {
 .custom-gradient-bg {
   background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,24,51,.6), rgba(25,8,43,.3));
 }
-/* Add this to your global CSS file */
+
 .custom-radio span[aria-hidden="true"] {
   display: none;
 }
-
-/* Add this to your CSS file */
 
 .custom-radio input[type="radio"] {
   display: none;
 }
 
-/* Add styles to ensure the border and other styles remain intact */
 .custom-radio .nextui-radio-dot {
   display: none;
+}
+
+.toast-dark {
+  background-color: #1E1E29 !important;
+  color: #fff !important;
+}
+
+.bg-radial {
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 24, 51, 0.6), rgba(25, 8, 43, 0.3));
+}
+
+.bg-image {
+  background: url('/images/default-gradient.png') no-repeat center center fixed;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.5 /* Adjust the opacity value to make the image more visible */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 24, 51, 0.6), rgba(25, 8, 43, 0.3));
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
 }
