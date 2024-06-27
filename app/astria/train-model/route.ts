@@ -1,3 +1,4 @@
+import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
 import { cookies } from "next/headers";
@@ -20,7 +21,8 @@ if (!appWebhookSecret) {
 export async function POST(request: Request) {
   const payload = await request.json();
   const images = payload.urls;
-  const gender = 'male';
+  const gender = payload.selectedGender;
+  const option = payload.selectedOption;
   const id = payload.id;
 
 
@@ -87,18 +89,40 @@ export async function POST(request: Request) {
         callback: trainWebhookWithParams,
         prompts_attributes:
           // process.env.NEXT_PUBLIC_FALLBACK == "origin" ? 
-          [
-            ...[{
-              text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-              callback: promptWebhookWithParams,
-              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-            },
+          option === PreferenceEnum.StudioMale ?
+          [{
+            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+            callback: promptWebhookWithParams,
+            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          },] : option === PreferenceEnum.EnvironmentalMale ?
+          [{
+            text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+            callback: promptWebhookWithParams,
+            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          },] : option === PreferenceEnum.StudioFemale ? 
+          [{
+            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+            callback: promptWebhookWithParams,
+            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          },] : [
             {
               text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
               callback: promptWebhookWithParams,
               num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-            }]
-          ],
+            }
+          ]
+          // [
+          //   ...[{
+          //     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+          //     callback: promptWebhookWithParams,
+          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          //   },
+          //   {
+          //     text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+          //     callback: promptWebhookWithParams,
+          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
+          //   }]
+          // ],
           // [
           //   {
           //     text: `${shot} of ohwx ${gender}

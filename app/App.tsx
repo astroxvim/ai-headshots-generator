@@ -98,7 +98,7 @@ export default function UpicApp() {
         );
         break;
       case 2:
-        component = <CodePay files={uploadedFiles} />;
+        component = <CodePay files={uploadedFiles} selectedOption={selectedOption} selectedGender={selectedGender} />;
         break;
     }
 
@@ -136,7 +136,7 @@ export default function UpicApp() {
 
   return (
     <>
-    <div className="relative min-h-screen">
+    <div className="dark relative min-h-screen">
       <ToastContainer
         toastClassName="toast-dark"
         autoClose={3000} // Set autoClose to 3000ms (3 seconds)

@@ -20,9 +20,11 @@ import { useStore } from "../store/context-provider";
 
 type CodePayProps = CardProps & {
   files: File[];
+  selectedOption: string;
+  selectedGender: string;
 };
 
-const CodePay = ({ files, ...props }: CodePayProps)  => {
+const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayProps)  => {
   const router = useRouter();
   const store = useStore();
 
@@ -79,6 +81,8 @@ const CodePay = ({ files, ...props }: CodePayProps)  => {
     const payload = {
       id: nanoid(),
       urls: blobUrls,
+      gender: selectedGender,
+      option: selectedOption,
     };
 
     console.log('nanoID: ', payload.id);
