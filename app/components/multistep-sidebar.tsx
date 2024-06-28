@@ -130,6 +130,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                   }
                   onChangePage(stepIdx);
                 }}
+                onClick={()=>{}}
               />
             </div>
           </div>
