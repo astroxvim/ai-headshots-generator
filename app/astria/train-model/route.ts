@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       gid: id,
       blobUrls: images,
       status: "pending",
-      count: 4
+      count: 8
     },
   });
 
@@ -122,40 +122,50 @@ export async function POST(request: Request) {
     },
   };
 
-  const response = await axios.post(DOMAIN + "/tunes", body, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${API_KEY}`,
-    },
-  });
+  try {
+    const response = await axios.post(DOMAIN + "/tunes", body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    });
 
-  const { status, statusText, data: tune } = response;
+    const { status, statusText, data: tune } = response;
 
-  if (status !== 201) {
-    console.error({ status });
-    if (status === 400) {
-      return NextResponse.json(
-        {
-          message: "webhookUrl must be a URL address",
-        },
-        { status }
-      );
+    if (status !== 201) {
+      console.error({ status });
+      if (status === 400) {
+        return NextResponse.json(
+          {
+            message: "webhookUrl must be a URL address",
+          },
+          { status }
+        );
+      }
+      if (status === 402) {
+        return NextResponse.json(
+          {
+            message: "Training models is only available on paid plans.",
+          },
+          { status }
+        );
+      }
     }
-    if (status === 402) {
-      return NextResponse.json(
-        {
-          message: "Training models is only available on paid plans.",
-        },
-        { status }
-      );
-    }
+
+    return NextResponse.json(
+      {
+        message: "success",
+        data: tune,
+      },
+      { status: 200 }
+    );
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        message: "Something went wrong!",
+      },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(
-    {
-      message: "success",
-      data: tune,
-    },
-    { status: 200 }
-  );
 }
