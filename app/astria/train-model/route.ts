@@ -8,10 +8,7 @@ export const dynamic = "force-dynamic";
 
 const astriaApiKey = process.env.ASTRIA_API_KEY;
 const astriaTestModeIsOn = process.env.ASTRIA_TEST_MODE === "true";
-// For local development, recommend using an Ngrok tunnel for the domain
-
 const appWebhookSecret = process.env.APP_WEBHOOK_SECRET;
-const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
 if (!appWebhookSecret) {
   throw new Error("MISSING APP_WEBHOOK_SECRET!");
@@ -66,53 +63,62 @@ export async function POST(request: Request) {
   const imageResultCount = parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1');
   const numImagesPerPrompt = Math.ceil(imageResultCount / 2);
 
+  const prompts = {
+    [PreferenceEnum.StudioMale]: [
+      {
+        text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+        callback: promptWebhookWithParams,
+        num_images: numImagesPerPrompt,
+      },
+      {
+        text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
+        negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
+        callback: promptWebhookWithParams,
+        num_images: numImagesPerPrompt,
+      },
+    ],
+    [PreferenceEnum.EnvironmentalMale]: [
+      {
+        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+        callback: promptWebhookWithParams,
+        num_images: imageResultCount,
+      },
+    ],
+    [PreferenceEnum.StudioFemale]: [
+      {
+        text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+        callback: promptWebhookWithParams,
+        num_images: imageResultCount,
+      },
+    ],
+    [PreferenceEnum.EnvironmentalFemale]: [
+      {
+        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+        callback: promptWebhookWithParams,
+        num_images: imageResultCount,
+      },
+    ],
+    default: [
+      {
+        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+        callback: promptWebhookWithParams,
+        num_images: imageResultCount,
+      },
+    ],
+  };
+
+  const selectedPrompts = prompts[option] || prompts.default;
+
   const body = {
     tune: {
       title: "test",
-      // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes
-      // https://www.astria.ai/gallery/tunes/690204/prompts
       base_tune_id: 690204,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
-      prompts_attributes:
-        option == PreferenceEnum.StudioMale ?
-        [
-          {
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens --tiled_upscale`,
-            callback: promptWebhookWithParams,
-            num_images: numImagesPerPrompt,
-          },
-          {
-            text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
-            negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
-            callback: promptWebhookWithParams,
-            num_images: numImagesPerPrompt,
-          }
-        ] : option == PreferenceEnum.EnvironmentalMale ?
-        [{
-          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          callback: promptWebhookWithParams,
-          num_images: imageResultCount,
-        }] : option == PreferenceEnum.StudioFemale ? 
-        [{
-          text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-          callback: promptWebhookWithParams,
-          num_images: imageResultCount,
-        }] : option == PreferenceEnum.EnvironmentalFemale ? 
-        [{
-          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          callback: promptWebhookWithParams,
-          num_images: imageResultCount,
-        }] : [
-          {
-            text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-            callback: promptWebhookWithParams,
-            num_images: imageResultCount,
-          }
-        ]
+      prompts_attributes: selectedPrompts,
     },
   };
 
