@@ -88,10 +88,9 @@ export async function POST(request: Request) {
         image_urls: images,
         callback: trainWebhookWithParams,
         prompts_attributes:
-          // process.env.NEXT_PUBLIC_FALLBACK == "origin" ? 
           option == PreferenceEnum.StudioMale ?
           [{
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
             callback: promptWebhookWithParams,
             num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
           }] : option == PreferenceEnum.EnvironmentalMale ?
@@ -101,7 +100,7 @@ export async function POST(request: Request) {
             num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
           }] : option == PreferenceEnum.StudioFemale ? 
           [{
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
+            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
             callback: promptWebhookWithParams,
             num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
           }] : [
@@ -111,30 +110,7 @@ export async function POST(request: Request) {
               num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
             }
           ]
-          // [
-          //   ...[{
-          //     text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, clear eyes, 80mm Sigma f/1.4 or any ZEISS lens`,
-          //     callback: promptWebhookWithParams,
-          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-          //   },
-          //   {
-          //     text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          //     callback: promptWebhookWithParams,
-          //     num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '2') / 2,
-          //   }]
-          // ],
-          // [
-          //   {
-          //     text: `${shot} of ohwx ${gender}
-          // Background: ${background}
-          // Expression: ${expression}
-          // Clothing: ${clothing}
-          // Lighting: ${light}
-          // Color Palette: ${colorPalette}`,
-          //     callback: promptWebhookWithParams,
-          //     num_images: process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT,
-          //   },
-          // ],
+        
       },
     };
 

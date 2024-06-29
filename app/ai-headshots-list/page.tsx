@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Button, Spacer } from "@nextui-org/react";
+import { Button, Spacer, Skeleton } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store/context-provider';
 import HeadshotListItem from './headshot-list-item';
@@ -12,9 +12,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const messages = [
   "AI is processing and generating...",
-  "It may take a few minutes...",
+  "It may take between 5-10 minutes...",
+  "Please do not close or refresh the window...",
+  "Your photos are getting a professional makeover!",
+  "We’re enhancing every pixel just for you...",
+  "Hang tight! Great images are on the way...",
+  "Almost there, your enhanced photos are coming...",
+  "The magic of AI is at work...",
+  "Please do not close or refresh the window...",
+  "Skipping the hassle of makeup and wardrobe...",
+  "Transforming your photos into stunning visuals...",
+  "Good things come to those who wait...",
+  "No need for an expensive photo shoot...",
+  "Just a little longer for a professional look...",
+  "AI is working its magic...",
+  "Please do not close or refresh the window...",
+  "Saving you time and money on photo shoots...",
+  "Thanks for your patience...",
+  "No need to book a photographer...",
+  "Hold tight, your photos are worth the wait...",
+  "A lot faster and cheaper than a studio session...",
   "Please do not close or refresh the window..."
 ];
+
 
 const AIHeadshotsList = () => {
   const [loading, setLoading] = useState(true);
@@ -151,7 +171,7 @@ const AIHeadshotsList = () => {
             {loading && trainedImages.length === 0 ? (
               Array(4).fill('_').map((_, index) => (
                 <div key={index} className="animate-pulse flex flex-col items-center">
-                  <div className="h-64 w-full bg-gray-300 rounded-lg" />
+                  <div className="h-64 w-full bg-gray-500 rounded-lg" />
                 </div>
               ))
             ) : (

@@ -64,18 +64,29 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     setIsLoading(true);
 
     const blobUrls = [];
+    let allUploadsSuccessful = true;
 
     console.log('files', files);
 
     if (files) {
       for (const file of files) {
-        const blob = await upload(file.name, file, {
-          access: "public",
-          handleUploadUrl: "/astria/train-model/image-upload",
-        });
-        blobUrls.push(blob.url);
-        toast.success(`Image ${file.name} uploaded successfully.`);
+        try {
+          const blob = await upload(file.name, file, {
+            access: "public",
+            handleUploadUrl: "/astria/train-model/image-upload",
+          });
+          blobUrls.push(blob.url);
+        } catch (error) {
+          allUploadsSuccessful = false;
+          console.error(`Failed to upload image ${file.name}:`, error);
+        }
       }
+    }
+
+    if (allUploadsSuccessful) {
+      toast.success("All images uploaded successfully.");
+    } else {
+      toast.error("Some images failed to upload.");
     }
 
     const payload = {
@@ -97,7 +108,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
       });
 
       if (response.status == 200) {
-        store.setCurrentID({currentID: payload.id});
+        store.setCurrentID({ currentID: payload.id });
         toast.success("The Model was queued for training.");
         router.push('/ai-headshots-list');
       } else {
