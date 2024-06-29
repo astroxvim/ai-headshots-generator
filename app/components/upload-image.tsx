@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { Spacer, Badge, Image, Button } from "@nextui-org/react";
 import { useDropzone } from "react-dropzone";
 import { cn } from "../utils/cn";
@@ -15,6 +15,8 @@ export type UploadImageProps = {
 
 const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
   ({ className, setUploadedFiles, uploadedFiles, ...props }, ref) => {
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
     const onDrop = useCallback((acceptedFiles: File[]) => {
       setUploadedFiles((prevFiles) => [
         ...prevFiles,
@@ -33,6 +35,10 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
       setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
     };
 
+    const handleBrowseFilesClick = () => {
+      fileInputRef.current?.click();
+    };
+
     return (
       <>
         <div className="flex max-w-xl flex-col text-center">
@@ -40,7 +46,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
           <h1 className="text-4xl black font-medium tracking-tight">Upload Your Images</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
-          Provide 4 to 10 high-quality reference photos for AI headshot generation.
+            Provide 4 to 10 high-quality reference photos for AI headshot generation.
           </h2>
         </div>
         <Spacer y={8} />
@@ -50,13 +56,16 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
           className={cn("flex w-full flex-col items-start rounded-medium text-default-500 bg-default-100/70 transition-colors hover:bg-default-100/90 border-2 border-default-200", className)}
         >
           <div {...getRootProps({ className: "group flex w-full flex-col items-center gap-2 p-4" })}>
-            <input {...getInputProps()} />
+            <input {...getInputProps()} ref={fileInputRef} />
             
             <div className="flex flex-col items-center justify-center p-4 rounded-md text-default-500">
               <Icon icon={uploadIcon} className="text-4xl mb-2" />
               <p className="text-lg">
-                {isDragActive ? "Drop the files here ..." : "Drag 'n' drop files here, or click to select files"}
+                {isDragActive ? "Drop the files here ..." : "Drag 'n' drop files here, or"}
               </p>
+              <Button className="mt-2" color="primary" variant="solid" onClick={handleBrowseFilesClick}>
+                Browse Files
+              </Button>
               <Spacer y={8} />
 
               <ul>
@@ -83,35 +92,33 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
               </ul>
             </div>
             <div className="group flex gap-2 px-4 pt-4 overflow-x-auto">
-            {uploadedFiles.map((image, index) => (
-              <Badge
-                key={index}
-                isOneChar
-                className="opacity-0 group-hover:opacity-100"
-                content={
-                  <div className="relative -top-[8px] right-[8px]">
-                  <Button
-                    isIconOnly
-                    radius="full"
-                    size="sm"
-                    variant="light"
-                    onPress={() => handleDelete(index)}
-                    // className="-translate-x-1/2 -translate-y-1/2 top-0 right-0"
-                  >
-                      <Icon className="text-foreground top-[6px] left-[6px]" icon="iconamoon:close-thin" width={16} />
-                  </Button>
+              {uploadedFiles.map((image, index) => (
+                <Badge
+                  key={index}
+                  isOneChar
+                  className="opacity-0 group-hover:opacity-100"
+                  content={
+                    <div className="relative -top-[8px] right-[8px]">
+                      <Button
+                        isIconOnly
+                        radius="full"
+                        size="sm"
+                        variant="light"
+                        onPress={() => handleDelete(index)}
+                      >
+                        <Icon className="text-foreground top-[6px] left-[6px]" icon="iconamoon:close-thin" width={16} />
+                      </Button>
                     </div>
-                }
-              >
-                <Image
-                  alt="uploaded image cover"
-                  className="h-14 w-14 rounded-small border-small border-default-200/50 object-cover"
-                  src={URL.createObjectURL(image)}
-                />
-              </Badge>
-            ))}
-            
-          </div>
+                  }
+                >
+                  <Image
+                    alt="uploaded image cover"
+                    className="h-14 w-14 rounded-small border-small border-default-200/50 object-cover"
+                    src={URL.createObjectURL(image)}
+                  />
+                </Badge>
+              ))}
+            </div>
           </div>
           <Spacer y={2} />
         </form>
