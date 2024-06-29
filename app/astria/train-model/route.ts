@@ -76,7 +76,6 @@ export async function POST(request: Request) {
           },
           {
             text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
-            negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
             callback: promptWebhookWithParams,
             num_images: 4,
           }
