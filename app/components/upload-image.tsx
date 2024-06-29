@@ -42,11 +42,11 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
     return (
       <>
         <div className="flex max-w-xl flex-col text-center">
-          <h2 className="font-medium text-primary">References</h2>
-          <h1 className="text-4xl black font-medium tracking-tight">Upload Your Images</h1>
+          <h2 className="font-medium text-primary">Upload</h2>
+          <h1 className="text-4xl black font-medium tracking-tight">Upload Photos</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
-            Provide 4 to 10 high-quality reference photos for AI headshot generation.
+            Provide 4 to 10 great reference photos for AI to train and&nbsp;generate.
           </h2>
         </div>
         <Spacer y={8} />
@@ -83,7 +83,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
                 </li>
                 <li className="flex items-center gap-1">
                   <Icon className="text-default-600" icon="ci:check" width={24} />
-                  <p className="text-small text-default-500">Supported Formats: JPG, PNG, and BMP</p>
+                  <p className="text-small text-default-500">Formats: JPG, PNG, WEBP</p>
                 </li>
                 <li className="flex items-center gap-1">
                   <Icon className="text-default-600" icon="ci:check" width={24} />

@@ -76,13 +76,13 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
             color="secondary"
             steps={[
               {
-                title: "Select Settings",
+                title: "Settings",
               },
               {
-                title: "References",
+                title: "Upload",
               },
               {
-                title: "Pay $1 to Generate",
+                title: "Pay & Generate",
               },
             ]}
             onStepChange={(stepIdx) => {
@@ -113,10 +113,10 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
                     title: "Settings",
                   },
                   {
-                    title: "References",
+                    title: "Upload",
                   },
                   {
-                    title: "Payment",
+                    title: "Pay & Generate",
                   },
                 ]}
                 onStepChange={(stepIdx) => {

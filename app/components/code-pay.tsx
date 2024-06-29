@@ -17,6 +17,7 @@ import { upload } from "@vercel/blob/client";
 import code from "@code-wallet/elements";
 import { nanoid } from "nanoid";
 import { useStore } from "../store/context-provider";
+import { toast } from "react-toastify";
 
 type CodePayProps = CardProps & {
   files: File[];
@@ -24,7 +25,7 @@ type CodePayProps = CardProps & {
   selectedGender: string;
 };
 
-const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayProps)  => {
+const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayProps) => {
   const router = useRouter();
   const store = useStore();
 
@@ -33,7 +34,6 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
 
   const [isPaid, setIsPaid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   useEffect(() => {
     const { button } = code.elements.create("button", {
@@ -46,7 +46,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     if (button) {
       button.on("success", (args: any): Promise<boolean | void> => {
         setIsPaid(true);
-        console.log(`$${process.env.NEXT_PUBLIC_PRICE} is successfully paid.`);
+        toast.success(`$${process.env.NEXT_PUBLIC_PRICE} is successfully paid.`);
         return Promise.resolve(true);
       });
 
@@ -61,9 +61,8 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
   }, []);
 
   const submitModel = useCallback(async () => {
+    setIsLoading(true);
 
-    setIsLoading(p => !p);
-    
     const blobUrls = [];
 
     console.log('files', files);
@@ -75,8 +74,9 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
           handleUploadUrl: "/astria/train-model/image-upload",
         });
         blobUrls.push(blob.url);
+        toast.success(`Image ${file.name} uploaded successfully.`);
       }
-    };
+    }
 
     const payload = {
       id: nanoid(),
@@ -98,24 +98,22 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
 
       if (response.status == 200) {
         store.setCurrentID({currentID: payload.id});
-        console.log("The Model was queued for training.")
-        router.push('/ai-headshots-list')
+        toast.success("The Model was queued for training.");
+        router.push('/ai-headshots-list');
       } else {
         const { message } = await response.json();
+        toast.error("Something went wrong! " + message);
         console.log("Something went wrong!", message);
       }
-      // setIsLoading(false);
-
-    }  catch (e) {
+    } catch (e) {
+      toast.error("ERROR: " + e.message);
       console.log('ERROR:', e);
+    } finally {
+      setIsLoading(false);
     }
-
-  }, [files]);
-
-  
+  }, [files, selectedGender, selectedOption, store, router]);
 
   const handleConfetti = () => {
-
     submitModel();
 
     if (buttonRef.current) {
@@ -140,7 +138,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
         <h2 className="font-medium text-primary">Payment</h2>
-        <h1 className="text-4xl font-medium tracking-tight">Pay $1 to Generate</h1>
+        <h1 className="text-4xl font-medium tracking-tight">Pay ${process.env.NEXT_PUBLIC_PRICE} to Generate</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
           Simply pay for what you use. No strings attached.
@@ -185,7 +183,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
                 Code Wallet
               </Link>
               to pay easily and securely, without any credit card info. With
-              Code, you have complete control over your transactions—quick,
+              Code, you have complete control over your transactions&mdash;quick,
               private, and global payments in over 100 currencies.
             </p>
           </div>
