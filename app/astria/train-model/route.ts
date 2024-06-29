@@ -1,7 +1,6 @@
 import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -66,41 +65,48 @@ export async function POST(request: Request) {
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
-      prompts_attributes: 
-        option == PreferenceEnum.StudioMale ?
-        [
-          {
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-            callback: promptWebhookWithParams,
-            num_images: 4,
-          },
-          {
-            text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
-            callback: promptWebhookWithParams,
-            num_images: 4,
-          }
-        ] :
-        option == PreferenceEnum.EnvironmentalMale ?
-        [{
-          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          callback: promptWebhookWithParams,
-          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-        }] : 
-        option == PreferenceEnum.StudioFemale ? 
-        [{
-          text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-          callback: promptWebhookWithParams,
-          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-        }] : 
-        [{
-          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-          callback: promptWebhookWithParams,
-          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-        }]
+      prompts_attributes:
+        option === PreferenceEnum.StudioMale
+          ? [
+              {
+                text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+                callback: promptWebhookWithParams,
+                num_images: 4,
+              },
+              {
+                text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
+                callback: promptWebhookWithParams,
+                num_images: 4,
+              },
+            ]
+          : option === PreferenceEnum.EnvironmentalMale
+          ? [
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                callback: promptWebhookWithParams,
+                num_images: 8,
+              },
+            ]
+          : option === PreferenceEnum.StudioFemale
+          ? [
+              {
+                text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+                callback: promptWebhookWithParams,
+                num_images: 8,
+              },
+            ]
+          : [
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                callback: promptWebhookWithParams,
+                num_images: 8,
+              },
+            ],
     },
   };
 
-  console.log(JSON.stringify(body, null, 2));  // Debugging log to ensure the structure is correct
+  // Debugging log to ensure the structure is correct
+  console.log("Request Body:", JSON.stringify(body, null, 2));
 
   try {
     const response = await axios.post(DOMAIN + "/tunes", body, {
@@ -110,26 +116,16 @@ export async function POST(request: Request) {
       },
     });
 
-    const { status, statusText, data: tune } = response;
+    const { status, data: tune } = response;
 
     if (status !== 201) {
       console.error({ status });
-      if (status === 400) {
-        return NextResponse.json(
-          {
-            message: "webhookUrl must be a URL address",
-          },
-          { status }
-        );
-      }
-      if (status === 402) {
-        return NextResponse.json(
-          {
-            message: "Training models is only available on paid plans.",
-          },
-          { status }
-        );
-      }
+      return NextResponse.json(
+        {
+          message: "Unexpected response status",
+        },
+        { status }
+      );
     }
 
     return NextResponse.json(
@@ -137,13 +133,19 @@ export async function POST(request: Request) {
         message: "success",
         data: tune,
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (e) {
-    console.error(e);
+    console.error("Axios Error:", e);
+    if (e.response) {
+      console.error("Response Data:", e.response.data);
+      console.error("Response Status:", e.response.status);
+      console.error("Response Headers:", e.response.headers);
+    }
     return NextResponse.json(
       {
         message: "Something went wrong!",
+        error: e.message,
       },
       { status: 500 }
     );
