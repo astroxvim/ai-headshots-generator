@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       gid: id,
       blobUrls: images,
       status: "pending",
-      count: 4,
+      count: 8,
     },
   });
 
@@ -60,52 +60,6 @@ export async function POST(request: Request) {
   const imageResultCount = parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1');
   const numImagesPerPrompt = Math.ceil(imageResultCount / 2);
 
-  const prompts = {
-    [PreferenceEnum.StudioMale]: [
-      {
-        text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-        callback: promptWebhookWithParams,
-        num_images: numImagesPerPrompt,
-      },
-      {
-        text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
-        negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
-        callback: promptWebhookWithParams,
-        num_images: numImagesPerPrompt,
-      },
-    ],
-    [PreferenceEnum.EnvironmentalMale]: [
-      {
-        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-        callback: promptWebhookWithParams,
-        num_images: imageResultCount,
-      },
-    ],
-    [PreferenceEnum.StudioFemale]: [
-      {
-        text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-        callback: promptWebhookWithParams,
-        num_images: imageResultCount,
-      },
-    ],
-    [PreferenceEnum.EnvironmentalFemale]: [
-      {
-        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-        callback: promptWebhookWithParams,
-        num_images: imageResultCount,
-      },
-    ],
-    default: [
-      {
-        text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-        callback: promptWebhookWithParams,
-        num_images: imageResultCount,
-      },
-    ],
-  };
-
-  const selectedPrompts = prompts[option] || prompts.default;
-
   const body = {
     tune: {
       title: "test",
@@ -115,9 +69,42 @@ export async function POST(request: Request) {
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
-      prompts_attributes: selectedPrompts,
+      prompts_attributes: 
+        option == PreferenceEnum.StudioMale ?
+        [
+          {
+            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+            callback: promptWebhookWithParams,
+            num_images: numImagesPerPrompt,
+          },
+          {
+            text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
+            negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
+            callback: promptWebhookWithParams,
+            num_images: numImagesPerPrompt,
+          }
+        ] :
+        option == PreferenceEnum.EnvironmentalMale ?
+        [{
+          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+          callback: promptWebhookWithParams,
+          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
+        }] : 
+        option == PreferenceEnum.StudioFemale ? 
+        [{
+          text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+          callback: promptWebhookWithParams,
+          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
+        }] : 
+        [{
+          text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+          callback: promptWebhookWithParams,
+          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
+        }]
     },
   };
+
+  console.log(JSON.stringify(body, null, 2));  // Debugging log to ensure the structure is correct
 
   try {
     const response = await axios.post(DOMAIN + "/tunes", body, {
@@ -127,16 +114,26 @@ export async function POST(request: Request) {
       },
     });
 
-    const { status, data: tune } = response;
+    const { status, statusText, data: tune } = response;
 
     if (status !== 201) {
       console.error({ status });
-      return NextResponse.json(
-        {
-          message: "Failed to create the tune.",
-        },
-        { status }
-      );
+      if (status === 400) {
+        return NextResponse.json(
+          {
+            message: "webhookUrl must be a URL address",
+          },
+          { status }
+        );
+      }
+      if (status === 402) {
+        return NextResponse.json(
+          {
+            message: "Training models is only available on paid plans.",
+          },
+          { status }
+        );
+      }
     }
 
     return NextResponse.json(
@@ -144,14 +141,13 @@ export async function POST(request: Request) {
         message: "success",
         data: tune,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (e) {
     console.error(e);
     return NextResponse.json(
       {
         message: "Something went wrong!",
-        error: e.message,
       },
       { status: 500 }
     );
