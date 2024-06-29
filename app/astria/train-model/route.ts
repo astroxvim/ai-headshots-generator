@@ -21,24 +21,21 @@ export async function POST(request: Request) {
   const option = payload.option;
   const id = payload.id;
 
-  const newimageGeneration = await prisma.imageGeneration.create({
+  const newImageGeneration = await prisma.imageGeneration.create({
     data: {
       gid: id,
       blobUrls: images,
       status: "pending",
-      count: 8
+      count: 4,
     },
   });
 
   if (!astriaApiKey) {
     return NextResponse.json(
       {
-        message:
-        "Missing API Key: Add your Astria API Key to generate headshots",
+        message: "Missing API Key: Add your Astria API Key to generate headshots",
       },
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 
@@ -130,26 +127,16 @@ export async function POST(request: Request) {
       },
     });
 
-    const { status, statusText, data: tune } = response;
+    const { status, data: tune } = response;
 
     if (status !== 201) {
       console.error({ status });
-      if (status === 400) {
-        return NextResponse.json(
-          {
-            message: "webhookUrl must be a URL address",
-          },
-          { status }
-        );
-      }
-      if (status === 402) {
-        return NextResponse.json(
-          {
-            message: "Training models is only available on paid plans.",
-          },
-          { status }
-        );
-      }
+      return NextResponse.json(
+        {
+          message: "Failed to create the tune.",
+        },
+        { status }
+      );
     }
 
     return NextResponse.json(
@@ -164,6 +151,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         message: "Something went wrong!",
+        error: e.message,
       },
       { status: 500 }
     );
