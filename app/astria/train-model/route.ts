@@ -57,9 +57,6 @@ export async function POST(request: Request) {
   const API_KEY = astriaApiKey;
   const DOMAIN = "https://api.astria.ai";
 
-  const imageResultCount = parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1');
-  const numImagesPerPrompt = Math.ceil(imageResultCount / 2);
-
   const body = {
     tune: {
       title: "test",
@@ -75,13 +72,13 @@ export async function POST(request: Request) {
           {
             text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
             callback: promptWebhookWithParams,
-            num_images: numImagesPerPrompt,
+            num_images: 4,
           },
           {
             text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors --tiled_upscale`,
             negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
             callback: promptWebhookWithParams,
-            num_images: numImagesPerPrompt,
+            num_images: 4,
           }
         ] :
         option == PreferenceEnum.EnvironmentalMale ?
