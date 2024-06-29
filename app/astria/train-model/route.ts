@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   const DOMAIN = "https://api.astria.ai";
 
   const numImagesPerPrompt = Math.ceil(
-    parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "1") / 2
+    parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
   );
 
   const body = {
@@ -79,12 +79,13 @@ export async function POST(request: Request) {
               {
                 text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
                 callback: promptWebhookWithParams,
-                num_images: 4,
+                num_images: numImagesPerPrompt,
               },
               {
                 text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors`,
+                negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
                 callback: promptWebhookWithParams,
-                num_images: 4,
+                num_images: numImagesPerPrompt,
               },
             ]
           : option == PreferenceEnum.EnvironmentalMale
@@ -92,7 +93,7 @@ export async function POST(request: Request) {
               {
                 text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
                 callback: promptWebhookWithParams,
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "1"),
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : option == PreferenceEnum.StudioFemale
@@ -100,14 +101,22 @@ export async function POST(request: Request) {
               {
                 text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
                 callback: promptWebhookWithParams,
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "1"),
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option == PreferenceEnum.EnvironmentalFemale
+          ? [
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                callback: promptWebhookWithParams,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : [
               {
                 text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
                 callback: promptWebhookWithParams,
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "1"),
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ],
     },
