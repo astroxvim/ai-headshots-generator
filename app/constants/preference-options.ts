@@ -4,28 +4,28 @@ import { PreferenceEnum } from "./preference-types";
 export const preferenceOptions = [
   {
     key: PreferenceEnum.StudioMale,
-    gender: "male",
+    gender: "man",
     title: "Studio",
     description: "Clean, professional photos with studio lighting",
     imageUrl: "/images/male-studio.png",
   },
   {
     key: PreferenceEnum.EnvironmentalMale,
-    gender: "male",
+    gender: "man",
     title: "Environmental",
     description: "Professional photos in natural settings",
     imageUrl: "/images/male-environ.png",
   },
   {
     key: PreferenceEnum.StudioFemale,
-    gender: "female",
+    gender: "woman",
     title: "Studio",
     description: "Elegant, refined photos with perfect lighting",
     imageUrl: "/images/female-studio.png",
   },
   {
     key: PreferenceEnum.EnvironmentalFemale,
-    gender: "female",
+    gender: "woman",
     title: "Environmental",
     description: "Natural, genuine photos in real-world",
     imageUrl: "/images/female-environ.png",

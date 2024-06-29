@@ -137,7 +137,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
   return (
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-primary">Payment</h2>
+        <h2 className="font-medium text-primary">Pay & Generate</h2>
         <h1 className="text-4xl font-medium tracking-tight">Pay ${process.env.NEXT_PUBLIC_PRICE} to Generate</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
