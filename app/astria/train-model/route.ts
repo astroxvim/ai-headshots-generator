@@ -61,7 +61,7 @@ export async function POST(request: Request) {
   const DOMAIN = "https://api.astria.ai";
 
   const numImagesPerPrompt = Math.ceil(
-    parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
+    parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 4
   );
 
   const body = {
@@ -79,12 +79,30 @@ export async function POST(request: Request) {
               {
                 text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
                 callback: promptWebhookWithParams,
+                w: 512,
+                h: 768,
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `8k close up linkedin profile picture of handsome ohwx ${gender}, buttoned black shirt, warm skin tones colors`,
+                text: `portrait of ohwx ${gender} wearing a business casual, professional photo, monochromatic, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, deep shadows, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 768,
+                num_images: numImagesPerPrompt,
+              },
+              {
+                text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, Amazing Details, Best Quality, sharp focus, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, studio lighting, reflectors, softboxes, a photography backdrop stand, key light, fill light, rim light, back light, 80mm Sigma f/1.4 or any ZEISS lens`,
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 768,
+                num_images: numImagesPerPrompt,
+              },
+              {
+                text: `8k close up linkedin profile picture of ohwx ${gender}, buttoned black shirt, warm skin tones colors`,
                 negative_prompt: 'old, wrinkles, eye bags, mole, blemish, scar, sad, severe, 3d, cg',
                 callback: promptWebhookWithParams,
+                w: 512,
+                h: 768,
                 num_images: numImagesPerPrompt,
               },
             ]
