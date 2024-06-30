@@ -46,7 +46,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     if (button) {
       button.on("success", (args: any): Promise<boolean | void> => {
         setIsPaid(true);
-        toast.success(`$${process.env.NEXT_PUBLIC_PRICE} is successfully paid.`);
+        toast.success(`$${process.env.NEXT_PUBLIC_PRICE} paid successfully.`);
         return Promise.resolve(true);
       });
 
@@ -84,7 +84,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     }
 
     if (allUploadsSuccessful) {
-      toast.success("All images uploaded successfully.");
+      toast.success("All images processed successfully.");
     } else {
       toast.error("Some images failed to upload.");
     }
@@ -109,7 +109,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
 
       if (response.status == 200) {
         store.setCurrentID({ currentID: payload.id });
-        toast.success("The Model was queued for training.");
+        toast.success("The model is queued for training.");
         router.push('/ai-headshots-list');
       } else {
         const { message } = await response.json();
