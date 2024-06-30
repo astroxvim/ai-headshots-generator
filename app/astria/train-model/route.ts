@@ -96,15 +96,15 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-                negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, green',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, business casual, business, blurred background, parks, cityscape, high detail, realistic skin texture, soft lighting`,
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
                 negative_prompt: 'sad, severe, 3d, cg, cartoonish',
                 callback: promptWebhookWithParams,
                 w: 512,
@@ -126,16 +126,16 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalFemale
           ? [
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-              negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish, green',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
               num_images: numImagesPerPrompt,
             },
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, business suit, business, blurred background, parks, cityscape, high detail, realistic skin texture, soft lighting`,
-              negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
+              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,

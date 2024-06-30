@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Button, Spacer, Skeleton } from "@nextui-org/react";
+import { Button, Spacer } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store/context-provider';
 import HeadshotListItem from './headshot-list-item';
@@ -38,13 +38,12 @@ const messages = [
   "Please do not close or refresh the window..."
 ];
 
-
 const AIHeadshotsList = () => {
   const [loading, setLoading] = useState(true);
   const [isDownloading, setDownloading] = useState(false);
   const [trainedImages, setTrainedImages] = useState([]);
   const [messageIndex, setMessageIndex] = useState(0);
-  
+
   const router = useRouter();
   const store = useStore();
 
@@ -69,7 +68,6 @@ const AIHeadshotsList = () => {
     }
 
     intervalId = setInterval(async () => {
-
       console.log('checkID: ', store.currentID);
 
       const response = await fetch("/db/train-check", {
@@ -141,7 +139,8 @@ const AIHeadshotsList = () => {
           <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
         </div>
         <div className="max-w-xl text-center">
-          <h2 className="font-medium text-primary">ETA 4-8 Minutes</h2><h1 className="text-4xl font-medium tracking-tight">
+          <h2 className="font-medium text-primary">{loading ? "DO NOT CLOSE OR REFRESH" : "AI Headshots"}</h2>
+          <h1 className="text-4xl font-medium tracking-tight">
             {loading ? "Your images are generating..." : "Your images are ready"}
           </h1>
           <Spacer y={4} />
@@ -174,13 +173,13 @@ const AIHeadshotsList = () => {
             {loading && trainedImages.length === 0 ? (
               Array(4).fill('_').map((_, index) => (
                 <div key={index} className="animate-pulse flex flex-col items-center">
-                  <div className="h-64 w-full bg-gray-500 rounded-lg" />
+                  <div className="h-64 w-full bg-gray-300 rounded-lg" />
                 </div>
               ))
             ) : (
               trainedImages.map((headshot, index) => (
                 <React.Fragment key={headshot.id}>
-                    <HeadshotListItem headshot={{ title: index, src: headshot?.blob }} />
+                  <HeadshotListItem headshot={{ title: index, src: headshot?.blob }} />
                 </React.Fragment>
               ))
             )}
