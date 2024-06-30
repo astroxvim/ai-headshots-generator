@@ -104,7 +104,7 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, buildings, cityscape, trees, high detail, realistic skin texture, soft lighting`,
                 negative_prompt: 'sad, severe, 3d, cg, cartoonish',
                 callback: promptWebhookWithParams,
                 w: 512,
@@ -134,7 +134,7 @@ export async function POST(request: Request) {
               num_images: numImagesPerPrompt,
             },
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, blurred trees, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
               negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish',
               callback: promptWebhookWithParams,
               w: 512,
