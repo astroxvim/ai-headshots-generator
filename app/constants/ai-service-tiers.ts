@@ -40,6 +40,6 @@ export const services: Service[] = [
     buttonText: "Coming Soon",
     buttonColor: "default",
     buttonVariant: "flat",
-    imageUrl: "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg" // Add your image URL here
+    imageUrl: "./images/creativehead.png" // Add your image URL here
   },
 ];

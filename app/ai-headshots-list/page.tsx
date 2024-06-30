@@ -141,7 +141,7 @@ const AIHeadshotsList = () => {
           <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
         </div>
         <div className="max-w-xl text-center">
-          <h2 className="font-medium text-primary">ETA 4-8 Minutes ETA</h2><h1 className="text-4xl font-medium tracking-tight">
+          <h2 className="font-medium text-primary">ETA 4-8 Minutes</h2><h1 className="text-4xl font-medium tracking-tight">
             {loading ? "Your images are generating..." : "Your images are ready"}
           </h1>
           <Spacer y={4} />
