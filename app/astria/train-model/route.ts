@@ -104,7 +104,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.StudioFemale
           ? [
               {
-                text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
+                text: `8k ultra close-up linkedin profile picture of ohwx ${gender}, professional studio setting, dynamic solid color background that complements the suit, wearing a fashionable business suit, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, clean one color background`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
                 callback: promptWebhookWithParams,
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
