@@ -96,9 +96,20 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish',
                 callback: promptWebhookWithParams,
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
+              },
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, business casual, business, blurred background, parks, cityscape, high detail, realistic skin texture, soft lighting`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
               },
             ]
           : option == PreferenceEnum.StudioFemale
