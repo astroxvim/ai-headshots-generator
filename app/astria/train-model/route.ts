@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         option == PreferenceEnum.StudioMale
           ? [
               {
-                text: `8k ultra close-up linkedin profile picture of ohwx ${gender}, professional studio setting, plain solid color background, in a buttoned shirt, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, clean background`,
+                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain solid color background, in a business casual buttoned shirt, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, upper body, clean background`,
                 negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
                 callback: promptWebhookWithParams,
                 w: 512,
@@ -85,7 +85,7 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `8k ultra close-up linkedin profile picture of ohwx ${gender}, professional studio setting, plain dark solid color background, wearing a tailored business suit, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, clean background`,
+                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain dark solid color background, wearing a tailored business suit, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, clean background`,
                 negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
                 callback: promptWebhookWithParams,
                 w: 512,
