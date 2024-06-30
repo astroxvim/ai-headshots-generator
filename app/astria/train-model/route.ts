@@ -66,7 +66,7 @@ export async function POST(request: Request) {
 
   const body = {
     tune: {
-      title: "test",
+      title: "UPIC Headshots",
       base_tune_id: 690204,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
