@@ -42,7 +42,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
     return (
       <>
         <div className="flex max-w-xl flex-col text-center">
-          <h2 className="font-medium text-primary">Upload</h2>
+          <h2 className="font-medium text-secondary">Upload</h2>
           <h1 className="text-4xl black font-medium tracking-tight">Upload Photos</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">

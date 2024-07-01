@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Button, Spacer } from "@nextui-org/react";
+import { Button, Spacer, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store/context-provider';
 import HeadshotListItem from './headshot-list-item';
@@ -43,6 +43,7 @@ const AIHeadshotsList = () => {
   const [isDownloading, setDownloading] = useState(false);
   const [trainedImages, setTrainedImages] = useState([]);
   const [messageIndex, setMessageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const router = useRouter();
   const store = useStore();
@@ -60,9 +61,9 @@ const AIHeadshotsList = () => {
   }, []);
 
   useEffect(() => {
-    let intervalId: any;
+    let intervalId;
 
-    if (!store.currentID || store.currentID == "" || store.currentID == "error") {
+    if (!store.currentID || store.currentID === "" || store.currentID === "error") {
       clearInterval(intervalId);
       return;
     }
@@ -83,23 +84,20 @@ const AIHeadshotsList = () => {
         clearInterval(intervalId);
         setTrainedImages(trained_image);
       }
-    }, 5000); // 1000 milliseconds = 1 second
+    }, 5000);
 
-    // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, [store.currentID]);
 
-  const downloadFile = async (files: any) => {
+  const downloadFile = async (files) => {
     setDownloading(true);
     try {
       console.log(files);
 
-      // Create a temporary URL for each file.
-      const fileUrls = files.map((file: any) => file.blob);
+      const fileUrls = files.map(file => file.blob);
 
-      // Create a ZIP archive using the temporary URLs.
       const zip = new JSZip();
-      fileUrls.forEach((url: RequestInfo | URL, index: string | number) => {
+      fileUrls.forEach((url, index) => {
         zip.file(
           `${index}.jpg`,
           fetch("/astria/image", {
@@ -111,17 +109,14 @@ const AIHeadshotsList = () => {
         );
       });
 
-      // Generate the ZIP file content as a blob.
       const zipContent = await zip.generateAsync({ type: "blob" });
 
-      // Create a download link and trigger the download.
       const downloadLink = document.createElement("a");
       downloadLink.href = URL.createObjectURL(zipContent);
       downloadLink.download = "downloaded_images.zip";
       downloadLink.click();
 
-      // Clean up temporary URLs.
-      fileUrls.forEach((url: string) => URL.revokeObjectURL(url));
+      fileUrls.forEach(url => URL.revokeObjectURL(url));
 
       setDownloading(false);
     } catch (error) {
@@ -136,10 +131,10 @@ const AIHeadshotsList = () => {
       <div className="overlay"></div>
       <div className="content flex flex-col items-center">
         <div className="w-full flex justify-center items-center mt-8 mb-4">
-          <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" /> {/* Centered logo */}
+          <img src="/upic-logo.svg" alt="UPIC Logo" className="w-28 h-28" />
         </div>
         <div className="max-w-xl text-center">
-          <h2 className="font-medium text-primary">{loading ? "DO NOT CLOSE OR REFRESH" : "AI Headshots"}</h2>
+          <h2 className="font-medium text-secondary">{loading ? "DO NOT CLOSE OR REFRESH" : "AI Headshots"}</h2>
           <h1 className="text-4xl font-medium tracking-tight">
             {loading ? "Your images are generating..." : "Your images are ready"}
           </h1>
@@ -173,7 +168,7 @@ const AIHeadshotsList = () => {
             {loading && trainedImages.length === 0 ? (
               Array(4).fill('_').map((_, index) => (
                 <div key={index} className="animate-pulse flex flex-col items-center">
-                  <div className="h-64 w-full bg-gray-300 rounded-lg" />
+                  <div className="h-64 w-full bg-gray-800 rounded-lg" />
                 </div>
               ))
             ) : (
@@ -202,6 +197,37 @@ const AIHeadshotsList = () => {
               </Button>
             </div>
           )}
+        </div>
+      </div>
+      <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="w-full max-w-sm p-4">
+          <Modal 
+            isOpen={isModalOpen} 
+            onOpenChange={setIsModalOpen} 
+            backdrop="blur"
+            size="sm"
+            placement="center"
+          >
+            <ModalContent className='p-4'>
+              <ModalHeader className="text-large font-medium">Generation in Progress</ModalHeader>
+                <ModalBody className="text-medium text-default-500">
+                  AI generation can take about 4-8 minutes. Please stay with us and avoid refreshing the page or closing your browser to ensure your session completes successfully. <span className='text-warning'>Refreshing or closing the browser will result in the loss of your paid session.</span>
+                </ModalBody>
+                <ModalFooter>
+                  <Button 
+                    className="px-4 font-medium"
+                    radius="lg"
+                    style={{
+                      border: "solid 2px transparent",
+                      backgroundImage: `linear-gradient(hsl(var(--nextui-background)), hsl(var(--nextui-background))), linear-gradient(83.87deg, #6645EB, #1FC5DB)`,
+                      backgroundOrigin: "border-box",
+                      backgroundClip: "padding-box, border-box",
+                    }}
+                    onPress={() => setIsModalOpen(false)}>Ok, I understand
+                  </Button>
+                </ModalFooter>
+            </ModalContent>
+          </Modal>
         </div>
       </div>
     </div>

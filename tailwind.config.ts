@@ -17,6 +17,7 @@ const config: Config = {
       },
       colors: {
         primary: '#6645EB',
+        secondary: '#1FC5DB',
         "upic-primary": "#50defb",
       },
     },
