@@ -187,7 +187,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
             <p className="text-small text-default-400">
               Get{" "}
               <Link
-                className="mx-1 text-primary text-small underline"
+                className="mx-1 text-secondary text-small underline"
                 href="https://getcode.com/"
                 target="_blank"
               >
