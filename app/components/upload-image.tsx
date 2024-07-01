@@ -70,24 +70,29 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
 
               <ul>
                 <li className="flex items-center gap-1">
-                  <Icon className="text-default-600" icon="ci:check" width={24} />
+                  <Icon className="text-default-600 text-success" icon="ci:check" width={24} />
                   <p className="text-small text-default-500">Face centered and fully visible</p>
                 </li>
                 <li className="flex items-center gap-1">
-                  <Icon className="text-default-600" icon="ci:check" width={24} />
+                  <Icon className="text-default-600 text-success" icon="ci:check" width={24} />
+                  <p className="text-small text-default-500">Shoulders/waist-up images</p>
+                </li>
+                <li className="flex items-center gap-1">
+                  <Icon className="text-default-600 text-success" icon="ci:check" width={24} />
+                  <p className="text-small text-default-500">Looking at camera</p>
+                </li>
+                <li className="flex items-center gap-1">
+                  <Icon className="text-default-600 text-warning" icon="ci:close-sm" width={24} />
                   <p className="text-small text-default-500">No group photos</p>
                 </li>
                 <li className="flex items-center gap-1">
-                  <Icon className="text-default-600" icon="ci:check" width={24} />
+                  <Icon className="text-default-600 text-warning" icon="ci:close-sm" width={24} />
                   <p className="text-small text-default-500">No face-obscuring accessories</p>
                 </li>
+                
                 <li className="flex items-center gap-1">
-                  <Icon className="text-default-600" icon="ci:check" width={24} />
-                  <p className="text-small text-default-500">Formats: JPG, PNG, WEBP</p>
-                </li>
-                <li className="flex items-center gap-1">
-                  <Icon className="text-default-600" icon="ci:check" width={24} />
-                  <p className="text-small text-default-500">Max Size: 5MB per image</p>
+                  <Icon className="text-default-600  text-warning" icon="ci:close-sm" width={24} />
+                  <p className="text-small text-default-500">No same day images</p>
                 </li>
               </ul>
             </div>
