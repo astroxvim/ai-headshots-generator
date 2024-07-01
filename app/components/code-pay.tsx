@@ -170,7 +170,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
           isLoading={isLoading}
           onPress={handleConfetti}
         >
-          Generate Your Headshot
+          { isLoading ? "Processing..." : "Generate Your Headshot" }
         </Button>
       )}
       <Spacer y={12} />
