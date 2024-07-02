@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 
 export interface AuthContextProps {
   isPaid: boolean;
@@ -18,12 +18,17 @@ const StoreProvider = ({children}) => {
     const [currentID, setId] = useState("");
     const [trainedImages, setTrainImages] = useState<[]>([]);
 
+    useEffect(() => {
+        if(localStorage.getItem('currentID')) setId(localStorage.getItem('currentID'));
+    }, [])
+
     const setPaid = ({paid}: {paid: boolean}) => {
         setIsPaid(paid);
     }
 
     const setCurrentID = ({ currentID }: { currentID: string }) => {
         setId(currentID);
+        localStorage.setItem('currentID', currentID);
     }
 
     const setTrainedImages = (trainedImages: []) => {  // Change [] to any[] or a more specific type

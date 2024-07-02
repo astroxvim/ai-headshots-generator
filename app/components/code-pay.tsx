@@ -174,6 +174,18 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
         </Button>
       )}
       <Spacer y={12} />
+      <Button
+          ref={buttonRef}
+          disableRipple
+          className="relative overflow-visible rounded-xlg hover:-translate-y-1 px-12 shadow-xl"
+          size="lg"
+          style={buttonStyle}
+          isLoading={isLoading}
+          onPress={handleConfetti}
+        >
+          { isLoading ? "Processing..." : "Generate Your Headshot" }
+        </Button>
+      <Spacer y={12} />
       <Card className="w-full max-w-[420px] sm:w-[420px]" {...props}>
         <CardBody className="px-3 pb-1">
           <Image
