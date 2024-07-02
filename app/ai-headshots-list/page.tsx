@@ -43,7 +43,7 @@ const AIHeadshotsList = () => {
   const [isDownloading, setDownloading] = useState(false);
   const [trainedImages, setTrainedImages] = useState([]);
   const [messageIndex, setMessageIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  // const [isModalOpen, setIsModalOpen] = useState(true);
 
   const router = useRouter();
   const store = useStore();
@@ -199,7 +199,7 @@ const AIHeadshotsList = () => {
           )}
         </div>
       </div>
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      {/* <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="w-full max-w-sm p-4">
           <Modal 
             isOpen={isModalOpen} 
@@ -229,7 +229,7 @@ const AIHeadshotsList = () => {
             </ModalContent>
           </Modal>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
