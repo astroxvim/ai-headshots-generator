@@ -84,7 +84,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     }
 
     if (allUploadsSuccessful) {
-      toast.success("All images processed successfully.");
+      toast.success("Sample images processed for training.");
     } else {
       toast.error("Some images failed to upload.");
     }
@@ -109,7 +109,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
 
       if (response.status == 200) {
         store.setCurrentID({ currentID: payload.id });
-        toast.success("The model is queued for training.");
+        toast.success("Model queued for training.");
         router.push('/ai-headshots-list');
       } else {
         const { message } = await response.json();
