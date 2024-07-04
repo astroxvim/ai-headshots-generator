@@ -6,11 +6,8 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-
 const astriaApiKey = process.env.ASTRIA_API_KEY;
 const astriaTestModeIsOn = process.env.ASTRIA_TEST_MODE === "true";
-// For local development, recommend using an Ngrok tunnel for the domain
-
 const appWebhookSecret = process.env.APP_WEBHOOK_SECRET;
 const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
@@ -25,31 +22,19 @@ export async function POST(request: Request) {
   const option = payload.option;
   const id = payload.id;
 
-
-  // const name = payload.name;
-  // const shot = "Close-Up: Focuses closely on the face, capturing fine details and expressions.";
-  // const background = "Solid Color: Simple, distraction-free background in a single color.";
-  // const light = "Natural: Soft, natural light that mimics daylight, creating a realistic and pleasant effect.";
-  // const clothing = "Business Formal: Outfits such as suits and ties, blazers, and formal dresses.";
-  // const expression = "Smiling: Adjusts facial features to create a warm, approachable smile.";
-  // const colorPalette = "Warm: Uses warm tones such as reds, oranges, and yellows to create a cozy and inviting atmosphere.";
-
-
-
   const newimageGeneration = await prisma.imageGeneration.create({
     data: {
       gid: id,
       blobUrls: images,
       status: "pending",
-      count: 4
+      count: 8,
     },
   });
 
   if (!astriaApiKey) {
     return NextResponse.json(
       {
-        message:
-          "Missing API Key: Add your Astria API Key to generate headshots",
+        message: "Missing API Key: Add your Astria API Key to generate headshots",
       },
       {
         status: 500,
@@ -66,61 +51,114 @@ export async function POST(request: Request) {
     );
   }
 
-  // try {
-    const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
-    const trainWebhookWithParams = `${trainWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
+  const trainWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/train-webhook`;
+  const trainWebhookWithParams = `${trainWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
 
-    const promptWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/prompt-webhook`;
-    const promptWebhookWithParams = `${promptWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
+  const promptWebhook = `https://${process.env.DEPLOYMENT_URL}/astria/prompt-webhook`;
+  const promptWebhookWithParams = `${promptWebhook}?user_id=${id}&webhook_secret=${appWebhookSecret}`;
 
-    const API_KEY = astriaApiKey;
-    const DOMAIN = "https://api.astria.ai";
+  const API_KEY = astriaApiKey;
+  const DOMAIN = "https://api.astria.ai";
 
-    const body = {
-      tune: {
-        title: "test",
-        // Hard coded tune id of Realistic Vision v5.1 from the gallery - https://www.astria.ai/gallery/tunes
-        // https://www.astria.ai/gallery/tunes/690204/prompts
-        base_tune_id: 690204,
-        name: gender,
-        branch: astriaTestModeIsOn ? "fast" : "sd15",
-        token: "ohwx",
-        image_urls: images,
-        callback: trainWebhookWithParams,
-        prompts_attributes:
-          option == PreferenceEnum.StudioMale ?
-          [{
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-            callback: promptWebhookWithParams,
-            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-          }] : option == PreferenceEnum.EnvironmentalMale ?
-          [{
-            text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-            callback: promptWebhookWithParams,
-            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-          }] : option == PreferenceEnum.StudioFemale ? 
-          [{
-            text: `portrait of ohwx ${gender} wearing a business suit, professional photo, white background, color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, analog photo, overglaze, realistic facial features, natural skin texture, 80mm Sigma f/1.4 or any ZEISS lens`,
-            callback: promptWebhookWithParams,
-            num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-          }] : [
+  const numImagesPerPrompt = Math.ceil(
+    parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
+  );
+
+  const body = {
+    tune: {
+      title: "UPIC Headshots",
+      base_tune_id: 690204,
+      name: gender,
+      branch: astriaTestModeIsOn ? "fast" : "sd15",
+      token: "ohwx",
+      image_urls: images,
+      callback: trainWebhookWithParams,
+      prompts_attributes:
+        option == PreferenceEnum.StudioMale
+          ? [
+              {
+                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain solid color background, in a business casual buttoned shirt, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, upper body, clean background`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
+              },
+              {
+                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain dark solid color background, wearing a tailored business suit, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, clean background`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
+              },
+            ]
+          : option == PreferenceEnum.EnvironmentalMale
+          ? [
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, green',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
+              },
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, buildings, cityscape, trees, high detail, realistic skin texture, soft lighting`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: numImagesPerPrompt,
+              },
+            ]
+          : option == PreferenceEnum.StudioFemale
+          ? [
+              {
+                text: `8k linkedin profile picture of ohwx ${gender}, professional studio, dynamic solid background complementing the suit, wearing a business suit, hyper-realistic, 8k resolution, sharp focus, high dynamic range, clean background, confident, elegant, varied expressions, varied distances close-up, medium shots`,
+                negative_prompt: 'outside, sad, severe, cleavage, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option == PreferenceEnum.EnvironmentalFemale
+          ? [
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish, green',
               callback: promptWebhookWithParams,
-              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? '1'),
-            }
-          ]
-        
-      },
-    };
+              w: 512,
+              h: 640,
+              num_images: numImagesPerPrompt,
+            },
+            {
+              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, blurred trees, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
+              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish',
+              callback: promptWebhookWithParams,
+              w: 512,
+              h: 640,
+              num_images: numImagesPerPrompt,
+            },
+            ]
+          : [
+              {
+                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                callback: promptWebhookWithParams,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ],
+    },
+  };
 
+  try {
     const response = await axios.post(DOMAIN + "/tunes", body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${API_KEY}`,
       },
     });
-
 
     const { status, statusText, data: tune } = response;
 
@@ -142,9 +180,6 @@ export async function POST(request: Request) {
           { status }
         );
       }
-
-      
-
     }
 
     return NextResponse.json(
@@ -152,22 +187,15 @@ export async function POST(request: Request) {
         message: "success",
         data: tune,
       },
-      { status: 200 },
+      { status: 200 }
     );
-  // } catch (e) {
-  //   console.error(e);
-  //   return NextResponse.json(
-  //     {
-  //       message: "Something went wrong!",
-  //     },
-  //     { status: 500 }
-  //   );
-  // }
-
-  // return NextResponse.json(
-  //   {
-  //     message: "success",
-  //   },
-  //   { status: 200 }
-  // );
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      {
+        message: "Something went wrong!",
+      },
+      { status: 500 }
+    );
+  }
 }

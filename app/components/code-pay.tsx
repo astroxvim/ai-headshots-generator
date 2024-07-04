@@ -46,7 +46,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     if (button) {
       button.on("success", (args: any): Promise<boolean | void> => {
         setIsPaid(true);
-        toast.success(`$${process.env.NEXT_PUBLIC_PRICE} is successfully paid.`);
+        toast.success(`$${process.env.NEXT_PUBLIC_PRICE} paid successfully.`);
         return Promise.resolve(true);
       });
 
@@ -84,7 +84,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     }
 
     if (allUploadsSuccessful) {
-      toast.success("All images uploaded successfully.");
+      toast.success("All images processed successfully.");
     } else {
       toast.error("Some images failed to upload.");
     }
@@ -109,7 +109,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
 
       if (response.status == 200) {
         store.setCurrentID({ currentID: payload.id });
-        toast.success("The Model was queued for training.");
+        toast.success("The model is queued for training.");
         router.push('/ai-headshots-list');
       } else {
         const { message } = await response.json();
@@ -148,7 +148,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
   return (
     <div className="flex flex-col items-center py-12">
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-primary">Pay & Generate</h2>
+        <h2 className="font-medium text-secondary">Pay & Generate</h2>
         <h1 className="text-4xl font-medium tracking-tight">Pay ${process.env.NEXT_PUBLIC_PRICE} to Generate</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
@@ -170,7 +170,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
           isLoading={isLoading}
           onPress={handleConfetti}
         >
-          Generate Your Headshot
+          { isLoading ? "Processing..." : "Generate Your Headshot" }
         </Button>
       )}
       <Spacer y={12} />
@@ -187,7 +187,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
             <p className="text-small text-default-400">
               Get{" "}
               <Link
-                className="mx-1 text-primary text-small underline"
+                className="mx-1 text-secondary text-small underline"
                 href="https://getcode.com/"
                 target="_blank"
               >

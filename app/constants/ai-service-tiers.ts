@@ -1,6 +1,6 @@
 import { Service, ServiceEnum } from './ai-service-types';
 
-const price = process.env.NEXT_PUBLIC_PRICE || "4"; // Default to 1 if not set
+const price = process.env.NEXT_PUBLIC_PRICE || "5"; // Default to 4 if not set
 
 export const services: Service[] = [
   {
@@ -10,6 +10,7 @@ export const services: Service[] = [
     priceSuffix: "per use", // Add the price suffix here
     description: "Photos for professional and career use",
     features: [
+      '<span class="text-success">60% Discount! [Limited Time]</span>',
       "Studio or on-location style options",
       "Set of 8 high-quality images",
       "No account creation required",
@@ -26,7 +27,7 @@ export const services: Service[] = [
   {
     key: ServiceEnum.Creative,
     title: "Creative Artwork",
-    price: `$${price}`, // Dollar sign concatenated with the price value
+    price: `$5`, // Dollar sign concatenated with the price value
     priceSuffix: "per use", // Add the price suffix here
     description: "Artistic and expressive photo creations",
     features: [
@@ -40,6 +41,6 @@ export const services: Service[] = [
     buttonText: "Coming Soon",
     buttonColor: "default",
     buttonVariant: "flat",
-    imageUrl: "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg" // Add your image URL here
+    imageUrl: "./images/creativehead.png" // Add your image URL here
   },
 ];

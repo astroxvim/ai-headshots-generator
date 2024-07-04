@@ -82,10 +82,14 @@ const IntroPage = () => {
                 </span>
               </p>
               <ul className="flex flex-col gap-2">
-                {service.features?.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <Icon className="text-primary" icon="ci:check" width={24} />
-                    <p className="text-default-500">{feature}</p>
+                {service.features?.map((feature, index) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <Icon
+                      className={feature.includes('60% Discount Event') ? "text-success" : "text-primary"}
+                      icon={feature.includes('60% Discount!') ? "ci:clock" : "ci:check"}
+                      width={24}
+                    />
+                    <p className="text-default-500" dangerouslySetInnerHTML={{ __html: feature }} />
                   </li>
                 ))}
               </ul>
