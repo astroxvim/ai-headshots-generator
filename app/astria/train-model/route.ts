@@ -81,7 +81,7 @@ export async function POST(request: Request) {
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
-                face_swap: true,
+                face_swap: 'true',
                 scheduler: 'dpm++2m_karras', 
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
