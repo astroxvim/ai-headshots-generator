@@ -82,7 +82,7 @@ export async function POST(request: Request) {
                 w: 512,
                 h: 640,
                 face_swap: true,
-                scheduler: "dpm++2m_karras",
+                scheduler: 'dpm++2m_karras', 
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
@@ -108,11 +108,13 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.StudioFemale
           ? [
               {
-                text: `8k linkedin profile picture of ohwx ${gender}, professional studio, dynamic solid background complementing the suit, wearing a business suit, hyper-realistic, 8k resolution, sharp focus, high dynamic range, clean background, confident, elegant, varied expressions, varied distances close-up, medium shots`,
-                negative_prompt: 'outside, sad, severe, cleavage, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                text: `portrait of ${gender} wearing a business suit, model photoshoot, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'frown, angry, sad, cleavage, nudity, severe, 3d, cg, cartoonish, semi-realistic, cropped head',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                face_swap: true,
+                scheduler: 'dpm++2m_karras', 
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
