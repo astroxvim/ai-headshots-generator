@@ -71,6 +71,7 @@ export async function POST(request: Request) {
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
+      face_swap: true,
       image_urls: images,
       callback: trainWebhookWithParams,
       prompts_attributes:
@@ -81,7 +82,6 @@ export async function POST(request: Request) {
                 negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, semi-realistic, cropped head',
 
                 callback: promptWebhookWithParams,
-                face_swap: true,
                 w: 512,
                 h: 640,
                 num_images: numImagesPerPrompt,
