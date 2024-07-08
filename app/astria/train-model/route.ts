@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
 const astriaApiKey = process.env.ASTRIA_API_KEY;
 const astriaTestModeIsOn = process.env.ASTRIA_TEST_MODE === "true";
 const appWebhookSecret = process.env.APP_WEBHOOK_SECRET;
-const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
 if (!appWebhookSecret) {
   throw new Error("MISSING APP_WEBHOOK_SECRET!");
@@ -79,10 +78,11 @@ export async function POST(request: Request) {
               {
                 text: `portrait of ${gender} wearing a business suit, model photoshoot, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
                 negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, semi-realistic, cropped head',
-                scheduler: "dpm++2m_karras",
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                face_swap: true,
+                scheduler: "dpm++2m_karras",
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
