@@ -66,8 +66,8 @@ export async function POST(request: Request) {
 
   const body = {
     tune: {
-      title: "UPIC Headshots V1.1",
-      base_tune_id: 1176603,
+      title: "UPIC Headshots",
+      base_tune_id: 690204,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
@@ -77,14 +77,12 @@ export async function POST(request: Request) {
         option == PreferenceEnum.StudioMale
           ? [
               {
-                text: `portrait of ${gender} wearing a business suit, model photoshoot, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: `frown, angry, sad, severe, 3d, cg, cartoonish, semi-realistic, cropped head`,
+                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain solid color background, in a business casual buttoned shirt, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, upper body, clean background`,
+                negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
-                face_swap: true,
-                scheduler: "dpm++2m_karras",
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+                num_images: numImagesPerPrompt,
               },
             ]
           : option == PreferenceEnum.EnvironmentalMale
@@ -109,13 +107,11 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.StudioFemale
           ? [
               {
-                text: `portrait of ${gender} wearing a business suit, model photoshoot, professional photo, white background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: `cleavage, frown, angry, sad, severe, 3d, cg, cartoonish, semi-realistic, cropped head, nudity`,
+                text: `8k linkedin profile picture of ohwx ${gender}, professional studio, dynamic solid background complementing the suit, wearing a business suit, hyper-realistic, 8k resolution, sharp focus, high dynamic range, clean background, confident, elegant, varied expressions, varied distances close-up, medium shots`,
+                negative_prompt: 'outside, sad, severe, cleavage, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
-                face_swap: true,
-                scheduler: "dpm++2m_karras",
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
