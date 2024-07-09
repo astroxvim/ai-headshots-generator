@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
 const astriaApiKey = process.env.ASTRIA_API_KEY;
 const astriaTestModeIsOn = process.env.ASTRIA_TEST_MODE === "true";
 const appWebhookSecret = process.env.APP_WEBHOOK_SECRET;
-const stripeIsConfigured = process.env.NEXT_PUBLIC_STRIPE_IS_ENABLED === "true";
 
 if (!appWebhookSecret) {
   throw new Error("MISSING APP_WEBHOOK_SECRET!");
@@ -67,7 +66,7 @@ export async function POST(request: Request) {
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: 690204,
+      base_tune_id: 1176603,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
@@ -77,67 +76,82 @@ export async function POST(request: Request) {
         option == PreferenceEnum.StudioMale
           ? [
               {
-                text: `8k close-up upper body linkedin profile picture of ohwx ${gender}, professional studio setting, isolated, plain solid color background, in a business casual buttoned shirt, hyper-realistic, 8k resolution, razor-sharp focus, natural warm skin tones, high dynamic range, upper body, clean background`,
-                negative_prompt: 'sad, severe, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, props, finger, pin, semi-realistic, cropped head',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
-                num_images: numImagesPerPrompt,
+                scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-                negative_prompt: 'sad, severe, 3d, cg, cartoonish, green',
+                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, buildings, cityscape, trees, high detail, realistic skin texture, soft lighting`,
-                negative_prompt: 'sad, severe, 3d, cg, cartoonish',
+                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: numImagesPerPrompt,
               },
             ]
           : option == PreferenceEnum.StudioFemale
           ? [
               {
-                text: `8k linkedin profile picture of ohwx ${gender}, professional studio, dynamic solid background complementing the suit, wearing a business suit, hyper-realistic, 8k resolution, sharp focus, high dynamic range, clean background, confident, elegant, varied expressions, varied distances close-up, medium shots`,
-                negative_prompt: 'outside, sad, severe, cleavage, 3d, cg, cartoonish, unnatural lighting, objects, furniture, props, text, logos, busy backgrounds',
+                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background complementing attire, dior, prada, chanel, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'frown, angry, sad, cleavage, nudity, severe, 3d, cg, hands, objects, pins, cartoonish, semi-realistic, cropped head, black and white',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : option == PreferenceEnum.EnvironmentalFemale
           ? [
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, workplace setting, upper body, modern outfit, varied professional suits different colors and styles, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
-              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish, green',
+              text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+              negative_prompt: 'cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
+              scheduler: 'dpm++2m_karras', 
+              face_swap: 'true',
               num_images: numImagesPerPrompt,
             },
             {
-              text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshot, photo-realistic, 4k resolution, city environment, upper body, modern outfit, varied professional suits (different colors and styles), business, blurred background, blurred trees, buildings, cityscape, high detail, realistic skin texture, soft lighting`,
-              negative_prompt: 'cleavage, sad, severe, 3d, cg, cartoonish',
+              text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+              negative_prompt: 'cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
+              scheduler: 'dpm++2m_karras', 
+              face_swap: 'true',
               num_images: numImagesPerPrompt,
             },
             ]
           : [
               {
-                text: `8k close-up linkedin profile picture of ohwx ${gender}, professional business attire, professional headshots, photo-realistic, 4k, high-resolution image, workplace setting, upper body, modern outfit, professional suit, business, blurred background, glass building, office window, high detail, realistic skin texture, soft lighting`,
+                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hands, objects, pins, semi-realistic, cropped head',
                 callback: promptWebhookWithParams,
+                scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ],
