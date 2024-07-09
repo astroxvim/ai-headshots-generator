@@ -82,6 +82,7 @@ export async function POST(request: Request) {
                 w: 512,
                 h: 640,
                 scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
@@ -113,6 +114,7 @@ export async function POST(request: Request) {
                 w: 512,
                 h: 640,
                 scheduler: 'dpm++2m_karras', 
+                face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
