@@ -132,7 +132,7 @@ export async function POST(request: Request) {
               h: 640,
               scheduler: 'dpm++2m_karras', 
               face_swap: 'true',
-              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              num_images: numImagesPerPrompt,
             },
             {
               text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
