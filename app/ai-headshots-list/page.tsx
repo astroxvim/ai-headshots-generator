@@ -197,7 +197,17 @@ const AIHeadshotsList = () => {
               </Button>
             </div>
           )}
-        </div> : null }
+        </div> : 
+        <div className='flex flex-col items-center gap-8'>
+          <h2 className="font-medium text-secondary">You don't have any pre-generated images yet, please start a new session</h2>
+          <Button
+            className="relative overflow-hidden rounded-xlg hover:-translate-y-1 px-12 shadow-xl bg-primary text-white"
+            size="lg"
+            onPress={handleStartNewSession}
+          >
+            Start New Session
+          </Button> 
+        </div> }
       </div>
     </div>
   );
