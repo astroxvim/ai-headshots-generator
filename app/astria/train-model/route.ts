@@ -89,7 +89,7 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
                 negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
@@ -99,7 +99,7 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
                 negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
