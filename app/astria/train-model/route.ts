@@ -76,8 +76,8 @@ export async function POST(request: Request) {
         option == PreferenceEnum.StudioMale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, props, finger, pin, semi-realistic, cropped head',
+                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo,  hugo boss, armani, brooks brothers, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, props, finger, pin, semi-realistic, cropped head',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -89,8 +89,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office glass, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
               },
               {
                 text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -113,7 +113,7 @@ export async function POST(request: Request) {
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background complementing attire, dior, prada, chanel, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: 'frown, angry, sad, cleavage, nudity, severe, 3d, cg, hands, objects, pins, cartoonish, semi-realistic, cropped head, black and white',
+                negative_prompt: 'masculine, frown, angry, sad, cleavage, nudity, severe, 3d, cg, hands, objects, pins, cartoonish, semi-realistic, cropped head, black and white',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -126,7 +126,7 @@ export async function POST(request: Request) {
           ? [
             {
               text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-              negative_prompt: 'cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+              negative_prompt: 'masculine, cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
@@ -136,7 +136,7 @@ export async function POST(request: Request) {
             },
             {
               text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-              negative_prompt: 'cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+              negative_prompt: 'masculine, cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
