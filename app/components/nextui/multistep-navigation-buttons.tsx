@@ -6,6 +6,7 @@ import { cn } from "../../utils/cn";
 import { ButtonWithBorderGradient } from "./button-with-border-gradient";
 
 export type MultistepNavigationButtonsProps = React.HTMLAttributes<HTMLDivElement> & {
+  isLoading?: boolean;
   onBack?: () => void;
   onNext?: () => void;
   backButtonProps?: React.ComponentProps<typeof Button>;
@@ -13,7 +14,7 @@ export type MultistepNavigationButtonsProps = React.HTMLAttributes<HTMLDivElemen
 };
 
 const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNavigationButtonsProps>(
-  ({ className, onBack, onNext, backButtonProps, nextButtonProps, ...props }, ref) => (
+  ({ className, isLoading = false, onBack, onNext, backButtonProps, nextButtonProps, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
@@ -35,6 +36,7 @@ const MultistepNavigationButtons = React.forwardRef<HTMLDivElement, MultistepNav
       <ButtonWithBorderGradient
         className="text-medium font-medium"
         type="submit"
+        isLoading={isLoading}
         onPress={onNext}
         {...nextButtonProps}
       >
