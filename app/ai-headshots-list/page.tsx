@@ -84,7 +84,7 @@ const AIHeadshotsList = () => {
         clearInterval(intervalId);
         setTrainedImages(trained_image);
       }
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [store.currentID]);
