@@ -136,20 +136,6 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
           </div>
           <div className="h-full w-full p-4 sm:max-w-md md:max-w-lg">
             {children}
-            {currentPage !== 2 && (
-              <MultistepNavigationButtons
-                backButtonProps={{ className: "enabled-button-class" }}
-                className="lg:hidden"
-                nextButtonProps={{
-                  children:
-                    currentPage === 0
-                      ? "Continue to Upload"
-                      : "Continue to Pay",
-                  onClick: onNext,
-                }}
-                onBack={onBack}
-              />
-            )}
           </div>
         </div>
       </div>

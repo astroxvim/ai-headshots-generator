@@ -11,6 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { genders } from "./constants/preference-types";
 import { useRouter } from "next/navigation";
+import { upload } from "@vercel/blob/client";
 
 const variants = {
   enter: (direction: number) => ({
@@ -32,9 +33,11 @@ const variants = {
 export default function UpicApp() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedBlobs, setUploadedBlobs] = useState<string[]>([]);
   const [selectedPreference, setSelectedPreference] = useState(false);
   const [selectedGender, setSelectedGender] = useState(genders[0].key);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const router = useRouter();
 
@@ -56,23 +59,65 @@ export default function UpicApp() {
 
   const onBack = useCallback(() => {
     if (page === 0) {
-      router.push("/"); // Navigate back to the intro-page
+      router.push("/");
     } else {
       paginate(-1);
     }
   }, [page, paginate, router]);
+
   const onNext = useCallback(() => {
-    console.log("onNext", selectedPreference);
-    if (page === 0 && !selectedPreference) {
-      toast.error("Please select a preference before continuing.");
-      return;
-    }
-    if (page === 1 && (uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
-      toast.error("Please upload between 4 and 10 images to continue.");
-      return;
-    }
     paginate(1);
   }, [page, selectedPreference, uploadedFiles.length, paginate]);
+
+  const uploadToBlob = async (): Promise<boolean> => {
+    let allUploadsSuccessful = true;
+    const blobUrls = [];
+
+    setIsUploading(true);
+
+    console.log('aaaa', uploadedFiles)
+
+    if (uploadedFiles && uploadedFiles.length !== 0) {
+      try {
+        await Promise.all(uploadedFiles.map(async (file) => {
+          try {
+            const blob = await upload(file.name, file, {
+              access: "public",
+              handleUploadUrl: "/astria/train-model/image-upload",
+            });
+            blobUrls.push(blob.url);
+          } catch (error) {
+            allUploadsSuccessful = false;
+          }
+        }));
+      } catch (error) {
+        allUploadsSuccessful = false;
+      }
+    } else {
+      
+      if (page === 0 && !selectedPreference) {
+        toast.error("Please select a preference before continuing.");
+      }
+      if (page === 1 && (uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
+        toast.error("Please upload between 4 and 10 images to continue.");
+      }
+      setIsUploading(false);
+      return false;
+    }
+
+    console.log('bbb')
+
+    if (allUploadsSuccessful) {
+      toast.success("Sample images uploaded successfully");
+      setUploadedBlobs(blobUrls);
+      setIsUploading(false);
+      return true;
+    } else {
+      toast.error("Some images failed to upload. It may related to file size, please check the instructions again");
+      setIsUploading(false);
+      return false;
+    }
+  }
 
   const content = useMemo(() => {
     let component = (
@@ -100,7 +145,7 @@ export default function UpicApp() {
       case 2:
         component = (
           <CodePay
-            files={uploadedFiles}
+            blobUrls={uploadedBlobs}
             selectedOption={selectedOption}
             selectedGender={selectedGender}
           />
@@ -164,13 +209,18 @@ export default function UpicApp() {
             {content}
             {page !== 2 && (
               <MultistepNavigationButtons
-                backButtonProps={{ isDisabled: page === 0 }}
-                className="hidden justify-center lg:flex"
+                isLoading={isUploading}
+                backButtonProps={{ className: "enabled-button-class lg:hidden" }}
+                className="justify-center lg:flex"
                 nextButtonProps={{
                   children:
                     page === 0 ? "Continue to Upload" : "Continue to Pay",
-                  onClick: onNext,
+                  onClick: page === 0 ? onNext : () => {
+                    uploadToBlob().then((success) => success && onNext()
+                    )                    
+                  },
                 }}
+                onBack={onBack}
               />
             )}
           </div>
