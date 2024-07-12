@@ -66,6 +66,10 @@ export default function UpicApp() {
   }, [page, paginate, router]);
 
   const onNext = useCallback(() => {
+    if (page === 0 && !selectedPreference) {
+      toast.error("Please select a preference before continuing.");
+      return;
+    }
     paginate(1);
   }, [page, selectedPreference, uploadedFiles.length, paginate]);
 
@@ -77,7 +81,7 @@ export default function UpicApp() {
 
     console.log('aaaa', uploadedFiles)
 
-    if (uploadedFiles && uploadedFiles.length !== 0) {
+    if (uploadedFiles && !(uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
       try {
         await Promise.all(uploadedFiles.map(async (file) => {
           try {
@@ -94,10 +98,6 @@ export default function UpicApp() {
         allUploadsSuccessful = false;
       }
     } else {
-      
-      if (page === 0 && !selectedPreference) {
-        toast.error("Please select a preference before continuing.");
-      }
       if (page === 1 && (uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
         toast.error("Please upload between 4 and 10 images to continue.");
       }
