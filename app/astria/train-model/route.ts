@@ -76,8 +76,8 @@ export async function POST(request: Request) {
         option == PreferenceEnum.StudioMale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo,  hugo boss, armani, brooks brothers, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, props, finger, pin, semi-realistic, cropped head',
+                text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, editorial, professional photoshoot, grey background, pastel colors complementing attire, dior, hugo boss, armani, confidence, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'face on palm, elbow resting on table, hands by head, hand near face, wrist, hand on face, feminine, deformed, frown, angry, sad, severe, 3d, cg, objects, pins, pin, brooch, cartoonish, semi-realistic, cropped head, black and white, text, cars, logo background',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -89,8 +89,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, office glass, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+                text: `portrait of (ohwx ${gender}) wearing a professional black armani business suit, editorial, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, bokeh background, blurred background, depth of field, glass building, office glass, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                negative_prompt: 'hand in frame, hand raised, hand by chest, hands together, face on palm, hands by head, hand near face, wrist, hand on face, feminine, deformed, teeth, frown, angry, sad, severe, 3d, cg, objects, pins, pin, brooch, cartoonish, semi-realistic, cropped head, black and white, text, cars, logo background, obstructed view, blurry foreground',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -99,8 +99,8 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
               {
-                text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-                negative_prompt: 'feminine, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+                text: `portrait of (ohwx ${gender}) wearing a professional dark armani business suit, editorial, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, bokeh background, blurred background, depth of field, glass building, outdoors blurred, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+                negative_prompt: 'hand in frame, hand raised, hand by chest, hands together, face on palm, hands by head, hand near face, wrist, hand on face, feminine, deformed, teeth, frown, angry, sad, severe, 3d, cg, objects, pins, pin, brooch, cartoonish, semi-realistic, cropped head, black and white, text, cars, logo background, obstructed view, blurry foreground',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -112,8 +112,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.StudioFemale
           ? [
               {
-                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background complementing attire, dior, prada, chanel, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: 'masculine, frown, angry, sad, cleavage, nudity, severe, 3d, cg, hands, objects, pins, cartoonish, semi-realistic, cropped head, black and white',
+                text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, vera wang white blouse, official balmain editorial, model photoshoot, grey background, pastel colors complementing attire, dior, prada, chanel, elegance, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+                negative_prompt: 'face on palm, elbow resting on table, hands by head, hand near face, wrist, hand on face, masculine, deformed, frown, angry, sad, cleavage, nudity, severe, 3d, cg, objects, pins, pin, brooch, cartoonish, semi-realistic, cropped head, black and white, text, cars, logo background',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -125,24 +125,14 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.EnvironmentalFemale
           ? [
             {
-              text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, office window, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-              negative_prompt: 'masculine, cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
+              text: `portrait of (ohwx ${gender}) wearing a slim dark vera wang suit, official balmain editorial, beautiful, chic, elegance, linkedin, fashion photoshoot, stylish, dior, prada, chanel, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
+              negative_prompt: 'hands by head, hand near face, masculine, deformed, frown, angry, sad, cleavage, nudity, severe, 3d, cg, objects, pins, pin, brooch, cartoonish, semi-realistic, cropped head, black and white, text, cars, logo background',
               callback: promptWebhookWithParams,
               w: 512,
               h: 640,
               scheduler: 'dpm++2m_karras', 
               face_swap: 'true',
-              num_images: numImagesPerPrompt,
-            },
-            {
-              text: `portrait of (ohwx ${gender}) wearing a professional business suit, linkedin, model photoshoot, stylish blouse, dior, prada, chanel, professional photo, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
-              negative_prompt: 'masculine, cleavage, nudity, frown, angry, sad, severe, 3d, cg, cartoonish, hand, finger, props, pin, brooch, semi-realistic, extreme closeup, cropped head, people, full body, text',
-              callback: promptWebhookWithParams,
-              w: 512,
-              h: 640,
-              scheduler: 'dpm++2m_karras', 
-              face_swap: 'true',
-              num_images: numImagesPerPrompt,
+              num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
           : [
