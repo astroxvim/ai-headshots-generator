@@ -2,7 +2,6 @@ import { PreferenceEnum as PreferenceEnum1 } from "@/app/constants/preference-ty
 import { PreferenceEnum as PreferenceEnum2 } from "@/app/constants/preference-types2";
 import prisma from "@/lib/prisma";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +21,7 @@ export async function POST(request: Request) {
   const option = payload.option;
   const id = payload.id;
 
-  const newImageGeneration = await prisma.imageGeneration.create({
+  const newimageGeneration = await prisma.imageGeneration.create({
     data: {
       gid: id,
       blobUrls: images,
@@ -64,10 +63,23 @@ export async function POST(request: Request) {
     parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
   );
 
+  const baseTuneId = {
+    [PreferenceEnum1.StudioMale]: 1176604,
+    [PreferenceEnum1.StudioFemale]: 1176604,
+    [PreferenceEnum1.EnvironmentalMale]: 1176604,
+    [PreferenceEnum1.EnvironmentalFemale]: 1176604,
+    [PreferenceEnum2.WatercolorMale]: 1176604,
+    [PreferenceEnum2.CyberpunkMale]: 587863,
+    [PreferenceEnum2.SuperheroMale]: 1451781,
+    [PreferenceEnum2.WatercolorFemale]: 1176604,
+    [PreferenceEnum2.CyberpunkFemale]: 587863,
+    [PreferenceEnum2.SuperheroFemale]: 1451781,
+  }[option];
+
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: 1176604,
+      base_tune_id: baseTuneId,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
