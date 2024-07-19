@@ -1,3 +1,4 @@
+// app/App2.tsx
 "use client";
 
 import React, { useState, useCallback, useMemo } from "react";
@@ -30,7 +31,7 @@ const variants = {
   }),
 };
 
-export default function UpicApp2() {
+function UpicApp2() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploadedBlobs, setUploadedBlobs] = useState<string[]>([]);
@@ -189,7 +190,7 @@ export default function UpicApp2() {
       <div className="dark relative min-h-screen">
         <ToastContainer
           toastClassName="toast-dark"
-          autoClose={3000} // Set autoClose to 3000ms (3 seconds)
+          autoClose={3000}
         />
         <MultistepSidebar
           currentPage={page}
@@ -225,3 +226,5 @@ export default function UpicApp2() {
     </>
   );
 }
+
+export default UpicApp2;
