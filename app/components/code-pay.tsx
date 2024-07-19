@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import confetti from "canvas-confetti";
 import { useRouter } from "next/navigation";
-import { upload } from "@vercel/blob"; // Correct import
+import { upload } from "@vercel/blob/client"; // Correct import
 import code from "@code-wallet/elements";
 import { nanoid } from "nanoid";
 import { useStore } from "../store/context-provider";
