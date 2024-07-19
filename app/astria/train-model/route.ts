@@ -1,5 +1,4 @@
-import { PreferenceEnum as PreferenceEnum1 } from "@/app/constants/preference-types";
-import { PreferenceEnum as PreferenceEnum2 } from "@/app/constants/preference-types2";
+import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
 import { NextResponse } from "next/server";
@@ -63,30 +62,17 @@ export async function POST(request: Request) {
     parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
   );
 
-  const baseTuneId = {
-    [PreferenceEnum1.StudioMale]: 1176604,
-    [PreferenceEnum1.StudioFemale]: 1176604,
-    [PreferenceEnum1.EnvironmentalMale]: 1176604,
-    [PreferenceEnum1.EnvironmentalFemale]: 1176604,
-    [PreferenceEnum2.WatercolorMale]: 1176604,
-    [PreferenceEnum2.CyberpunkMale]: 587863,
-    [PreferenceEnum2.SuperheroMale]: 1451781,
-    [PreferenceEnum2.WatercolorFemale]: 1176604,
-    [PreferenceEnum2.CyberpunkFemale]: 587863,
-    [PreferenceEnum2.SuperheroFemale]: 1451781,
-  }[option];
-
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: "baseTuneId",
+      base_tune_id: 1176603, 
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
       prompts_attributes:
-        option == PreferenceEnum1.StudioMale
+        option == PreferenceEnum.StudioMale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, editorial, professional photoshoot, grey background, pastel colors complementing attire, dior, hugo boss, armani, confidence, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
@@ -99,7 +85,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum1.EnvironmentalMale
+          : option == PreferenceEnum.EnvironmentalMale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a professional black armani business suit, editorial, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, bokeh background, blurred background, depth of field, glass building, office glass, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
@@ -122,7 +108,7 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
             ]
-          : option == PreferenceEnum1.StudioFemale
+          : option == PreferenceEnum.StudioFemale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, vera wang white blouse, official balmain editorial, model photoshoot, grey background, pastel colors complementing attire, dior, prada, chanel, elegance, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
@@ -135,7 +121,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum1.EnvironmentalFemale
+          : option == PreferenceEnum.EnvironmentalFemale
           ? [
             {
               text: `portrait of (ohwx ${gender}) wearing a slim dark vera wang suit, official balmain editorial, beautiful, chic, elegance, linkedin, fashion photoshoot, stylish, dior, prada, chanel, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
@@ -148,7 +134,7 @@ export async function POST(request: Request) {
               num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum2.WatercolorMale
+          : option == PreferenceEnum.WatercolorMale
           ? [
               {
                 text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
@@ -161,7 +147,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum2.WatercolorFemale
+          : option == PreferenceEnum.WatercolorFemale
           ? [
               {
                 text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
@@ -174,7 +160,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum2.CyberpunkMale
+          : option == PreferenceEnum.CyberpunkMale
           ? [
               {
                 text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
@@ -187,7 +173,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum2.CyberpunkFemale
+          : option == PreferenceEnum.CyberpunkFemale
           ? [
              {
                 text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
@@ -200,7 +186,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum2.SuperheroMale
+          : option == PreferenceEnum.SuperheroMale
           ? [
               {
                 text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
@@ -213,7 +199,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum2.SuperheroFemale
+          : option == PreferenceEnum.SuperheroFemale
           ? [
               {
                 text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
