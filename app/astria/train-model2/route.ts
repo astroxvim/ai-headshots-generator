@@ -14,6 +14,64 @@ if (!appWebhookSecret) {
   throw new Error("MISSING APP_WEBHOOK_SECRET!");
 }
 
+const getPrompts = (gender: string, option: PreferenceEnum, promptWebhookWithParams: string, numImagesPerPrompt: number) => {
+  switch (option) {
+    case PreferenceEnum.WatercolorMale:
+    case PreferenceEnum.WatercolorFemale:
+      return [
+        {
+          text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
+          negative_prompt: 'freckles, face artifacts',
+          callback: promptWebhookWithParams,
+          w: 512,
+          h: 640,
+          scheduler: 'dpm++2m_karras', 
+          face_swap: 'true',
+          num_images: numImagesPerPrompt,
+        },
+      ];
+    case PreferenceEnum.CyberpunkMale:
+    case PreferenceEnum.CyberpunkFemale:
+      return [
+        {
+          text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
+          negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+          callback: promptWebhookWithParams,
+          w: 512,
+          h: 640,
+          scheduler: 'dpm++2m_karras', 
+          face_swap: 'true',
+          num_images: numImagesPerPrompt,
+        },
+      ];
+    case PreferenceEnum.SuperheroMale:
+    case PreferenceEnum.SuperheroFemale:
+      return [
+        {
+          text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
+          negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
+          callback: promptWebhookWithParams,
+          w: 512,
+          h: 640,
+          scheduler: 'dpm++2m_karras', 
+          face_swap: 'true',
+          num_images: numImagesPerPrompt,
+        },
+      ];
+    default:
+      return [
+        {
+          text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
+          negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hands, objects, pins, semi-realistic, cropped head',
+          callback: promptWebhookWithParams,
+          scheduler: 'dpm++2m_karras', 
+          face_swap: 'true',
+          num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+        },
+      ];
+  }
+}
+
 export async function POST(request: Request) {
   const payload = await request.json();
   const images = payload.urls;
@@ -75,62 +133,13 @@ export async function POST(request: Request) {
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: 1176604,
+      base_tune_id: baseTuneId,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
-      prompts_attributes:
-        option == PreferenceEnum.WatercolorMale || option == PreferenceEnum.WatercolorFemale
-          ? [
-              {
-                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
-                negative_prompt: 'freckles, face artifacts',
-                callback: promptWebhookWithParams,
-                w: 512,
-                h: 640,
-                scheduler: 'dpm++2m_karras', 
-                face_swap: 'true',
-                num_images: numImagesPerPrompt,
-              },
-            ]
-          : option == PreferenceEnum.CyberpunkMale || option == PreferenceEnum.CyberpunkFemale
-          ? [
-              {
-                text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
-                negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
-                callback: promptWebhookWithParams,
-                w: 512,
-                h: 640,
-                scheduler: 'dpm++2m_karras', 
-                face_swap: 'true',
-                num_images: numImagesPerPrompt,
-              },
-            ]
-          : option == PreferenceEnum.SuperheroMale || option == PreferenceEnum.SuperheroFemale
-          ? [
-              {
-                text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
-                negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
-                callback: promptWebhookWithParams,
-                w: 512,
-                h: 640,
-                scheduler: 'dpm++2m_karras', 
-                face_swap: 'true',
-                num_images: numImagesPerPrompt,
-              },
-            ]
-          : [
-              {
-                text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
-                negative_prompt: 'frown, angry, sad, severe, 3d, cg, cartoonish, hands, objects, pins, semi-realistic, cropped head',
-                callback: promptWebhookWithParams,
-                scheduler: 'dpm++2m_karras', 
-                face_swap: 'true',
-                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
-              },
-            ],
+      prompts_attributes: getPrompts(gender, option, promptWebhookWithParams, numImagesPerPrompt),
     },
   };
 
