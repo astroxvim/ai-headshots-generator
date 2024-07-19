@@ -65,7 +65,7 @@ const MultiStepSidebar = React.forwardRef<HTMLDivElement, MultiStepSidebarProps>
               </Chip>
             </div>
             <div className="mt-1 text-base font-medium leading-6 text-default-500">
-              Follow the simple steps to create your professional headshots.
+              Follow the simple steps to create your personalized headshots.
             </div>
           </div>
           <VerticalSteps

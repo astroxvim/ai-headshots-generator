@@ -1,15 +1,16 @@
+// app/App2.tsx
 "use client";
 
 import React, { useState, useCallback, useMemo } from "react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
 import MultistepSidebar from "./components/multistep-sidebar";
-import SelectPreferences from "./components/select-preferences";
+import SelectPreferences2 from "./components/select-preferences2"; // New component for the new flow
 import UploadImage from "./components/upload-image";
 import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { genders } from "./constants/preference-pro";
+import { genders } from "./constants/preference-creative"; // New constants for the new flow
 import { useRouter } from "next/navigation";
 import { upload } from "@vercel/blob/client";
 
@@ -30,7 +31,7 @@ const variants = {
   }),
 };
 
-export default function UpicApp() {
+function UpicApp2() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploadedBlobs, setUploadedBlobs] = useState<string[]>([]);
@@ -79,8 +80,6 @@ export default function UpicApp() {
 
     setIsUploading(true);
 
-    console.log('aaaa', uploadedFiles)
-
     if (uploadedFiles && !(uploadedFiles.length < 4 || uploadedFiles.length > 10)) {
       try {
         await Promise.all(uploadedFiles.map(async (file) => {
@@ -105,15 +104,13 @@ export default function UpicApp() {
       return false;
     }
 
-    console.log('bbb')
-
     if (allUploadsSuccessful) {
       toast.success("Sample images uploaded successfully");
       setUploadedBlobs(blobUrls);
       setIsUploading(false);
       return true;
     } else {
-      toast.error("Some images failed to upload. It may related to file size, please check the instructions again");
+      toast.error("Some images failed to upload. It may be related to file size, please check the instructions again");
       setIsUploading(false);
       return false;
     }
@@ -121,7 +118,7 @@ export default function UpicApp() {
 
   const content = useMemo(() => {
     let component = (
-      <SelectPreferences
+      <SelectPreferences2
         onNext={onNext}
         selectedPreference={selectedPreference}
         setSelectedPreference={setSelectedPreference}
@@ -193,7 +190,7 @@ export default function UpicApp() {
       <div className="dark relative min-h-screen">
         <ToastContainer
           toastClassName="toast-dark"
-          autoClose={3000} // Set autoClose to 3000ms (3 seconds)
+          autoClose={3000}
         />
         <MultistepSidebar
           currentPage={page}
@@ -229,3 +226,5 @@ export default function UpicApp() {
     </>
   );
 }
+
+export default UpicApp2;

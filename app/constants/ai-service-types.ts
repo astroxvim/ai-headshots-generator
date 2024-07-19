@@ -17,4 +17,5 @@ export type Service = {
   buttonColor?: ButtonProps["color"];
   buttonVariant?: ButtonProps["variant"];
   mostPopular?: boolean;
+  isNew?: boolean;
 };

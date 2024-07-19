@@ -1,7 +1,6 @@
 import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -66,7 +65,7 @@ export async function POST(request: Request) {
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: 1176603,
+      base_tune_id: 1176603, 
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
@@ -133,6 +132,84 @@ export async function POST(request: Request) {
               scheduler: 'dpm++2m_karras', 
               face_swap: 'true',
               num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option == PreferenceEnum.WatercolorMale
+          ? [
+              {
+                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
+                negative_prompt: 'freckles, face artifacts',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option == PreferenceEnum.WatercolorFemale
+          ? [
+              {
+                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
+                negative_prompt: 'freckles, face artifacts',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option == PreferenceEnum.CyberpunkMale
+          ? [
+              {
+                text: `close up portrait of (ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, handsome, confidence, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain, Sci-Fi & Space Art, Dystopian & Utopian Art, cyberpunk art style, avant-garde hairstyles, futuristic clothing, glowing neon signs, traditional ink and marker`,
+                negative_prompt: 'sad, scars, wrinkles, nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option == PreferenceEnum.CyberpunkFemale
+          ? [
+             {
+                text: `close up portrait of (ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain, elegance, beautiful, Sci-Fi & Space Art, Dystopian & Utopian Art, cyberpunk art style, avant-garde hairstyles, futuristic clothing, glowing neon signs, traditional ink and marker`,
+                negative_prompt: 'sad, scars, wrinkles, nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option == PreferenceEnum.PopartMale
+          ? [
+              {
+                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, exaggerated emotions, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, 1960s`,
+                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (boring, uninteresting:1.1)',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option == PreferenceEnum.PopartFemale
+          ? [
+              {
+                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, beautiful, elegance, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, 1960s`,
+                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (boring, uninteresting:1.1)',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
           : [

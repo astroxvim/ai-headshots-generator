@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Tabs, Tab, RadioGroup, Spacer, Avatar, Radio } from "@nextui-org/react";
-import { preferenceOptions, genders } from "../constants/preference-pro";
+import { preferenceOptions, genders } from "../constants/preference-creative"; // New constants for the new flow
 
 interface SelectPreferencesProps {
   onNext: () => void;
@@ -12,7 +12,7 @@ interface SelectPreferencesProps {
   selectedOption: string | null;
 }
 
-const SelectPreferences: React.FC<SelectPreferencesProps> = ({
+const SelectPreferences2: React.FC<SelectPreferencesProps> = ({
   onNext,
   selectedPreference,
   setSelectedPreference,
@@ -26,7 +26,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
     // Reset selected option and disable the button when gender changes
     setSelectedOption(null);
     setSelectedPreference(false);
-  }, [selectedGender,setSelectedOption, setSelectedPreference]);
+  }, [selectedGender, setSelectedOption, setSelectedPreference]);
 
   const handleOptionChange = (value: string) => {
     setSelectedOption(value);
@@ -54,7 +54,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Choose your preferences for your professional headshot.
+          Choose your preferences for your creative headshot.
         </h2>
         <Spacer y={8} />
       </div>
@@ -101,7 +101,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
                     src={option.imageUrl}
                   />
                   <div className="flex flex-col items-start text-left"> {/* Added text-left class here */}
-                    <span className="text-medium">{option.title.replace('studio', '').replace('environmental', '')}</span>
+                    <span className="text-medium">{option.title}</span>
                     <span className="text-small text-default-400">{option.description}</span>
                   </div>
                 </div>
@@ -113,4 +113,4 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
   );
 };
 
-export default SelectPreferences;
+export default SelectPreferences2;

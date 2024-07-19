@@ -15,6 +15,10 @@ const IntroPage = () => {
     router.push('/multistep');
   };
 
+  const handleCreative = () => {
+    router.push('/multistep2'); // Updated to shorter URL
+  };
+
   return (
     <div className="dark relative flex flex-col items-center justify-center min-h-screen py-0">
       <div
@@ -51,11 +55,11 @@ const IntroPage = () => {
             isBlurred
             className={cn("overflow-visible bg-background/60 p-3 dark:bg-default-100/50 shadow-large", {
               "border-2 border-primary/100": service.mostPopular,
-              "opacity-70": service.key === ServiceEnum.Creative // Apply opacity to the second card
+              "border-2 border-success/100": service.key === ServiceEnum.Creative 
             })}
             shadow="md"
           >
-            {service.mostPopular ? (
+            {service.mostPopular && (
               <Chip
                 classNames={{
                   base: "absolute -top-3 left-1/2 -translate-x-1/2 bg-primary shadow-large border-medium border-primary",
@@ -63,9 +67,20 @@ const IntroPage = () => {
                 }}
                 color="primary"
               >
-                PREVIEW
+                POPULAR
               </Chip>
-            ) : null}
+            )}
+            {service.isNew && (
+              <Chip
+                classNames={{
+                  base: "absolute -top-3 left-1/2 -translate-x-1/2 bg-success shadow-large border-medium border-success",
+                  content: "font-small text-default-500 text-small text-color-success",
+                }}
+                color="success"
+              >
+                NEW!
+              </Chip>
+            )}
             <img src={service.imageUrl} alt="Service Image" className="w-full h-32 object-cover rounded-t-lg" />
             <CardHeader className="flex flex-col items-start gap-2 pb-6 pt-4">
               <h2 className="text-large font-medium">{service.title}</h2>
@@ -98,8 +113,14 @@ const IntroPage = () => {
               <Button
                 fullWidth
                 color={service.buttonColor as any}
-                onPress={service.key === ServiceEnum.Professional ? handleGetStarted : undefined}
-                isDisabled={service.key === ServiceEnum.Creative}
+                onPress={
+                  service.key === ServiceEnum.Professional 
+                    ? handleGetStarted 
+                    : service.key === ServiceEnum.Creative 
+                      ? handleCreative 
+                      : undefined
+                }
+                isDisabled={false}
                 variant={service.buttonVariant as any}
               >
                 {service.buttonText}
