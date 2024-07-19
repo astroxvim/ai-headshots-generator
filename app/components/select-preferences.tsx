@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Tabs, Tab, RadioGroup, Spacer, Avatar, Radio } from "@nextui-org/react";
-import { preferenceOptions, genders } from "../constants/preference-types";
+import { preferenceOptions, genders } from "../constants/preference-pro";
 
 interface SelectPreferencesProps {
   onNext: () => void;
