@@ -3,13 +3,13 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
 import MultistepSidebar from "./components/multistep-sidebar";
-import SelectPreferences2 from "./components/select-preferences2";
+import SelectPreferences2 from "./components/select-preferences2"; // New component for the new flow
 import UploadImage from "./components/upload-image";
 import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { genders } from "./constants/preference-types2";
+import { genders } from "./constants/preference-types2"; // New constants for the new flow
 import { useRouter } from "next/navigation";
 import { upload } from "@vercel/blob/client";
 
@@ -144,7 +144,6 @@ export default function UpicApp2() {
             blobUrls={uploadedBlobs}
             selectedOption={selectedOption}
             selectedGender={selectedGender}
-            endpoint="/api/astria/train-model" // Use the merged endpoint
           />
         );
         break;
