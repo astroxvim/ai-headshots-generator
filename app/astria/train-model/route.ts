@@ -163,8 +163,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.CyberpunkMale
           ? [
               {
-                text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
-                negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                text: `close up portrait of (ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, handsome, confidence, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain, Sci-Fi & Space Art, Dystopian & Utopian Art, cyberpunk art style, avant-garde hairstyles, futuristic clothing, glowing neon signs, traditional ink and marker`,
+                negative_prompt: 'sad, scars, wrinkles, nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -176,8 +176,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.CyberpunkFemale
           ? [
              {
-                text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
-                negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                text: `close up portrait of (ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain, elegance, beautiful, Sci-Fi & Space Art, Dystopian & Utopian Art, cyberpunk art style, avant-garde hairstyles, futuristic clothing, glowing neon signs, traditional ink and marker`,
+                negative_prompt: 'sad, scars, wrinkles, nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
