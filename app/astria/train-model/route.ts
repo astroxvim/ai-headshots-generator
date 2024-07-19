@@ -1,4 +1,5 @@
-import { PreferenceEnum } from "@/app/constants/preference-types";
+import { PreferenceEnum as PreferenceEnum1 } from "@/app/constants/preference-types";
+import { PreferenceEnum as PreferenceEnum2 } from "@/app/constants/preference-types2";
 import prisma from "@/lib/prisma";
 import axios from "axios";
 import { cookies } from "next/headers";
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
   const option = payload.option;
   const id = payload.id;
 
-  const newimageGeneration = await prisma.imageGeneration.create({
+  const newImageGeneration = await prisma.imageGeneration.create({
     data: {
       gid: id,
       blobUrls: images,
@@ -63,17 +64,30 @@ export async function POST(request: Request) {
     parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
   );
 
+  const baseTuneId = {
+    [PreferenceEnum1.StudioMale]: 1176604,
+    [PreferenceEnum1.StudioFemale]: 1176604,
+    [PreferenceEnum1.EnvironmentalMale]: 1176604,
+    [PreferenceEnum1.EnvironmentalFemale]: 1176604,
+    [PreferenceEnum2.WatercolorMale]: 1176604,
+    [PreferenceEnum2.CyberpunkMale]: 587863,
+    [PreferenceEnum2.SuperheroMale]: 1451781,
+    [PreferenceEnum2.WatercolorFemale]: 1176604,
+    [PreferenceEnum2.CyberpunkFemale]: 587863,
+    [PreferenceEnum2.SuperheroFemale]: 1451781,
+  }[option];
+
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: 1176603,
+      base_tune_id: baseTuneId,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
       image_urls: images,
       callback: trainWebhookWithParams,
       prompts_attributes:
-        option == PreferenceEnum.StudioMale
+        option === PreferenceEnum1.StudioMale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, editorial, professional photoshoot, grey background, pastel colors complementing attire, dior, hugo boss, armani, confidence, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
@@ -86,7 +100,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum.EnvironmentalMale
+          : option === PreferenceEnum1.EnvironmentalMale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a professional black armani business suit, editorial, linkedin, model photoshoot, hugo boss, armani, brooks brothers, professional photo, bokeh background, blurred background, depth of field, glass building, office glass, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
@@ -109,7 +123,7 @@ export async function POST(request: Request) {
                 num_images: numImagesPerPrompt,
               },
             ]
-          : option == PreferenceEnum.StudioFemale
+          : option === PreferenceEnum1.StudioFemale
           ? [
               {
                 text: `portrait of (ohwx ${gender}) wearing a black slim sandro professional suit jacket, vera wang white blouse, official balmain editorial, model photoshoot, grey background, pastel colors complementing attire, dior, prada, chanel, elegance, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
@@ -122,7 +136,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
-          : option == PreferenceEnum.EnvironmentalFemale
+          : option === PreferenceEnum1.EnvironmentalFemale
           ? [
             {
               text: `portrait of (ohwx ${gender}) wearing a slim dark vera wang suit, official balmain editorial, beautiful, chic, elegance, linkedin, fashion photoshoot, stylish, dior, prada, chanel, blurred background, bokeh, depth of field, glass building, outdoors blurred, bokeh, Amazing Details, Best Quality, Masterpiece, dramatic lighting, highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot, bokeh`,
@@ -133,6 +147,84 @@ export async function POST(request: Request) {
               scheduler: 'dpm++2m_karras', 
               face_swap: 'true',
               num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option === PreferenceEnum2.WatercolorMale
+          ? [
+              {
+                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
+                negative_prompt: 'freckles, face artifacts',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option === PreferenceEnum2.WatercolorFemale
+          ? [
+              {
+                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
+                negative_prompt: 'freckles, face artifacts',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option === PreferenceEnum2.CyberpunkMale
+          ? [
+              {
+                text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
+                negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+              },
+            ]
+          : option === PreferenceEnum2.CyberpunkFemale
+          ? [
+             {
+                text: `(ohwx ${gender}) in nightclub, cyberpunk, rim lighting, cinematic lighting, gloomy, dark, dimmed, (teal and orange:0.2), RAW photo, vignette photography, Fujifilm XT3, 8k uhd, dslr, film grain`,
+                negative_prompt: 'nsfw, nude, naked, 3d, Painting, cartoon, meme, ugly, obese, deformed, render, rendered, bad anatomy, bw, b&w, monochrome',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option === PreferenceEnum2.SuperheroMale
+          ? [
+              {
+                text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
+                negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option === PreferenceEnum2.SuperheroFemale
+          ? [
+              {
+                text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
+                negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
           : [
@@ -148,6 +240,8 @@ export async function POST(request: Request) {
     },
   };
 
+  console.log('Request payload:', body);
+
   try {
     const response = await axios.post(DOMAIN + "/tunes", body, {
       headers: {
@@ -155,6 +249,8 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${API_KEY}`,
       },
     });
+
+    console.log('Response:', response);
 
     const { status, statusText, data: tune } = response;
 
@@ -186,7 +282,7 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (e) {
-    console.error(e);
+    console.error('Error:', e);
     return NextResponse.json(
       {
         message: "Something went wrong!",
