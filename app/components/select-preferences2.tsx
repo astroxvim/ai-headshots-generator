@@ -54,7 +54,7 @@ const SelectPreferences2: React.FC<SelectPreferencesProps> = ({
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Choose Your Preferences for your creative artwork.
+          Choose your preferences for your creative headshot.
         </h2>
         <Spacer y={8} />
       </div>

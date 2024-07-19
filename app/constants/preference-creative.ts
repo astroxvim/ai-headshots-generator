@@ -24,7 +24,7 @@ export const preferenceOptions = [
     key: PreferenceEnum.WatercolorMale,
     gender: "man",
     title: "Watercolor",
-    description: "Expressive portraits with soft watercolor tones",
+    description: "Artistic portraits with soft watercolor tones",
     imageUrl: "/images/male-watercolor.png",
   },
   {

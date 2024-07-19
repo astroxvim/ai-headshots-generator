@@ -56,7 +56,7 @@ export const preferenceOptions = [
     key: PreferenceEnum.WatercolorMale,
     gender: "man",
     title: "Watercolor",
-    description: "Expressive portraits with soft watercolor tones",
+    description: "Artistic portraits with soft watercolor tones",
     imageUrl: "/images/male-watercolor.png",
   },
   {
@@ -84,7 +84,7 @@ export const preferenceOptions = [
     key: PreferenceEnum.CyberpunkFemale,
     gender: "woman",
     title: "Cyberpunk",
-    description: "Futuristic photos with neon cyber elements",
+    description: "Chic photos with neon cyber elements",
     imageUrl: "/images/female-cyberpunk.png",
   },
   {
