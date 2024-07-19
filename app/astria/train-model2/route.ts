@@ -125,7 +125,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum.SuperheroMale
+          : option == PreferenceEnum.PopartMale
           ? [
               {
                 text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
@@ -138,7 +138,7 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum.SuperheroFemale
+          : option == PreferenceEnum.PopartFemale
           ? [
               {
                 text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,

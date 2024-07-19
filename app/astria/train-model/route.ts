@@ -186,11 +186,11 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum.SuperheroMale
+          : option == PreferenceEnum.PopartMale
           ? [
               {
-                text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
-                negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
+                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, exaggerated emotions, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, 1960s`,
+                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (boring, uninteresting:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -199,11 +199,11 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
-          : option == PreferenceEnum.SuperheroFemale
+          : option == PreferenceEnum.PopartFemale
           ? [
               {
-                text: `(ohwx ${gender}) (best-quality:0.8), (best-quality:0.8), perfect illustration, beautiful, elegant, superhero, hero costume, dynamic, electric, powerful, particulate, rich colors, intricate, elegant, highly detailed, harpers bazaar art, smooth, sharp focus, 8k, octane rende`,
-                negative_prompt: 'clay, text, watermark, padding, cropped, typography, extra fingers, mutated hands, poorly drawn hands, ((poorly drawn face,)) deformed, ugly, blurry, bad anatomy, bad proportions, extra limbs, cloned face, skinny, glitchy, double torso, extra arms, extra hands, mangled fingers, missing lips, ugly face, distorted face, extra legs, anime, nude, NSFW',
+                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, beautiful, elegance, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, 1960s`,
+                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (boring, uninteresting:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
