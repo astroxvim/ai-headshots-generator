@@ -63,23 +63,10 @@ export async function POST(request: Request) {
     parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8") / 2
   );
 
-  const baseTuneId = {
-    [PreferenceEnum1.StudioMale]: 1176604,
-    [PreferenceEnum1.StudioFemale]: 1176604,
-    [PreferenceEnum1.EnvironmentalMale]: 1176604,
-    [PreferenceEnum1.EnvironmentalFemale]: 1176604,
-    [PreferenceEnum2.WatercolorMale]: 1176604,
-    [PreferenceEnum2.CyberpunkMale]: 587863,
-    [PreferenceEnum2.SuperheroMale]: 1451781,
-    [PreferenceEnum2.WatercolorFemale]: 1176604,
-    [PreferenceEnum2.CyberpunkFemale]: 587863,
-    [PreferenceEnum2.SuperheroFemale]: 1451781,
-  }[option];
-
   const body = {
     tune: {
       title: "UPIC Headshots",
-      base_tune_id: baseTuneId,
+      base_tune_id: 1176604,
       name: gender,
       branch: astriaTestModeIsOn ? "fast" : "sd15",
       token: "ohwx",
