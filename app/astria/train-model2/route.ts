@@ -92,7 +92,7 @@ export async function POST(request: Request) {
                 h: 640,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
-                num_images: numImagesPerPrompt,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : option == PreferenceEnum.CyberpunkMale || option == PreferenceEnum.CyberpunkFemale
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
                 h: 640,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
-                num_images: numImagesPerPrompt,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : option == PreferenceEnum.SuperheroMale || option == PreferenceEnum.SuperheroFemale
@@ -118,7 +118,7 @@ export async function POST(request: Request) {
                 h: 640,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
-                num_images: numImagesPerPrompt,
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
               },
             ]
           : [
