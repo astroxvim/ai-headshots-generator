@@ -15,6 +15,10 @@ const IntroPage = () => {
     router.push('/multistep');
   };
 
+  const handleCreative = () => {
+    router.push('/multistep2'); // Updated to shorter URL
+  };
+
   return (
     <div className="dark relative flex flex-col items-center justify-center min-h-screen py-0">
       <div
@@ -98,8 +102,14 @@ const IntroPage = () => {
               <Button
                 fullWidth
                 color={service.buttonColor as any}
-                onPress={service.key === ServiceEnum.Professional ? handleGetStarted : undefined}
-                isDisabled={service.key === ServiceEnum.Creative}
+                onPress={
+                  service.key === ServiceEnum.Professional 
+                    ? handleGetStarted 
+                    : service.key === ServiceEnum.Creative 
+                      ? handleCreative 
+                      : undefined
+                }
+                isDisabled={false}
                 variant={service.buttonVariant as any}
               >
                 {service.buttonText}

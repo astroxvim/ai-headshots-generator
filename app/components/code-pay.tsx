@@ -23,9 +23,10 @@ type CodePayProps = CardProps & {
   files: File[];
   selectedOption: string;
   selectedGender: string;
+  endpoint: string; // Add a new prop to specify the endpoint
 };
 
-const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayProps) => {
+const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: CodePayProps) => {
   const router = useRouter();
   const store = useStore();
 
@@ -99,7 +100,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     console.log('nanoID: ', payload.id);
 
     try {
-      const response = await fetch("astria/train-model", {
+      const response = await fetch(endpoint, { // Use the endpoint prop here
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -122,7 +123,7 @@ const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayPro
     } finally {
       setIsLoading(false);
     }
-  }, [files, selectedGender, selectedOption, store, router]);
+  }, [files, selectedGender, selectedOption, store, router, endpoint]);
 
   const handleConfetti = () => {
     submitModel();
