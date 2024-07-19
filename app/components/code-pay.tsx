@@ -20,13 +20,13 @@ import { useStore } from "../store/context-provider";
 import { toast } from "react-toastify";
 
 type CodePayProps = CardProps & {
-  files: File[];
+  blobUrls: string[];
   selectedOption: string;
   selectedGender: string;
   endpoint?: string; // Make the endpoint prop optional
 };
 
-const CodePay = ({ files, selectedOption, selectedGender, endpoint = "/api/train-model", ...props }: CodePayProps) => { // Provide a default value for the endpoint prop
+const CodePay = ({ files, selectedOption, selectedGender, ...props }: CodePayProps) => {
   const router = useRouter();
   const store = useStore();
 
@@ -64,32 +64,6 @@ const CodePay = ({ files, selectedOption, selectedGender, endpoint = "/api/train
   const submitModel = useCallback(async () => {
     setIsLoading(true);
 
-    const blobUrls = [];
-    let allUploadsSuccessful = true;
-
-    console.log('files', files);
-
-    if (files) {
-      for (const file of files) {
-        try {
-          const blob = await upload(file.name, file, {
-            access: "public",
-            handleUploadUrl: "/astria/train-model/image-upload",
-          });
-          blobUrls.push(blob.url);
-        } catch (error) {
-          allUploadsSuccessful = false;
-          console.error(`Failed to upload image ${file.name}:`, error);
-        }
-      }
-    }
-
-    if (allUploadsSuccessful) {
-      toast.success("Sample images processed for training.");
-    } else {
-      toast.error("Some images failed to upload.");
-    }
-
     const payload = {
       id: nanoid(),
       urls: blobUrls,
@@ -123,7 +97,7 @@ const CodePay = ({ files, selectedOption, selectedGender, endpoint = "/api/train
     } finally {
       setIsLoading(false);
     }
-  }, [files, selectedGender, selectedOption, store, router, endpoint]);
+  }, [files, selectedGender, selectedOption, store, router]);
 
   const handleConfetti = () => {
     submitModel();
