@@ -11,7 +11,7 @@ export const services: Service[] = [
     description: "Photos for professional and career use",
     features: [
       '<span class="text-success">60% Discount! [Limited Time]</span>',
-      "Great for LinkedIn & E‑Business cards",
+      "Ideal for LinkedIn & business profiles",
       "Studio or on-location style options",
       "Set of 8 high-quality images",
       "No account creation required",
@@ -30,8 +30,10 @@ export const services: Service[] = [
     title: "Creative Artwork",
     price: `$${price}`, // Dollar sign concatenated with the price value
     priceSuffix: "per use", // Add the price suffix here
-    description: "Artistic and expressive photo creations",
+    description: "Artistic and expressive portrait creations",
     features: [
+      '<span class="text-success">60% Discount! [Limited Time]</span>',
+      "Great for creative digital persona",
       "3 artistic options and growing!",
       "Set of 8 high-quality images",
       "No account creation required",
