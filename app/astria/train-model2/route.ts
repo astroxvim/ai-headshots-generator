@@ -1,4 +1,4 @@
-import { PreferenceEnum } from "@/app/constants/preference-types2";
+import { PreferenceEnum } from "@/app/constants/preference-creative";
 import prisma from "@/lib/prisma";
 import axios from "axios";
 import { cookies } from "next/headers";

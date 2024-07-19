@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Tabs, Tab, RadioGroup, Spacer, Avatar, Radio } from "@nextui-org/react";
-import { preferenceOptions, genders } from "../constants/preference-types2"; // New constants for the new flow
+import { preferenceOptions, genders } from "../constants/preference-creative"; // New constants for the new flow
 
 interface SelectPreferencesProps {
   onNext: () => void;

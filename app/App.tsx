@@ -9,7 +9,7 @@ import CodePay from "./components/code-pay";
 import MultistepNavigationButtons from "./components/nextui/multistep-navigation-buttons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { genders } from "./constants/preference-types";
+import { genders } from "./constants/preference-pro";
 import { useRouter } from "next/navigation";
 import { upload } from "@vercel/blob/client";
 
