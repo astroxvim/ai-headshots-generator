@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     text: string;
     negative_prompt: string;
     steps: null;
-    tune_id: number;
+    tune_id: string;
     trained_at: string;
     face_swap: string;
     scheduler: string;
