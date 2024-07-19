@@ -13,20 +13,20 @@ import {
 } from "@nextui-org/react";
 import confetti from "canvas-confetti";
 import { useRouter } from "next/navigation";
-import { upload } from "@vercel/blob/client"; // Correct import
+import { upload } from "@vercel/blob/client";
 import code from "@code-wallet/elements";
 import { nanoid } from "nanoid";
 import { useStore } from "../store/context-provider";
 import { toast } from "react-toastify";
 
 type CodePayProps = CardProps & {
-  files: File[]; // Corrected prop name
+  blobUrls: string[];
   selectedOption: string;
   selectedGender: string;
-  endpoint?: string; // Make the endpoint prop optional
+  endpoint?: string; // Add endpoint prop
 };
 
-const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: CodePayProps) => {
+const CodePay = ({ blobUrls, selectedOption, selectedGender, endpoint = "/api/train-model", ...props }: CodePayProps) => { // Default to train-model
   const router = useRouter();
   const store = useStore();
 
@@ -64,14 +64,6 @@ const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: 
   const submitModel = useCallback(async () => {
     setIsLoading(true);
 
-    const blobUrls = await Promise.all(files.map(async (file) => {
-      const { url } = await upload(file.name, file, {
-        access: "public",
-        handleUploadUrl: "/astria/train-model/image-upload",
-      });
-      return url;
-    }));
-
     const payload = {
       id: nanoid(),
       urls: blobUrls,
@@ -82,7 +74,7 @@ const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: 
     console.log('nanoID: ', payload.id);
 
     try {
-      const response = await fetch(endpoint ?? "/api/train-model", { // Use the endpoint prop here
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -105,7 +97,7 @@ const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: 
     } finally {
       setIsLoading(false);
     }
-  }, [files, selectedGender, selectedOption, endpoint, store, router]);
+  }, [blobUrls, selectedGender, selectedOption, store, router, endpoint]);
 
   const handleConfetti = () => {
     submitModel();
