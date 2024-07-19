@@ -23,10 +23,10 @@ type CodePayProps = CardProps & {
   files: File[];
   selectedOption: string;
   selectedGender: string;
-  endpoint: string; // Add a new prop to specify the endpoint
+  endpoint?: string; // Make the endpoint prop optional
 };
 
-const CodePay = ({ files, selectedOption, selectedGender, endpoint, ...props }: CodePayProps) => {
+const CodePay = ({ files, selectedOption, selectedGender, endpoint = "/api/train-model", ...props }: CodePayProps) => { // Provide a default value for the endpoint prop
   const router = useRouter();
   const store = useStore();
 

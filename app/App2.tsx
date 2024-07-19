@@ -61,6 +61,7 @@ export default function UpicApp2() {
       paginate(-1);
     }
   }, [page, paginate, router]);
+
   const onNext = useCallback(() => {
     console.log("onNext", selectedPreference);
     if (page === 0 && !selectedPreference) {
