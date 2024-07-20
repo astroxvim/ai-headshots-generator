@@ -54,7 +54,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Choose preferences for your professional headshot.
+          Choose preferences to customize your professional headshot.
         </h2>
         <Spacer y={8} />
       </div>
@@ -100,7 +100,7 @@ const SelectPreferences: React.FC<SelectPreferencesProps> = ({
                     size="lg"
                     src={option.imageUrl}
                   />
-                  <div className="flex flex-col items-start text-left"> {/* Added text-left class here */}
+                  <div className="flex flex-col items-start text-left hover:text-white"> {/* Added text-left class here */}
                     <span className="text-medium">{option.title.replace('studio', '').replace('environmental', '')}</span>
                     <span className="text-small text-default-400">{option.description}</span>
                   </div>

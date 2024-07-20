@@ -40,7 +40,7 @@ const SelectPreferences2: React.FC<SelectPreferencesProps> = ({
   };
 
   const radioClassNames = {
-    base: "inline-flex m-0 bg-default-100/70 items-center justify-between flex-row-reverse w-full max-w-full cursor-pointer rounded-lg p-4 border-medium border-transparent data-[selected=true]:border-primary transform transition-transform duration-300 hover:scale-105",
+    base: "inline-flex m-0 bg-default-100/70 items-center justify-between flex-row-reverse w-full max-w-full cursor-pointer rounded-lg p-4 border-medium border-transparent data-[selected=true]:border-primary transform transition-transform duration-300 hover:scale-105 hover:text-white",
     control: "bg-primary text-primary-foreground",
     wrapper: "group-data-[selected=true]:border-primary",
     label: "text-small text-default-500 font-medium",
@@ -54,7 +54,7 @@ const SelectPreferences2: React.FC<SelectPreferencesProps> = ({
         <h1 className="text-4xl text-neutral-300 font-medium tracking-tight">Select Your Style</h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Choose preferences for your creative portrait.
+          Choose preferences to customize your creative portrait.
         </h2>
         <Spacer y={8} />
       </div>
@@ -100,7 +100,7 @@ const SelectPreferences2: React.FC<SelectPreferencesProps> = ({
                     size="lg"
                     src={option.imageUrl}
                   />
-                  <div className="flex flex-col items-start text-left"> {/* Added text-left class here */}
+                  <div className="flex flex-col items-start text-left hover:text-white"> {/* Added text-left class here */}
                     <span className="text-medium">{option.title}</span>
                     <span className="text-small text-default-400">{option.description}</span>
                   </div>
