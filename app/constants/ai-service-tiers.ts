@@ -27,7 +27,7 @@ export const services: Service[] = [
   },
   {
     key: ServiceEnum.Creative,
-    title: "Creative Artwork",
+    title: "Creative Portraits",
     price: `$${price}`, // Dollar sign concatenated with the price value
     priceSuffix: "per use", // Add the price suffix here
     description: "Artistic and expressive portrait creations",

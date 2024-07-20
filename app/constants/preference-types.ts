@@ -10,6 +10,8 @@ export enum PreferenceEnum {
   WatercolorFemale = "WatercolorFemale",
   CyberpunkFemale = "CyberpunkFemale",
   PopartFemale = "PopartFemale",
+  GTAMale = "GTAMale",
+  GTAFemale = "GTAFemale",
 }
 
 export const genders = [
@@ -63,7 +65,7 @@ export const preferenceOptions = [
     key: PreferenceEnum.CyberpunkMale,
     gender: "man",
     title: "Cyberpunk",
-    description: "Futuristic photos with neon cyber themes",
+    description: "Futuristic with neon cyber themes",
     imageUrl: "/images/male-cyberpunk.png",
   },
   {
@@ -93,5 +95,19 @@ export const preferenceOptions = [
     title: "Pop Art",
     description: "Lively portraits in vibrant pop art style",
     imageUrl: "/images/female-popart.png",
+  },
+  {
+    key: PreferenceEnum.GTAMale,
+    gender: "man",
+    title: "GTA Boss",
+    description: "Grand Theft Auto inspired boss portraits",
+    imageUrl: "/images/male-gta.png",
+  },
+  {
+    key: PreferenceEnum.GTAFemale,
+    gender: "woman",
+    title: "GTA Boss",
+    description: "Grand Theft Auto inspired femme fatale",
+    imageUrl: "/images/female-gta.png",
   },
 ];

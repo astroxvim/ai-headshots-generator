@@ -212,6 +212,32 @@ export async function POST(request: Request) {
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
             },
             ]
+          : option == PreferenceEnum.GTAMale
+          ? [
+              {
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, handsome, cool, GTA`,
+                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
+          : option == PreferenceEnum.GTAFemale
+          ? [
+              {
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, beautiful, dangerous, cool, GTA`,
+                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                callback: promptWebhookWithParams,
+                w: 512,
+                h: 640,
+                scheduler: 'dpm++2m_karras',
+                face_swap: 'true',
+                num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
+            },
+            ]
           : [
               {
                 text: `portrait of (ohwx ${gender}) wearing a business suit, model photoshoot, professional photo, dynamic solid color background, Amazing Details, Best Quality, Masterpiece, dramatic lighting highly detailed, 8k, analog photo, overglaze, 80mm Sigma f/1.4 or any ZEISS lens, wide shot`,
