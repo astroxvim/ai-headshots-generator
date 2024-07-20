@@ -46,7 +46,7 @@ const UploadImage = React.forwardRef<HTMLFormElement, UploadImageProps>(
           <h1 className="text-4xl black font-medium tracking-tight">Upload Photos</h1>
           <Spacer y={4} />
           <h2 className="text-large text-default-500">
-            Provide 4 to 10 great reference photos for AI to train.
+            Provide 4 to 10 great reference photos for AI to&nbsp;train.
           </h2>
         </div>
         <Spacer y={8} />
