@@ -34,7 +34,7 @@ export const services: Service[] = [
     features: [
       '<span class="text-success">60% Discount! [Limited Time]</span>',
       "Great for creative digital persona",
-      "3 artistic options and growing!",
+      "4 artistic options and growing!",
       "Set of 8 high-quality images",
       "No account creation required",
       "No subscriptions or bundles",
