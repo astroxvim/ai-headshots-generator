@@ -27,14 +27,14 @@ export const services: Service[] = [
   },
   {
     key: ServiceEnum.Creative,
-    title: "Creative Artwork",
+    title: "Creative Portraits",
     price: `$${price}`, // Dollar sign concatenated with the price value
     priceSuffix: "per use", // Add the price suffix here
     description: "Artistic and expressive portrait creations",
     features: [
       '<span class="text-success">60% Discount! [Limited Time]</span>',
       "Great for creative digital persona",
-      "3 artistic options and growing!",
+      "4 artistic options and growing!",
       "Set of 8 high-quality images",
       "No account creation required",
       "No subscriptions or bundles",
