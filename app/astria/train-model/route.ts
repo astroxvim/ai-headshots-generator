@@ -216,7 +216,7 @@ export async function POST(request: Request) {
           ? [
               {
                 text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, handsome, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, GTA logo, GTA logo style, photo artifacts, photo',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -229,7 +229,7 @@ export async function POST(request: Request) {
           ? [
               {
                 text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, beautiful, dangerous, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, GTA logo, GTA logo style, photo artifacts, photo',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
