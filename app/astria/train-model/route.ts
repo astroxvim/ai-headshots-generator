@@ -1,6 +1,7 @@
 import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
+import { steps } from "framer-motion";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -137,11 +138,13 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.WatercolorMale
           ? [
               {
-                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
-                negative_prompt: 'freckles, face artifacts',
+                text: `aquarelle watercolor portrait of (ohwx ${gender}), (watercolor painting:1.2), (aquarelle:1.2), (brush strokes:1.1), (textured:1.1), (abstract:1.1), (artistic:1.2), (minimalism:1.1), (vibrant colors:1.2), (digital painting:1.1), (artstation:1.1), (smooth:1.1), (illustration:1.1), (cinematic lighting:1.1), (handsome:1.2)`,
+                negative_prompt: '(photorealistic:1.2), (photo:1.2), (hyper-realistic:1.2), (detailed face:1.1), (face artifacts:1.1), (nudity:1.1), (wrinkles: 1.2)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
+                cfg_scale: 10,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
@@ -150,11 +153,13 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.WatercolorFemale
           ? [
               {
-                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
-                negative_prompt: 'freckles, face artifacts',
+                text: `aquarelle watercolor portrait of (ohwx ${gender}), (watercolor painting:1.2), (aquarelle:1.2), (brush strokes:1.1), (textured:1.1), (abstract:1.1), (artistic:1.2), (minimalism:1.1), (vibrant colors:1.2), (digital painting:1.1), (artstation:1.1), (smooth:1.1), (illustration:1.1), (cinematic lighting:1.1), (beautiful:1.2)`,
+                negative_prompt: '(photorealistic:1.2), (photo:1.2), (hyper-realistic:1.2), (detailed face:1.1), (face artifacts:1.1), (nudity:1.1), (wrinkles: 1.2)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
+                cfg_scale: 10,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
