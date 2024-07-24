@@ -218,8 +218,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.GTAMale
           ? [
               {
-                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, handsome, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, GTA logo, GTA logo style, photo artifacts, photo',
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, illustrated backdrop, bold outlines, confident, handsome, cool, digital illustration, GTA`,
+                negative_prompt: ' logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, signage, GTA logo, GTA logo style, (photo:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -231,8 +231,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.GTAFemale
           ? [
               {
-                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, beautiful, dangerous, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, GTA logo, GTA logo style, photo artifacts, photo',
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, illustrated backdrop, bold outlines, confident, beautiful, dangerous, cool, digital illustration, GTA`,
+                negative_prompt: ' logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, signage, GTA logo, GTA logo style, (photo:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
