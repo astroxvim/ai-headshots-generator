@@ -15,6 +15,7 @@ export async function POST(request: Request) {
     text: string;
     negative_prompt: string;
     steps: null;
+    cfg_scale: number;
     tune_id: number;
     trained_at: string;
     face_swap: string;

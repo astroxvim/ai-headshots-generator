@@ -1,6 +1,7 @@
 import { PreferenceEnum } from "@/app/constants/preference-types";
 import prisma from "@/lib/prisma";
 import axios from "axios";
+import { steps } from "framer-motion";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -137,11 +138,12 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.WatercolorMale
           ? [
               {
-                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
-                negative_prompt: 'freckles, face artifacts',
+                text: `aquarelle watercolor portrait of (ohwx ${gender}), (watercolor painting:1.2), (aquarelle:1.2), (brush strokes:1.1), (textured:1.1), (abstract:1.1), (artistic:1.2), (minimalism:1.1), (vibrant colors:1.2), (digital painting:1.1), (artstation:1.1), (smooth:1.1), (illustration:1.1), (cinematic lighting:1.1), (handsome:1.2)`,
+                negative_prompt: '(photorealistic:1.2), (photo:1.2), (hyper-realistic:1.2), (detailed face:1.1), (face artifacts:1.1), (nudity:1.1), (wrinkles: 1.2)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
@@ -150,11 +152,12 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.WatercolorFemale
           ? [
               {
-                text: `Artistic portrait of (ohwx ${gender}) watercolor art, watercolor painting, aquarelle, fantasy, ultra detailed, color, watercolor painting, illustration, vibrant colors, symmetrical highly detailed, digital painting, arstation, concept art, smooth, sharp focus, illustration, cinematic lighting art by Artgerm and Greg Turkowski and Alphonse Mucha`,
-                negative_prompt: 'freckles, face artifacts',
+                text: `aquarelle watercolor portrait of (ohwx ${gender}), (watercolor painting:1.2), (aquarelle:1.2), (brush strokes:1.1), (textured:1.1), (abstract:1.1), (artistic:1.2), (minimalism:1.1), (vibrant colors:1.2), (digital painting:1.1), (artstation:1.1), (smooth:1.1), (illustration:1.1), (cinematic lighting:1.1), (beautiful:1.2)`,
+                negative_prompt: '(photorealistic:1.2), (photo:1.2), (hyper-realistic:1.2), (detailed face:1.1), (face artifacts:1.1), (nudity:1.1), (wrinkles: 1.2)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
@@ -189,11 +192,13 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.PopartMale
           ? [
               {
-                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, exaggerated emotions, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, handsome, minimalism`,
-                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, signs, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, wrinkles, (boring, uninteresting:1.1)',
+                text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, arr by andy warhol, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, exaggerated emotions, harmonic colors, pastel color palette, subdued color tone, halftone dots, thick black outlines, minimal details, handsome, minimalism`,
+                negative_prompt: '(title:1.3), (cover headline:1.3), (flying text:1.3), (cover design:1.3), (cover text:1.3), (text:1.3), (words:1.3), (message:1.4), (pop style text:1.3), (name:1.3), text bubbles, (foreground text:1.3), initials, people, extra characters, graffiti, sign, (letters:1.2), (lipstick:1.2), numbers, (logo:1.3), (deformed iris, deformed pupils), worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera, name, signature, watermark, (logo:1.1), (text art: 1.3), autograph, trademark, sticker, label, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (forehead wrinkles:1.2), (boring, uninteresting:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
+                cfg_scale: 16,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
@@ -203,10 +208,12 @@ export async function POST(request: Request) {
           ? [
               {
                 text: `portrait of isolated (ohwx ${gender}) in pop art style illustration, in the style of glamorous hollywood portraits, mort künstler, art by roy lichtenstein, rollerwave, charming character illustrations, large format film, painted illustrations, comic book, beautiful, elegance, bold colors, high contrast, primary colors, dynamic colors, halftone dots, thick black outlines, high contrast, minimal details, beautiful, minimalism`,
-                negative_prompt: 'people, extra characters, text, text art, text bubbles, graffiti, signs, letters, numbers, logos, headlines, titles (deformed iris, deformed pupils) , worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers) , (mutated hands) , poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers) , (too many fingers) , long neck, camera, name, signature, watermark, logo, autograph, trademark, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, wrinkles, (boring, uninteresting:1.1)',
+                negative_prompt: '(title:1.3), (cover headline:1.3), (cover design:1.3), (cover text:1.3), (text:1.3), (words:1.3), (message:1.4), (pop style text:1.3), (name:1.3), text bubbles, (foreground text:1.3), initials, people, extra characters, graffiti, sign, (letters:1.2), numbers, (logo:1.3), (deformed iris, deformed pupils), worst quality, 3d, photorealistic, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, (extra fingers), (mutated hands), poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, (fused fingers), (too many fingers), long neck, camera, name, signature, watermark, (logo:1.1), (text art: 1.3), autograph, trademark, sticker, label, cut off, censored, bad anatomy, bad body, headphones, bad face, bad teeth, deformities, scars, freckles, (forehead wrinkles:1.2), (boring, uninteresting:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
+                steps: 50,
+                cfg_scale: 16,
                 scheduler: 'dpm++2m_karras',
                 face_swap: 'true',
                 num_images: parseFloat(process.env.NEXT_PUBLIC_IMAGE_RESULT_COUNT ?? "8"),
@@ -215,8 +222,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.GTAMale
           ? [
               {
-                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, handsome, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, illustrated backdrop, bold outlines, confident, handsome, cool, digital illustration, GTA`,
+                negative_prompt: ' logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, signage, GTA logo, GTA logo style, (photo:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
@@ -228,8 +235,8 @@ export async function POST(request: Request) {
           : option == PreferenceEnum.GTAFemale
           ? [
               {
-                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, confident, beautiful, dangerous, cool, GTA`,
-                negative_prompt: 'logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon',
+                text: `A grand theft auto styled illustration of gangster (ohwx ${gender}) surrounded by trap house aesthetics, illustrated backdrop, bold outlines, confident, beautiful, dangerous, cool, digital illustration, GTA`,
+                negative_prompt: ' logo, title lockup, title cover, cover, labels, letters, writing, text, title, frown, ugly, Overweight, deformed hands, weapon, signage, GTA logo, GTA logo style, (photo:1.1)',
                 callback: promptWebhookWithParams,
                 w: 512,
                 h: 640,
